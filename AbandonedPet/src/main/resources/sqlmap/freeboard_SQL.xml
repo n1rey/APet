@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="freeboard">
+	<!-- 주 게시물 등록 -->
+	<insert id="insert" parameterType="com.ap.freeBoard.FreeBoard" useGeneratedKeys="true" keyProperty="bid">
+		<![CDATA[
+			INSERT INTO freeboard
+			(btitle, bcontent, bwritter)
+			VALUES
+			(#{btitle}, #{bcontent}, #{bwritter});
+		]]>
+	</insert>
+	
+	<select id="select_list" parameterType="HashMap" resultType="com.ap.freeBoard.FreeBoard">
+		<![CDATA[
+			select a.bid, a.btitle, a.bwritter, a.bdate, a.bhit
+			from (select @rownum := @rownum + 1 rownum, bid, btitle, bwritter, date_format(bdate, '%Y-%m-%d') as bdate, bhit
+			FROM freeboard where(@rownum := 0) = 0 order by bid desc) as a
+			where rownum between (#{pageNum}-1)*#{pageSize}+1 and (#{pageNum}*#{pageSize});
+		]]>
+	</select>
+
+
+	<select id="select_detail" parameterType="Integer" resultType="com.ap.freeBoard.FreeBoard">
+		<![CDATA[
+			SELECT bid, btitle, bcontent, bwritter, date_format(bdate, '%Y-%m-%d') as bdate, bhit
+			FROM freeboard
+			WHERE bid=#{bid};
+		]]>
+	</select>
+
+	<delete id="delete" parameterType="Integer">
+		<![CDATA[
+			DELETE
+			FROM freeBoard
+			WHERE bid = #{bid};
+		]]>
+	</delete>
+
+	<update id="update" parameterType="com.ap.freeBoard.FreeBoard">
+		<![CDATA[
+			UPDATE freeboard
+			SET
+			btitle = #{btitle},
+			bcontent = #{bcontent}
+			WHERE bid = #{bid};
+		]]>
+	</update>
+	
+	<insert id="insert_reply" parameterType="com.ap.freeBoard.Reply" useGeneratedKeys="true" keyProperty="rid">
+		<![CDATA[
+			INSERT INTO freeboardReply
+			(bid, rcontent, rwritter)
+			VALUES
+			(#{bid}, #{rcontent}, #{rwritter});
+		]]>
+	</insert>
+	
+	<select id="replyCnt" parameterType="Integer" resultType="Integer">
+		<![CDATA[
+			SELECT COUNT(rid)
+			FROM freeBoardReply
+			WHERE bid = #{bid};
+		]]>
+	</select>
+	
+	<select id="reply_list" parameterType="Integer" resultType="com.ap.freeBoard.Reply">
+		<![CDATA[
+			SELECT *
+			FROM freeBoardReply
+			WHERE bid = #{bid}
+			ORDER BY rid DESC;
+		]]>
+	</select>
+	<update id="reply_update" parameterType="com.ap.freeBoard.Reply">
+		<![CDATA[
+			UPDATE freeBoardReply
+			SET
+			rcontent = #{rcontent}
+			WHERE bid = #{bid};
+		]]>
+	</update>
+	<delete id="reply_delete" parameterType="Integer">
+		<![CDATA[
+			DELETE
+			FROM freeBoardReply
+			WHERE rid = #{rid};
+		]]>
+	</delete>
+	<update id="update_hit" parameterType="String">
+		<![CDATA[
+			UPDATE freeBoard
+			SET
+			bhit = bhit + 1
+			WHERE bid = #{bid};
+		]]>
+	</update>
+</mapper>
