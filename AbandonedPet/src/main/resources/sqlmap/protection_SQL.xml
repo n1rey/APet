@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="protection">
+
+	<insert id="insert" parameterType="com.ap.protection.Protection" 
+			useGeneratedKeys="true" keyProperty="pid">
+		<![CDATA[
+			INSERT INTO protection
+			(username, pname, page, pgender, petc, pimage)
+			VALUES
+			(#{username}, #{pname}, #{page}, #{pgender}, #{petc}, #{pimage})
+		]]>
+	</insert>
+
+	<select id="select_list" resultType="com.ap.protection.Protection">
+		<![CDATA[
+			SELECT * 
+			FROM protection
+			WHERE pcondition LIKE '%보호 중%'
+			ORDER BY pid DESC
+		]]>	
+	</select>
+
+	<select id="select_mylist" resultType="com.ap.protection.Protection">
+		<![CDATA[
+			SELECT * 
+			FROM protection
+			WHERE username = #{username}
+			ORDER BY pid DESC
+		]]>	
+	</select>
+
+	<select id="select_detail" parameterType="String" 
+							   resultType="com.ap.protection.Protection">
+		<![CDATA[
+			SELECT * 
+			FROM protection 
+			WHERE pid = #{pid}
+		]]>	
+	</select>
+	
+	<update id="update" parameterType="com.ap.protection.Protection">
+		<![CDATA[
+			UPDATE protection
+			SET pname = #{pname},
+				page = #{page},
+				pgender = #{pgender},
+				petc = #{petc},
+				pcondition = #{pcondition}
+			WHERE pid = #{pid} 
+		]]>	
+	</update>
+	
+	<update id="update_image" parameterType="com.ap.protection.Protection">
+		<![CDATA[
+			UPDATE protection
+			SET pname = #{pname},
+				page = #{page},
+				pgender = #{pgender},
+				petc = #{petc},
+				pimage = #{pimage},
+				pcondition = #{pcondition}
+			WHERE pid = #{pid} 
+		]]>	
+	</update>
+	
+
+
+	<delete id="delete" parameterType="String">
+			<![CDATA[
+				DELETE FROM protection
+				WHERE pid = #{pid}
+
+			]]>
+	</delete>
+
+
+</mapper>
