@@ -47,10 +47,6 @@ public class FreeBoardRepositoryImpl implements FreeBoardRepository {
 		
 	}
 
-	@Override
-	public int countReply(int bid) {
-		return sqlSessionTemplate.selectOne("freeboard.replyCnt", bid);
-	}
 
 	@Override
 	public List<Reply> replyList(int bid) {

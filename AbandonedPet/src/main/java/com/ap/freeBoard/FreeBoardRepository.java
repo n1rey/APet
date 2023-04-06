@@ -10,7 +10,6 @@ public interface FreeBoardRepository {
 	void update(FreeBoard freeBoard);
 	void delete(int bid);
 	int countList();
-	int countReply(int bid);
 	List<Reply> replyList(int bid);
 	void replyUpdate(Reply reply);
 	void replyDelete(int rid);

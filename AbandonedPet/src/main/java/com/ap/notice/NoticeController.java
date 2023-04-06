@@ -4,14 +4,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -21,15 +23,14 @@ public class NoticeController {
 	
 	@Autowired
 	NoticeService noticeService;
-	private final NoticeValidator noticeValidator = new NoticeValidator();
 	
 	// 예외처리
+		@ExceptionHandler(Exception.class)
+		public String catcher(Exception ex, Model m) {
+			m.addAttribute("exception", ex);
+			return "error";
+		}
 	
-	// 데이터 검증
-    @InitBinder
-    public void validator(WebDataBinder webDataBinder) {
-        webDataBinder.addValidators(noticeValidator);
-    }
 	
 	@GetMapping("/addNotice")
 	public String requestAddNoticeForm(Notice notice) {
@@ -37,14 +38,14 @@ public class NoticeController {
 	}
 	
 	@PostMapping("/addNotice")
-	public String newNotice(Notice notice, BindingResult bindingResult, Model m) {
-		noticeValidator.validate(notice, bindingResult);
-		if(bindingResult.hasErrors()) {
-			List<FieldError> errors = bindingResult.getFieldErrors();
-			for(int i=0; i < errors.size(); i++) {
-				m.addAttribute(errors.get(i).getField(), errors.get(i).getCode());
-			}
-			return "redirect:/notice/addNotice";
+	public String newNotice(@Valid Notice notice, Errors errors, Model m) {
+//		noticeValidator.validate(notice, bindingResult);
+		if(errors.hasErrors()) {
+//			List<FieldError> errors = bindingResult.getFieldErrors();
+//			for(int i=0; i < errors.size(); i++) {
+//				m.addAttribute(errors.get(i).getField(), errors.get(i).getCode());
+//			}
+			return "/notice/addNotice";
 		}
 		noticeService.newNotice(notice);
 		return "redirect:/notice/noticeList";
@@ -93,14 +94,10 @@ public class NoticeController {
 	}
 	
 	@PostMapping("/noticeModify")
-	public String modifyNotice(Notice notice, BindingResult bindingResult, Model m) {
-		noticeValidator.validate(notice, bindingResult);
-		if(bindingResult.hasErrors()) {
-			List<FieldError> errors = bindingResult.getFieldErrors();
-			for(int i=0; i < errors.size(); i++) {
-				m.addAttribute(errors.get(i).getField(), errors.get(i).getCode());
-			}
-			return "redirect:/notice/noticeModify?nid=" + notice.getNid();
+	public String modifyNotice(@Valid Notice notice, Errors errors, Model m) {
+		if(errors.hasErrors()) {
+			m.addAttribute("nid", notice.getNid());
+			return "/notice/noticeModify";
 		}
 		noticeService.updateNotice(notice);
 		return "redirect:/notice/noticeList";

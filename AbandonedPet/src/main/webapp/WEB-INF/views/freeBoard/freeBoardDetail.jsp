@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 
@@ -13,10 +14,13 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous">
 	</script>
-
 <style>
 	#content {
 		min-height:200px;
+	}
+	
+	#content img {
+		max-width:100%;
 	}
 	
 	.d-flex {
@@ -46,9 +50,37 @@
 		});
 	}
 	
+	function inputCheck(element, type){
+		
+		var content;
+		
+		if(type=="new"){
+			content = $('#CommnetTextarea').val();
+		} else{
+			var rid = element.getAttribute('data-rid');
+			var id = "CommnetTextarea" + rid;
+			content = document.getElementById(id).value;
+			console.log(content);
+		}
+		
+		
+		if(content.trim() == null || content.trim() == ""){
+			alert("내용을 입력해주세요.");
+			return
+		}
+		
+		if(type=="new"){
+			insertReply();
+		} else{
+			updateReply(rid);
+		}
+		
+	}
+	
 	function insertReply(){
 		var bid = ${freeBoard.bid };
 		var content = $('#CommnetTextarea').val();
+/* 		var writer = ${user.username}; */
 		
 		$.ajax({
 			type : "POST",
@@ -56,7 +88,7 @@
 			data : {
 				bid : bid,
 				rcontent : content,
-				rwritter : "임시"
+				rwriter : writer
 			},
 			beforeSend : function(xhr) {
 				xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
@@ -87,18 +119,24 @@
                 xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
             },
             success: function (result) {
+            	var replyCnt = result.length;
+				document.getElementById('replyCnt').innerHTML = replyCnt;
             	if(result.length != 0){
 					var comment_html = "<div>";
 					
 					for(i = 0;i < result.length;i++){
+						/* var user = ${user.username}; */
 						var content = result[i].rcontent;
-						var writer = result[i].rwritter;
+						var writer = result[i].rwriter;
 						var date = result[i].rdate;
 						var rid = result[i].rid;
 						comment_html += "<div data-rid="+ rid +"><div class='d-flex justify-content-between'><div><span id='writer'><strong>" + writer + "</strong></span></div>"
 						comment_html += "<div><span>"+ date +"</span>";
-						comment_html += "<a class='btn btn-outline-secondary btn-sm m-1' data-rid="+ rid +" onclick='javascript:modify(this)'>수정</a>"
-						comment_html += "<a class='btn btn-outline-secondary btn-sm m-1' data-rid="+ rid +" onclick='javascript:deleteReply(this)'>삭제</a></div>"
+						
+						/* if(user == writer){
+							comment_html += "<a class='btn btn-outline-secondary btn-sm m-1' data-rid="+ rid +" onclick='javascript:modify(this)'>수정</a>"
+							comment_html += "<a class='btn btn-outline-secondary btn-sm m-1' data-rid="+ rid +" onclick='javascript:deleteReply(this)'>삭제</a></div>"	
+						} */
 						comment_html += "</div>";
 						comment_html += "<div id='bcontent' data-rid="+ rid +">" + content + "</div><br>";
 						comment_html += "</div><hr>";
@@ -127,7 +165,7 @@
 		str += "<label for='floatingTextarea'>Comment</label>";
 		str += "</div>";
 		str += "<div class='row align-items-end'>";
-		str += "<a class='btn btn-outline-secondary btn-sm ms-3' onclick='updateReply("+ rid +")'>등록</a>";
+		str += "<a class='btn btn-outline-secondary btn-sm ms-3' data-rid='" + rid + "' onclick='inputCheck(this, \"mod\")'>등록</a>";
 		str += "</div>";
 		str += "</div>";
 		
@@ -161,8 +199,9 @@
 	
 	function updateReply(rid){
 		var id = "CommnetTextarea" + rid;
-		var rcontent = document.getElementById(id).innerHTML;
+		var rcontent = document.getElementById(id).value;
 		var bid = ${freeBoard.bid};
+		console.log(rcontent);
 		
 		$.ajax({
 			type : "POST",
@@ -189,6 +228,7 @@
 </head>
 
 <body>
+<sec:authentication property="principal" var="user" />
 	<div class="container col-9">
 		<div>
 			<h4>글 상세보기</h4>
@@ -197,24 +237,24 @@
 			<div class="card-header">
 				<p class="fs-4">${freeBoard.btitle}</p>
 				<div class = "d-flex justify-content-between">
-					<p>작성자 : ${freeBoard.bwritter }</p>
+					<p>작성자 : ${freeBoard.bwriter }</p>
 					<p>${freeBoard.bdate}</p>
 				</div>
 			</div>
 			<div class="card-body">
 				<div class="d-flex justify-content-end">
 					<!-- 작성자만 수정 가능 -->
-					<%-- <c:if test=""> --%>
+					<%-- <c:if test="${user.username eq freeBoard.bwriter}">
 						<a class="btn btn-outline-secondary btn-sm m-1" href=<c:url value="/freeBoard/freeBoardModify?bid=${freeBoard.bid }"/>>수정</a>
 						<a class="btn btn-outline-secondary btn-sm m-1" data-bs-toggle="modal" data-bs-target="#exampleModal">삭제</a>
-						<%-- </c:if> --%>
+					</c:if>	 --%>
 				</div>
 				<div id="content">
 					${freeBoard.bcontent}
 				</div>
 				<div id="comment_block">
 					<div class="row">
-						<p>댓글 ${replyCnt } 건</p>
+						<p>댓글 <span id="replyCnt"></span> 건</p>
 					</div>
 					<div class="d-flex">
 						<div class="form-floating col-11">
@@ -222,7 +262,7 @@
 						  <label for="floatingTextarea">Comment</label>
 						</div>
 						<div class="row align-items-end">
-							<a class="btn btn-primary btn-sm ms-3" onclick="insertReply()">등록</a>
+							<a class="btn btn-primary btn-sm ms-3" onclick="inputCheck(this, 'new')">등록</a>
 						</div>
 					</div>
 					<div id="comment_list" class="mt-3">

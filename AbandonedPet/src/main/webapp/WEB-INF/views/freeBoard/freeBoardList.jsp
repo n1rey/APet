@@ -51,7 +51,7 @@
 					<tr>
 						<th scope="row">${freeBoard.bid }</th>
 						<td><a href="/freeBoard/freeBoardDetail?bid=${freeBoard.bid }"><div width='100%'>${freeBoard.btitle }</div></a></td>
-						<td>${freeBoard.bwritter }</td>
+						<td>${freeBoard.bwriter }</td>
 						<td>${freeBoard.bdate }</td>
 						<td>${freeBoard.bhit }</td>
 					</tr>

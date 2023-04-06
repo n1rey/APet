@@ -14,6 +14,14 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous">
   </script>
+
+<style>
+	.error {
+		font-size:12px;
+		color:red;
+	}
+</style>  
+
 </head>
 
 
@@ -32,10 +40,12 @@
             	<form:input path="nid" type="hidden" value="${notice.nid }"/>
               <div class="form-group">
                 <label for="inputName">제목</label>
+                <form:errors path="ntitle" cssClass="error" />
                 <form:input path="ntitle" class="form-control" value="${notice.ntitle }" placeholder="제목을 작성해주세요." />
               </div>
               <div class="form-group">
                 <label for="inputDescription">내용</label>
+                <form:errors path="ncontent" cssClass="error" />
                 <form:textarea path="ncontent" class="form-control" id="summernote" value="${notice.ncontent }" />
               </div>
 

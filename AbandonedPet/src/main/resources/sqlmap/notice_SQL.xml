@@ -5,15 +5,15 @@
 	<insert id="insert" parameterType="com.ap.notice.Notice" useGeneratedKeys="true" keyProperty="nid">
 		<![CDATA[
 			INSERT INTO notice
-			(ntitle, ncontent, nwritter)
+			(ntitle, ncontent, nwriter)
 			VALUES
-			(#{ntitle}, #{ncontent}, #{nwritter});
+			(#{ntitle}, #{ncontent}, #{nwriter});
 		]]>
 	</insert>
  	<select id="select_list" parameterType="HashMap" resultType="com.ap.notice.Notice">
 		<![CDATA[
-			select a.nid, a.ntitle, a.nwritter, a.ndate
-			from (select @rownum := @rownum + 1 rownum, nid, ntitle, nwritter, date_format(ndate, '%Y-%m-%d') as ndate
+			select a.nid, a.ntitle, a.nwriter, a.ndate
+			from (select @rownum := @rownum + 1 rownum, nid, ntitle, nwriter, date_format(ndate, '%Y-%m-%d') as ndate
 			FROM notice where(@rownum := 0) = 0 order by nid desc) as a
 			where rownum between (#{pageNum}-1)*#{pageSize}+1 and (#{pageNum}*#{pageSize});
 		]]>
@@ -25,7 +25,7 @@
 	</select>
 	<select id="select_detail" parameterType="Integer" resultType="com.ap.notice.Notice">
 		<![CDATA[
-			SELECT nid, ntitle, ncontent, nwritter, date_format(ndate, '%Y-%m-%d') as ndate
+			SELECT nid, ntitle, ncontent, nwriter, date_format(ndate, '%Y-%m-%d') as ndate
 			FROM notice
 			WHERE nid=#{nid};
 		]]>
@@ -48,9 +48,9 @@
 <!-- 	<insert id="insert_reply" parameterType="HashMap" useGeneratedKeys="true" keyProperty="bid">
 		<![CDATA[
 			INSERT INTO gloryBoard
-			(bpid, bcontent, bwritter)
+			(bpid, bcontent, bwriter)
 			VALUES
-			(#{bid}, #{bcontent}, #{bwritter});
+			(#{bid}, #{bcontent}, #{bwriter});
 		]]>
 	</insert> -->
 <!-- 	<select id="select_reply_list" parameterType="String" resultType="com.aglory.notice.Notice">

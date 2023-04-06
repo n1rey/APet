@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class Reply {
-	int rid, bid;
-	String rcontent, rwritter, rdate;
+	private int rid, bid;
+	private String rcontent;
+	private String rwritter, rdate;
 }

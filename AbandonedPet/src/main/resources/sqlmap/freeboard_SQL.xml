@@ -5,16 +5,16 @@
 	<insert id="insert" parameterType="com.ap.freeBoard.FreeBoard" useGeneratedKeys="true" keyProperty="bid">
 		<![CDATA[
 			INSERT INTO freeboard
-			(btitle, bcontent, bwritter)
+			(btitle, bcontent, bwriter)
 			VALUES
-			(#{btitle}, #{bcontent}, #{bwritter});
+			(#{btitle}, #{bcontent}, #{bwriter});
 		]]>
 	</insert>
 	
 	<select id="select_list" parameterType="HashMap" resultType="com.ap.freeBoard.FreeBoard">
 		<![CDATA[
-			select a.bid, a.btitle, a.bwritter, a.bdate, a.bhit
-			from (select @rownum := @rownum + 1 rownum, bid, btitle, bwritter, date_format(bdate, '%Y-%m-%d') as bdate, bhit
+			select a.bid, a.btitle, a.bwriter, a.bdate, a.bhit
+			from (select @rownum := @rownum + 1 rownum, bid, btitle, bwriter, date_format(bdate, '%Y-%m-%d') as bdate, bhit
 			FROM freeboard where(@rownum := 0) = 0 order by bid desc) as a
 			where rownum between (#{pageNum}-1)*#{pageSize}+1 and (#{pageNum}*#{pageSize});
 		]]>
@@ -23,7 +23,7 @@
 
 	<select id="select_detail" parameterType="Integer" resultType="com.ap.freeBoard.FreeBoard">
 		<![CDATA[
-			SELECT bid, btitle, bcontent, bwritter, date_format(bdate, '%Y-%m-%d') as bdate, bhit
+			SELECT bid, btitle, bcontent, bwriter, date_format(bdate, '%Y-%m-%d') as bdate, bhit
 			FROM freeboard
 			WHERE bid=#{bid};
 		]]>
@@ -50,20 +50,11 @@
 	<insert id="insert_reply" parameterType="com.ap.freeBoard.Reply" useGeneratedKeys="true" keyProperty="rid">
 		<![CDATA[
 			INSERT INTO freeboardReply
-			(bid, rcontent, rwritter)
+			(bid, rcontent, rwriter)
 			VALUES
-			(#{bid}, #{rcontent}, #{rwritter});
+			(#{bid}, #{rcontent}, #{rwriter});
 		]]>
 	</insert>
-	
-	<select id="replyCnt" parameterType="Integer" resultType="Integer">
-		<![CDATA[
-			SELECT COUNT(rid)
-			FROM freeBoardReply
-			WHERE bid = #{bid};
-		]]>
-	</select>
-	
 	<select id="reply_list" parameterType="Integer" resultType="com.ap.freeBoard.Reply">
 		<![CDATA[
 			SELECT *
@@ -77,7 +68,7 @@
 			UPDATE freeBoardReply
 			SET
 			rcontent = #{rcontent}
-			WHERE bid = #{bid};
+			WHERE rid = #{rid};
 		]]>
 	</update>
 	<delete id="reply_delete" parameterType="Integer">

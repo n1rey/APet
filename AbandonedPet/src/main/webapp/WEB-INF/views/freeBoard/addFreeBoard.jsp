@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 
@@ -14,6 +15,13 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous">
   </script>
+  
+<style>
+	.error {
+		font-size:12px;
+		color:red;
+	}
+</style>  
 </head>
 
 
@@ -29,14 +37,16 @@
           <form:form modelAttribute="freeBoard" action="./addFreeBoard?${_csrf.parameterName}=${_csrf.token}"
             class="form-horizontal" method="post">
             <fieldset>
-            	<!-- writter 추가해야함 -->
-            	<form:input path="bwritter" type="hidden" value="임시"/>
+            <sec:authentication property="principal" var="user" />
+<%-- 			<form:input path="nwriter" type="hidden" value="${user.username}" class="form-control"/> --%>
               <div class="form-group">
                 <label for="inputName">제목</label>
+                <form:errors path="btitle" cssClass="error" />
                 <form:input path="btitle" class="form-control" placeholder="제목을 입력해주세요." />
               </div>
               <div class="form-group">
                 <label for="inputDescription">내용</label>
+                <form:errors path="bcontent" cssClass="error" />
                 <form:textarea path="bcontent" class="form-control" id="summernote" />
               </div>
 

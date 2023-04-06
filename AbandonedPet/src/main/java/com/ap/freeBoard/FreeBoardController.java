@@ -7,10 +7,13 @@ import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,13 +22,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/freeBoard")
 public class FreeBoardController {
-	
-	// 예외처리
-	
-	// 데이터 검증
-	
+
 	@Autowired
 	FreeBoardService freeBoardService;
+	
+	// 예외처리
+	@ExceptionHandler(Exception.class)
+	public String catcher(Exception ex, Model m) {
+			m.addAttribute("exception", ex);
+			return "error";
+	}
+	
 	
 	@GetMapping("/addFreeBoard")
 	public String requestAddNoticeForm(FreeBoard freeBoard) {
@@ -33,7 +40,10 @@ public class FreeBoardController {
 	}
 	
 	@PostMapping("/addFreeBoard")
-	public String newPost(FreeBoard freeBoard) {
+	public String newPost(@Valid FreeBoard freeBoard, Errors errors) {
+		if(errors.hasErrors()) {
+			return "/freeBoard/addFreeBoard";
+		}
 		freeBoardService.insert(freeBoard);
 		return "redirect:/freeBoard/freeBoardList";
 	}
@@ -62,32 +72,28 @@ public class FreeBoardController {
 		// 조회수 증가
 		Cookie oldCookie = null;
 	    Cookie[] cookies = request.getCookies();
-	    String sessionId = "NOT_SESSIONID";
 	    // postView쿠키를 찾아서 oldCookie에 넣는다.
 	    if (cookies != null) {
 	        for (Cookie cookie : cookies) {
 	            if (cookie.getName().equals("postView")) {
 	                oldCookie = cookie;
 	            }
-	            if (cookie.getName().equals("JSESSIONID")) {
-	            	sessionId = cookie.getValue();
-	            }
 	        }
 	    }
 	    
-//	    // oldCookie에서 해당 세션ID의 값이 있는지 조회한다.
+	    // oldCookie에서 해당 세션ID의 값이 있는지 조회한다.
 	    if(oldCookie == null) {
 	    	// 조회수1 증가
 	    	freeBoardService.updateHit(bid);
-	    	Cookie newCookie = new Cookie("postView", sessionId);
+	    	Cookie newCookie = new Cookie("postView", "["+bid+"]");
 	    	newCookie.setPath("/");
 	    	newCookie.setMaxAge(60 * 60 * 24);
 	        response.addCookie(newCookie);
 	    } else {
-	    	if(!oldCookie.getValue().equals(sessionId)) {
+	    	if(!oldCookie.getValue().contains("["+bid+"]")) {
 	    		//조회수 1증가
 	    		freeBoardService.updateHit(bid);
-	    		oldCookie.setValue(sessionId);
+	    		oldCookie.setValue(oldCookie.getValue() + "_[" + bid + "]");
 	    		oldCookie.setPath("/");
 	    		oldCookie.setMaxAge(60*60*24);
 	    		response.addCookie(oldCookie);
@@ -97,9 +103,7 @@ public class FreeBoardController {
 		
 		int bid2 = Integer.parseInt(bid);
 		FreeBoard freeBoardById = freeBoardService.getById(bid2);
-		int replyCnt = freeBoardService.countReply(bid2);
 		m.addAttribute("freeBoard", freeBoardById);
-		m.addAttribute("replyCnt", replyCnt);
 		return "/freeBoard/freeBoardDetail";
 	}
 	
@@ -119,7 +123,13 @@ public class FreeBoardController {
 	}
 	
 	@PostMapping("/freeBoardModify")
-	public String modifyNotice(FreeBoard freeBoard) {
+	public String modifyBoard(@Valid FreeBoard freeBoard, Errors errors, Model m) {
+		
+		if(errors.hasErrors()) {
+			m.addAttribute("bid", freeBoard.getBid());
+			return "/freeBoard/freeBoardModify";
+		}
+		
 		freeBoardService.update(freeBoard);
 		return "redirect:/freeBoard/freeBoardList";
 	}
