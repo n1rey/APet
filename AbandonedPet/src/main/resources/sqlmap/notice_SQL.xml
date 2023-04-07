@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice">
+	<!-- 공지사항 게시물 등록 -->
+	<insert id="insert" parameterType="com.ap.notice.Notice" useGeneratedKeys="true" keyProperty="nid">
+		<![CDATA[
+			INSERT INTO notice
+			(ntitle, ncontent, nwriter)
+			VALUES
+			(#{ntitle}, #{ncontent}, #{nwriter});
+		]]>
+	</insert>
+ 	<select id="select_list" parameterType="HashMap" resultType="com.ap.notice.Notice">
+		<![CDATA[
+			select a.nid, a.ntitle, a.nwriter, a.ndate
+			from (select @rownum := @rownum + 1 rownum, nid, ntitle, nwriter, date_format(ndate, '%Y-%m-%d') as ndate
+			FROM notice where(@rownum := 0) = 0 order by nid desc) as a
+			where rownum between (#{pageNum}-1)*#{pageSize}+1 and (#{pageNum}*#{pageSize});
+		]]>
+	</select>
+	<select id="count_list" resultType="Integer">
+		<![CDATA[
+			select count(nid) as cnt from notice;
+		]]>
+	</select>
+	<select id="select_detail" parameterType="Integer" resultType="com.ap.notice.Notice">
+		<![CDATA[
+			SELECT nid, ntitle, ncontent, nwriter, date_format(ndate, '%Y-%m-%d') as ndate
+			FROM notice
+			WHERE nid=#{nid};
+		]]>
+	</select>
+	<delete id="delete" parameterType="Integer">
+		<![CDATA[
+			DELETE FROM notice
+			WHERE nid = #{nid};
+		]]>
+	</delete>
+	<update id="update" parameterType="com.ap.notice.Notice">
+		<![CDATA[
+			UPDATE notice
+			SET
+			ntitle = #{ntitle},
+			ncontent = #{ncontent}
+			WHERE nid = #{nid};
+		]]>
+	</update>
+<!-- 	<insert id="insert_reply" parameterType="HashMap" useGeneratedKeys="true" keyProperty="bid">
+		<![CDATA[
+			INSERT INTO gloryBoard
+			(bpid, bcontent, bwriter)
+			VALUES
+			(#{bid}, #{bcontent}, #{bwriter});
+		]]>
+	</insert> -->
+<!-- 	<select id="select_reply_list" parameterType="String" resultType="com.aglory.notice.Notice">
+		<![CDATA[
+			SELECT *
+			FROM gloryBoard
+			WHERE bpid=#{bid}
+			ORDER BY bid DESC;
+		]]>
+	</select> -->
+<!-- 	<update id="update_like" parameterType="HashMap">
+		<![CDATA[
+			UPDATE gloryBoard
+			SET
+			blike = blike + 1
+			WHERE bid = #{bid};
+		]]>
+	</update>
+	<update id="update_hate" parameterType="HashMap">
+		<![CDATA[
+			UPDATE gloryBoard
+			SET
+			bhate = bhate + 1
+			WHERE bid = #{bid};
+		]]>
+	</update> -->
+</mapper>
