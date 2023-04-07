@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>잘 돌아가는지 테스트중입니다</h1>
+<h1>테스트용 메인 페이지입니다.</h1>
 </body>
 </html>

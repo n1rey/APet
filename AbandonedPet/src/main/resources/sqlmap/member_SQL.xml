@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="members">
+
+	<insert id="insert" parameterType="com.ap.member.Member">
+		<![CDATA[
+			INSERT INTO member
+			(username, password, authority, enabled, mname, mnickname, mphone)
+			VALUES
+			(#{username}, #{password}, "ROLE_USER", 1, #{mname}, #{mnickname}, #{mphone})
+		]]>
+	</insert>
+	<select id="select" resultType="com.ap.member.Member">
+		<![CDATA[
+			SELECT * FROM member WHERE username=#{username}
+		]]>
+
+	</select>
+	
+	<select id="select_list" resultType="com.ap.member.Member">
+		<![CDATA[
+			SELECT * FROM member ORDER BY mid DESC
+		]]>
+
+	</select>
+
+	<update id="update" parameterType="com.ap.member.ModMember">
+		<![CDATA[
+			UPDATE member
+			SET
+			mname = #{mname},
+			mnickname = #{mnickname},
+			mphone = #{mphone}
+			WHERE username = #{username}
+		]]>
+	</update>
+
+	<delete id="delete" parameterType="String">
+		<![CDATA[
+			DELETE FROM member
+			WHERE username = #{username}
+		]]>
+	</delete>
+	
+	
+</mapper>
