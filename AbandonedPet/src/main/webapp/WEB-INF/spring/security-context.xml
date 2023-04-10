@@ -37,8 +37,6 @@
 		<!--<security:access-denied-handler ref="customAccessDenied"/> -->
 	</security:http>
 
-
-
 	<!-- 암호화를 위한 passwordEncoder -->
 	<bean id="passwordEncoder"
 		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>

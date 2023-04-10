@@ -97,59 +97,6 @@ body {
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"
 	integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
 	crossorigin="anonymous"></script>
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-
-<script>
-/* 카카오 로그인처리 */
-Kakao.init("1d944d4a9cb22483964d7e130a9b4c2a");
-
-function kakaoLogin() {
-	window.Kakao.Auth.login({
-		//카카오 로그인 성공시 넘겨받을 항목들 / 카카오사이트에 설정한 값과 동일해야 한다. 
-		scope:'profile_nickname, account_email, gender',
-		success: function (authObj) {
-			window.Kakao.API.request({
-				url:'/v2/user/me',
-				success:res => {
-					const nickname = res.kakao_account.profile.nickname;
-					const email = res.kakao_account.email;
-					const gender = res.kakao_account.gender;
-					
-					console.log(nickname);
-					console.log(email);
-					console.log(gender);
-					
-					kakaoProcess(nickname, email, gender);
-			}
-		})}
-	})
-}
-
-
-function kakaoProcess(nickname, email, gender) {
-	$.ajax({
-		type:"POST",
-		url:"/users/kakao",
-		data:{nickname:nickname,
-			  email:email,
-			  gender:gender
-		},
-		beforeSend : function(xhr){
-			/* 스프링 시큐리티 설정으로 인해 전송 전에 헤더에 csrf값을 넣어야만한다.  */
-			xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-		},
-		success : function(result) {
-			alert("카카오 로그인 성공, 메인 화면으로 이동합니다.");
-			window.location.assign('/');
-		},
-		error : function(request, status, error){
-			alert("카카오 로그인 실패, 최초 한번 사이트 회원 가입을 하셔야 합니다.");
-			window.location.assign('/users/joinkakao');
-		}
-	})
-}
-
-</script>
 
 </head>
 <body class="text-center">
@@ -181,6 +128,12 @@ function kakaoProcess(nickname, email, gender) {
 			</a>
 			<p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p>
 		</form>
+		
+		<form id="kakaoForm" action="/kakaoForm" method="post">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			<input type="hidden" name="username" id="kakaoEmail">
+			<input type="hidden" name="mnickname" id="kakaoNickname">
+		</form>
 	</main>
 
 
@@ -201,6 +154,52 @@ if (searchParams.has("error")) {
 }
 
 </script>
+
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
+<script>
+	//발급 받은 키
+	Kakao.init("9f50ec260ccd32e5cedd41ea86406d0c");
+	
+	function kakaoLogin() {
+		window.Kakao.Auth.login({
+			// 개발자 사이트에서 체크한 항목들과 반드시 일치해야 한다. 
+			scope:'account_email, profile_nickname',
+			success: function (authObj) {
+				window.Kakao.API.request({
+					url:'/v2/user/me',
+					success:res => {
+						const kakaoAccount = res.kakao_account;
+						fetch('/kakao', {
+							method: "post",
+							  headers: {
+								    'X-CSRF-TOKEN': "${_csrf.token}" // CSRF 토큰 값
+								  },
+							body: new URLSearchParams({
+									username: kakaoAccount.email
+								})
+					        })
+							.then(resp => resp.text())
+							.then(data => {
+								console.log(data);
+								data = data.trim()
+								if (data == 'success') {
+									location.href = '/main.jsp';
+								} else if (data == 'fail') {
+									if (confirm('존재하지 않는 회원입니다 회원가입을 하시겠습니까?')) {
+										document.getElementById("kakaoEmail").value = kakaoAccount.email;
+										document.getElementById("kakaoNickname").value = kakaoAccount.profile.nickname;
+										document.getElementById("kakaoForm").submit();
+									}
+								}
+							})
+					}
+				});		
+			}
+		});
+	}
+</script>
+
 
 
 </body>

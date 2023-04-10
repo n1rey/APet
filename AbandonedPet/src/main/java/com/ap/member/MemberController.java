@@ -15,6 +15,11 @@ import javax.servlet.http.HttpSession;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,10 +27,15 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.security.web.csrf.CsrfToken;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +46,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 
 import com.ap.mail.MailService;
 
@@ -84,6 +95,30 @@ public class MemberController {
 		return "redirect:/login";
 	}
 
+	@PostMapping("/kakaoForm")
+	public String joinkakaoForm(@ModelAttribute Member member) {
+		return "users/joinKakao";
+	}
+	
+	@PostMapping("/joinKakao")
+	public String joinkakao(@Validated @ModelAttribute Member member, BindingResult bindingResult) {
+		
+		if (!member.getPassword().equals(member.getPasswordConfirm())) {
+			bindingResult.reject("pwConfirm", "비밀번호가 일치하지 않습니다.");
+		}
+		
+		if (bindingResult.hasErrors()) {
+			return "users/joinKakao";
+		}
+
+		// 회원 정보 디비 등록시 비번을 암호화 스프링 시큐리티 필수 사항
+		String encodedPassword = bcryptPasswordEncoder.encode(member.getPassword());
+		member.setPassword(encodedPassword);
+
+		memberService.createMember(member);
+		return "redirect:/login";
+	}
+	
 	@GetMapping("/member/myPage")
 	public String myPage(Model model) {
 		SecurityContext securityContext = SecurityContextHolder.getContext();
@@ -188,6 +223,36 @@ public class MemberController {
 	        }
 		
 		return "redirect:/login?modPw";
+	}
+	
+	@PostMapping("/kakao")
+	@ResponseBody
+	public String loginCheckKakao(HttpServletRequest request, HttpServletResponse response, @RequestParam String username) {
+		Member member = memberService.getMember(username);
+		
+		if (member != null) {
+			System.out.println("디비에 회원정보 있음");
+			//디비에 있는 사용자이므로 로그인 세션처리
+			//독자적인 처리가 아니라 스프링 시큐리티 규격에 맞게 세션처리
+			List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
+			list.add(new SimpleGrantedAuthority(member.getAuthority()));
+			
+			SecurityContext sc = SecurityContextHolder.getContext();
+			
+			sc.setAuthentication(new UsernamePasswordAuthenticationToken(member.getUsername(), null, list));
+			// user이름으로 해야됨!!!!, null 패스워드 , list 권한 설정
+			
+			HttpSession session = request.getSession(true);
+			
+			session.setAttribute(
+					HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, sc);
+			
+			return "success";
+		} else {
+			System.out.println("디비에 회원정보 없음");
+			return "fail";
+		}
+		      
 	}
 	
 	
