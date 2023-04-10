@@ -18,4 +18,10 @@ public interface MemberService {
 
 	int getTotalCount(Criteria cri);
 	
+	boolean changeTmpPw(Member member);
+	
+	boolean modifyPassword(Member member);
+	
+	boolean modifyAuth(String username, String auth);
+	
 }

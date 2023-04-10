@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
@@ -50,5 +51,22 @@ public class AdminController {
     	return members;
     }
     
+    @PostMapping("/member/remove")
+    @ResponseBody
+    public String removeMember(@RequestParam String username) {
+    	
+    	memberService.removeMember(username);
+  
+    	return "success";
+    }
+    
+    @PostMapping("/member/changeAuth")
+    @ResponseBody
+    public String changeAuth(@RequestParam String username, @RequestParam String auth) {
+    	
+    	memberService.modifyAuth(username, auth);
+  
+    	return "success";
+    }
     
 }
