@@ -1,5 +1,6 @@
 package com.ap.protection;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,13 +21,19 @@ public class ProtectionRepositoryImpl implements ProtectionRepository {
 	}
 
 	@Override
-	public List<Protection> getAllProtectionList() {
-		return this.sqlSessionTemplate.selectList("protection.select_list");
+	public List<Protection> getAllProtectionList(Map<String, Integer> pagination) {
+		return this.sqlSessionTemplate.selectList("protection.select_list", pagination);
+	}
+	
+	@Override
+	public List<Protection> getAdminProtectionList(Map<String, Integer> pagination) {
+		return this.sqlSessionTemplate.selectList("protection.select_admin_list", pagination);
 	}
 
 	@Override
-	public List<Protection> getMyProtectionList(String username) {
-		return this.sqlSessionTemplate.selectList("protection.select_mylist", username);
+	public List<Protection> getMyProtectionList(Map<String, Object> pagination) {
+		
+		return this.sqlSessionTemplate.selectList("protection.select_my_list", pagination);
 	}
 
 	@Override
@@ -52,6 +59,24 @@ public class ProtectionRepositoryImpl implements ProtectionRepository {
 	public void deleteProtection(String pid) {
 		this.sqlSessionTemplate.delete("protection.delete", pid);
 
+	}
+
+	@Override
+	public int countList() {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne("protection.count_list");
+	}
+
+	@Override
+	public int countAdminList() {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne("protection.count_admin_list");
+	}
+
+	@Override
+	public int countMyList(String username) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne("protection.count_my_list", username);
 	}
 
 }

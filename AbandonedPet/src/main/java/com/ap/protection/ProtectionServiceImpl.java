@@ -19,15 +19,21 @@ public class ProtectionServiceImpl implements ProtectionService {
 	}
 
 	@Override
-	public List<Protection> getAllProtectionList() {
+	public List<Protection> getAllProtectionList(Map<String, Integer> pagination) {
 		// TODO Auto-generated method stub
-		return protectionRepository.getAllProtectionList();
+		return protectionRepository.getAllProtectionList(pagination);
+	}
+	
+	@Override
+	public List<Protection> getAdminProtectionList(Map<String, Integer> pagination) {
+		// TODO Auto-generated method stub
+		return protectionRepository.getAdminProtectionList(pagination);
 	}
 
 	@Override
-	public List<Protection> getMyProtectionList(String username) {
+	public List<Protection> getMyProtectionList(Map<String, Object> pagination) {
 		// TODO Auto-generated method stub
-		return protectionRepository.getMyProtectionList(username);
+		return protectionRepository.getMyProtectionList(pagination);
 	}
 
 	@Override
@@ -46,6 +52,24 @@ public class ProtectionServiceImpl implements ProtectionService {
 	public void deleteProtection(String pid) {
 		protectionRepository.deleteProtection(pid);
 
+	}
+
+	@Override
+	public int countList() {
+		// TODO Auto-generated method stub
+		return protectionRepository.countList();
+	}
+
+	@Override
+	public int countAdminList() {
+		// TODO Auto-generated method stub
+		return protectionRepository.countAdminList();
+	}
+
+	@Override
+	public int countMyList(String username) {
+		// TODO Auto-generated method stub
+		return protectionRepository.countMyList(username);
 	}
 
 }
