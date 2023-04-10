@@ -45,5 +45,21 @@ public class MemberRepositoryImpl implements MemberRepository {
 	public int selectTotalCount(Criteria cri) {
 		return this.sqlSessionTemplate.selectOne("AdminMapper.totalCount", cri);
 	}
+
+	@Override
+	public int updatePassword(Member member) {
+		return this.sqlSessionTemplate.update("members.updatepw", member);
+	}
+
+	@Override
+	public int countIdDuplicated(String username) {
+		return sqlSessionTemplate.selectOne("members.countId", username);
+	}
+
+	@Override
+	public int updateAuth(Member member) {
+		return this.sqlSessionTemplate.update("members.updateAuth", member);
+	}
+	
 	
 }

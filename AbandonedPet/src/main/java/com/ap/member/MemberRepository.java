@@ -16,4 +16,10 @@ public interface MemberRepository {
 	
 	int selectTotalCount(Criteria cri);
 	
+	int updatePassword(Member member);
+	
+	int countIdDuplicated(String username);
+	
+	int updateAuth(Member member);
+	
 }

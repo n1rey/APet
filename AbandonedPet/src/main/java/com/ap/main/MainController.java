@@ -11,4 +11,9 @@ public class MainController {
 		return "test";
 	}
 	
+	@GetMapping("/map")
+	public String goMap() {
+		return "map";
+	}
+	
 }
