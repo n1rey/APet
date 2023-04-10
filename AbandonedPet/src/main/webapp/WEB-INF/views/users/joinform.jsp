@@ -21,15 +21,17 @@ color: red;
 	           method = "post">
 	<fieldset>
 	아이디 : <form:input path="username" class="form-control"/>
-	 		<form:errors path="username" cssClass="error" />
+	 		<form:errors path="username" cssClass="error" element="div" />
 	비밀번호 : <form:input path="password" type="password" class="form-control"/>
-			<form:errors path="password" cssClass="error" />
+			<form:errors path="password" cssClass="error" element="div" />
+	비밀번호 확인: <form:input path="passwordConfirm" type="password" class="form-control"/>
+			<form:errors cssClass="error" element="div" />
 	이름 : <form:input path="mname" class="form-control"/>
-		<form:errors path="mname" cssClass="error" />
+		<form:errors path="mname" cssClass="error" element="div" />
 	닉네임 : <form:input path="mnickname" class="form-control"/>
-			<form:errors path="mnickname" cssClass="error" />
+			<form:errors path="mnickname" cssClass="error" element="div" />
 	휴대폰 : <form:input path="mphone" class="form-control"/>
-			<form:errors path="mphone" cssClass="error" />
+			<form:errors path="mphone" cssClass="error" element="div" />
 			
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	<input type="submit" class="btn btn-primary" value="등록"/>

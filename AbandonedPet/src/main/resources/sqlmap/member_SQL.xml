@@ -42,5 +42,27 @@
 		]]>
 	</delete>
 	
+	<update id="updatepw" parameterType="com.ap.member.Member">
+		<![CDATA[
+			UPDATE member
+			SET
+			password = #{password}
+			WHERE username = #{username}
+		]]>
+	</update>
 	
+	<select id="countId" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*) FROM member WHERE username=#{username}
+		]]>
+	</select>
+	
+	<update id="updateAuth" parameterType="com.ap.member.Member">
+		<![CDATA[
+			UPDATE member
+			SET
+			authority = #{authority}
+			WHERE username = #{username}
+		]]>
+	</update>
 </mapper>

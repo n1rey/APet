@@ -6,9 +6,11 @@ import java.util.Map;
 public interface AdoptionService {
 	void setNewAdoption(Adoption adoption);
 	
-	List<Adoption> getAllAdoptionList();
+	List<Adoption> getAllAdoptionList(String oid);
 	
-	List<Adoption> getMyAdoptionList(String aid);
+	List<Adoption> getAdminAdoptionList();
+	
+	List<Adoption> getMyAdoptionList(String nid);
 	
 	Adoption getAdoptionById(String aid);
 	

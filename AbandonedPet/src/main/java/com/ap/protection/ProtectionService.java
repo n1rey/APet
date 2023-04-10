@@ -6,13 +6,22 @@ import java.util.Map;
 public interface ProtectionService {
 	void setNewProtection(Protection protection);
 	
-	List<Protection> getAllProtectionList();
+	List<Protection> getAllProtectionList(Map<String, Integer> pagination);
 	
-	List<Protection> getMyProtectionList(String username);
+	int countList();
+	
+	int countAdminList();
+	
+	int countMyList(String username);
+	
+	List<Protection> getAdminProtectionList(Map<String, Integer> pagination);
+	
+	List<Protection> getMyProtectionList(Map<String, Object> pagination);
 	
 	Protection getProtectionById(String pid);
 	
 	void update(Protection protection);
 	
 	void deleteProtection(String pid);
+	
 }

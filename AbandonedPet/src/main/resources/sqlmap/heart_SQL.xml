@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="heart">
+
+	<insert id="insert" parameterType="com.ap.heart.Heart"
+			useGeneratedKeys="true">
+		<![CDATA[
+ 			INSERT INTO heart
+ 			(pid, username)
+ 			VALUES 
+ 			(#{pid}, #{username});
+ 		]]> 
+	</insert>
+
+  	<select id="select" parameterType="hashMap"   
+  						resultType="com.ap.heart.Heart">  
+  		<![CDATA[  
+  			SELECT *   
+  			FROM heart 
+  			WHERE username = #{username} AND pid = #{pid}; 
+  		]]>	  
+  	</select>  
+	
+  	<select id="select_count"  parameterType="hashMap"
+  							   resultType="int">  
+  		<![CDATA[  
+  			SELECT count(*)   
+  			FROM heart 
+  			WHERE pid = #{pid};  
+  		]]>	  
+  	</select>  
+
+  	<delete id="delete" parameterType="hashMap">  
+  			<![CDATA[  
+  				DELETE FROM heart  
+  				WHERE username = #{username} AND pid = #{pid};
+
+  			]]>  
+  	</delete>  
+
+
+</mapper>

@@ -1,12 +1,39 @@
 package com.ap.protection;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class Protection {
 	private int pid;
 	
-	private String username, pname, page, pgender, petc, pimage, pcondition, pdate;
+	private String username;
 	
+	private String pname;
+	
+	private String page;
+	
+	private String pgender;
+	
+	private String petc;
+	
+	private String pimage;
+	
+	private String pcondition;
+	
+	private String pdate;
+	
+	private String hcnt;
+	
+	public String getHcnt() {
+		return hcnt;
+	}
+
+	public void setHcnt(String hcnt) {
+		this.hcnt = hcnt;
+	}
+
+	@NotNull(message="사진을 첨부해 주세요")
 	private MultipartFile image;
 
 	public int getPid() {
@@ -90,7 +117,7 @@ public class Protection {
 	}
 
 	public Protection(int pid, String username, String pname, String page, String pgender, String petc, String pimage,
-			String pcondition, String pdate, MultipartFile image) {
+			String pcondition, String pdate, MultipartFile image, String hcnt) {
 		this.pid = pid;
 		this.username = username;
 		this.pname = pname;
@@ -101,6 +128,7 @@ public class Protection {
 		this.pcondition = pcondition;
 		this.pdate = pdate;
 		this.image = image;
+		this.hcnt = hcnt;
 	}
 
 	public Protection() {

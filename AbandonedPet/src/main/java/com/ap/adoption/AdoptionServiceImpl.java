@@ -18,15 +18,21 @@ public class AdoptionServiceImpl implements AdoptionService {
 	}
 
 	@Override
-	public List<Adoption> getAllAdoptionList() {
+	public List<Adoption> getAllAdoptionList(String oid) {
 		// TODO Auto-generated method stub
-		return adoptionRepository.getAllAdoptionList();
+		return adoptionRepository.getAllAdoptionList(oid);
+	}
+	
+	@Override
+	public List<Adoption> getAdminAdoptionList() {
+		// TODO Auto-generated method stub
+		return adoptionRepository.getAdminAdoptionList();
 	}
 
 	@Override
-	public List<Adoption> getMyAdoptionList(String aid) {
+	public List<Adoption> getMyAdoptionList(String nid) {
 		// TODO Auto-generated method stub
-		return adoptionRepository.getMyAdoptionList(aid);
+		return adoptionRepository.getMyAdoptionList(nid);
 	}
 
 	@Override

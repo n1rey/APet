@@ -1,9 +1,13 @@
 package com.ap.member;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,6 +36,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.ap.mail.MailService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -62,6 +68,10 @@ public class MemberController {
 	@PostMapping("/join")
 	public String joinMember(@Validated @ModelAttribute Member member, BindingResult bindingResult) {
 
+		if (!member.getPassword().equals(member.getPasswordConfirm())) {
+			bindingResult.reject("pwConfirm", "비밀번호가 일치하지 않습니다.");
+		}
+		
 		if (bindingResult.hasErrors()) {
 			return "users/joinform";
 		}
@@ -85,7 +95,11 @@ public class MemberController {
 	}
 
 	@GetMapping("/member/mod")
-	public String modForm(@RequestParam String username, Model model) {
+	public String modForm(Model model) {
+		SecurityContext securityContext = SecurityContextHolder.getContext();
+		Authentication auth = securityContext.getAuthentication();
+		String username = auth.getName();
+		
 		model.addAttribute("member", memberService.getMember(username));
 		model.addAttribute("modMember", new ModMember());
 		return "member/modMember";
@@ -99,7 +113,7 @@ public class MemberController {
 
 		memberService.modifyMember(modMember);
 
-		return "redirect:/member/myPage";
+		return "redirect:/member/myPage?mod";
 	}
 
 //	@GetMapping(value = "/logout")
@@ -121,5 +135,60 @@ public class MemberController {
 
 		return "redirect:/login?quit";
 	}
+	
+	@GetMapping("/pwfind")
+	public String findPassword() {
+		return "users/pwfind";
+	}
 
+	@PostMapping("/pwfind")
+	@ResponseBody
+	public String sendMail(HttpServletRequest request, HttpServletResponse response, @ModelAttribute Member member) throws IOException {
+		if (memberService.changeTmpPw(member)) {
+			return "success";
+		} 
+		return "fail";
+	}
+	
+	@GetMapping("/member/modPw")
+	public String modMyPwForm(Model model) {
+		SecurityContext securityContext = SecurityContextHolder.getContext();
+		Authentication auth = securityContext.getAuthentication();
+		String username = auth.getName();
+		
+		ModPwMember modPwMember = new ModPwMember();
+		modPwMember.setUsername(username);
+		
+		model.addAttribute("modPwMember", modPwMember);
+		return "member/pwModForm";
+	}
+	
+	@PostMapping("/member/modPw")
+	public String modMyPw(@Validated @ModelAttribute ModPwMember modPwMember, BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		if (!modPwMember.getPassword().equals(modPwMember.getPasswordConfirm())) {
+			bindingResult.reject("pwConfirm", "비밀번호가 일치하지 않습니다.");
+		}
+		
+		if (bindingResult.hasErrors()) {
+			System.out.println("에러있음!");
+			return "member/pwModForm";
+		}
+		
+		Member member = new Member();
+		member.setUsername(modPwMember.getUsername());
+		member.setPassword(modPwMember.getPassword());
+		
+		memberService.modifyPassword(member);
+
+		 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	        if (auth != null) {
+	            new SecurityContextLogoutHandler().logout(request, response, auth);
+	        }
+		
+		return "redirect:/login?modPw";
+	}
+	
+	
 }

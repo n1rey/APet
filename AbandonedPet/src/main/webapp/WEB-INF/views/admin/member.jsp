@@ -34,10 +34,12 @@
 					<table class="table table-hover shadow bg-body rounded">
 						<thead>
 							<tr style="background-color: #548687; color: white;">
-								<th scope="col" class="col-6">아이디</th>
+								<th scope="col" class="col-2">아이디</th>
 								<th scope="col" class="col-2">이름</th>
 								<th scope="col" class="col-2">닉네임</th>
-								<th scope="col" class="col-2">작성일</th>
+								<th scope="col" class="col-2">권한</th>
+								<th scope="col" class="col-2">가입일자</th>
+								<th scope="col" class="col-4">회원 삭제</th>
 							</tr>
 						</thead>
 						<tbody id="imgList">
@@ -67,7 +69,7 @@
 								</select> <input class="form-control form-control-sm" type="search"
 									placeholder="검색어" id="keyword">
 								<button class="btn btn-sm btn-outline-success" type="button"
-									id="searchBtn">
+									id="searchBtn"> 검색
 									<i class="bi bi-search"></i>
 								</button>
 							</div>
@@ -273,15 +275,75 @@
 			var imgHTML = '';
 			for (var i = 0; i < data.length; i++) {
 				imgHTML += ''
-						+ "<tr onclick=\"location.href='newsDetail.jsp?nno="
-						+ data[i].username + "'\"><td>" + data[i].username + "</td>"
+						+ "<tr>"
+						+ "<td>" + data[i].username + "</td>"
 						+ '<td>' + data[i].mname + "</td>" 
 						+ '<td>' + data[i].mnickname + "</td>"
-						+ '<td>'+ data[i].mdate + "</td></a></tr>"
+						+ '<td><select id="roleSelect" onchange="updateAuth(\''+ data[i].username +'\', this)">'
+				if (data[i].authority == "ROLE_ADMIN") {
+					imgHTML += '<option value="ROLE_ADMIN" selected>ROLE_ADMIN</option>'
+							+ '<option value="ROLE_USER">ROLE_USER</option>'
+				} else {
+					imgHTML += '<option value="ROLE_ADMIN">ROLE_ADMIN</option>'
+							+ '<option value="ROLE_USER" selected>ROLE_USER</option>'
+				}
+						  			
+				imgHTML	+= '</select><td/><td>'+ data[i].mdate + "</td>"
+						+ "<td><button onclick=\"removeMember('"+ data[i].username +"')\" class='btn btn-danger'> 회원삭제 </button></td></tr>"
 			}
 			$('#imgList').html(imgHTML);
 		}
 	</script>
+
+<script>
+function removeMember(uname) {
+	if (confirm("정말로 삭제하시겠습니까?")) {
+		fetch("/admin/member/remove", {	
+			method: "post",
+			headers: {
+		    		'${_csrf.headerName}': '${_csrf.token}' // CSRF 토큰 값
+					 },
+			body: new URLSearchParams({
+					username: uname
+				})
+	        })
+			.then(data => {
+				console.log(data);
+				cri.pageNum = 1
+				pageObj.pageCal(cri);
+				alert("삭제되었습니다.");
+			})	
+			.catch(error => {
+				console.error(error)
+				alert("처리에 문제가 생겼습니다.")
+			});
+	}
+	
+}
+
+function updateAuth(username, e) {
+	console.log(document.getElementById("roleSelect").value)
+    $.ajax({
+       type : "POST",
+       url : "/admin/member/changeAuth",
+       data : {
+          username : username,
+          auth : e.value
+       },
+       beforeSend : function(xhr) { /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+          xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+       },
+       success : function(result) {
+          alert("권한 정보 변경이 완료되었습니다.")
+       },
+       error : function(request, status, error) {
+          alert(request.status + " " + request.responseText);
+       }
+    })
+ }
+ 
+ 
+</script>
 
 </body>
 </html>

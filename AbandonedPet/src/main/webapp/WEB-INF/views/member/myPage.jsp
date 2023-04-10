@@ -42,7 +42,9 @@
 				</div>
 				<div class="text-end">
 					<a href="/member/mod?username=${member.username}"
-						class="btn btn-warning"> 수정하기 </a>
+						class="btn btn-warning"> 회원정보 수정하기 </a>
+					<a href="/member/modPw?username=${member.username}"
+						class="btn btn-dark"> 비밀번호 변경 </a>
 
 					<form id="quitForm" action="/member/quit" method="post">
 						<input type="hidden" name="username" value="${member.username }">
@@ -94,6 +96,18 @@
 
 	
 	</script>
+	
+	<script>
+//현재 URL의 파라미터 문자열을 가져온다.
+const paramsString = window.location.search;
+// URLSearchParams 객체를 만들어서 파라미터 문자열을 넘겨준다.
+const searchParams = new URLSearchParams(paramsString);
+
+if (searchParams.has("mod")) {
+  alert("회원정보 변경이 완료되었습니다.")
+} 
+
+</script>
 	
 </body>
 </html>
