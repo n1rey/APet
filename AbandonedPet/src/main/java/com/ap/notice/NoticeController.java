@@ -9,9 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +22,8 @@ public class NoticeController {
 	@Autowired
 	NoticeService noticeService;
 	
+
+	
 	// 예외처리
 		@ExceptionHandler(Exception.class)
 		public String catcher(Exception ex, Model m) {
@@ -34,17 +34,12 @@ public class NoticeController {
 	
 	@GetMapping("/addNotice")
 	public String requestAddNoticeForm(Notice notice) {
-		return "notice/addNotice";
+		return "/notice/addNotice";
 	}
 	
 	@PostMapping("/addNotice")
 	public String newNotice(@Valid Notice notice, Errors errors, Model m) {
-//		noticeValidator.validate(notice, bindingResult);
 		if(errors.hasErrors()) {
-//			List<FieldError> errors = bindingResult.getFieldErrors();
-//			for(int i=0; i < errors.size(); i++) {
-//				m.addAttribute(errors.get(i).getField(), errors.get(i).getCode());
-//			}
 			return "/notice/addNotice";
 		}
 		noticeService.newNotice(notice);

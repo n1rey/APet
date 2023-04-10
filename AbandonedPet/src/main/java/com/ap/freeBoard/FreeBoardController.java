@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,12 +25,12 @@ public class FreeBoardController {
 	@Autowired
 	FreeBoardService freeBoardService;
 	
-	// 예외처리
-	@ExceptionHandler(Exception.class)
-	public String catcher(Exception ex, Model m) {
-			m.addAttribute("exception", ex);
-			return "error";
-	}
+//	// 예외처리
+//	@ExceptionHandler(Exception.class)
+//	public String catcher(Exception ex, Model m) {
+//			m.addAttribute("exception", ex);
+//			return "error";
+//	}
 	
 	
 	@GetMapping("/addFreeBoard")
@@ -55,6 +54,7 @@ public class FreeBoardController {
 		if(page != null) {
 			intPage = Integer.parseInt(page);
 		}
+		
 		Map<String, Integer> pagination = new HashMap<String, Integer>();
 		pagination.put("pageSize", pageSize);
 		pagination.put("pageNum", intPage);

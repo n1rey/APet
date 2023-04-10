@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-
-
-
-<nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
+<footer>
+<nav class="navbar fixed-bottom navbar-expand-sm">
 	<div class="container-fluid">
 		<a class="navbar-brand" href="#">Abandoned Pet</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -14,8 +11,8 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link active"
-					aria-current="page" href="/notice">공지사항</a></li>
+				<li class="nav-item"><a class="nav-link"
+					aria-current="page" href="#">공지사항</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">자유게시판</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">임시보호</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">보호소목록</a></li>
@@ -24,9 +21,7 @@
 		</div>
 	</div>
 </nav>
+</footer>
 
 
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-	crossorigin="anonymous"></script>
+

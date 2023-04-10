@@ -6,14 +6,10 @@
 <html>
 
 <head>
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal.username" var="username"/>
+</sec:authorize>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
-	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous">
-	</script>
 <style>
 	#content {
 		min-height:200px;
@@ -53,6 +49,12 @@
 	function inputCheck(element, type){
 		
 		var content;
+		var writer = '${username}';
+		
+		if(writer == null || writer == ''){
+			alert("로그인 해주세요.");
+			return;
+		}
 		
 		if(type=="new"){
 			content = $('#CommnetTextarea').val();
@@ -60,7 +62,6 @@
 			var rid = element.getAttribute('data-rid');
 			var id = "CommnetTextarea" + rid;
 			content = document.getElementById(id).value;
-			console.log(content);
 		}
 		
 		
@@ -78,9 +79,9 @@
 	}
 	
 	function insertReply(){
-		var bid = ${freeBoard.bid };
+		var bid = '${freeBoard.bid }';
 		var content = $('#CommnetTextarea').val();
-/* 		var writer = ${user.username}; */
+ 		var writer = '${username}';
 		
 		$.ajax({
 			type : "POST",
@@ -125,20 +126,20 @@
 					var comment_html = "<div>";
 					
 					for(i = 0;i < result.length;i++){
-						/* var user = ${user.username}; */
+						var user = "${username}";
 						var content = result[i].rcontent;
-						var writer = result[i].rwriter;
+						var writer = result[i].rwriterName;
 						var date = result[i].rdate;
 						var rid = result[i].rid;
-						comment_html += "<div data-rid="+ rid +"><div class='d-flex justify-content-between'><div><span id='writer'><strong>" + writer + "</strong></span></div>"
-						comment_html += "<div><span>"+ date +"</span>";
-						
-						/* if(user == writer){
+						comment_html += "<div data-rid="+ rid +"><div class='d-flex justify-content-between'><div><span id='rwriter'><strong>" + writer + "</strong></span></div>"
+						comment_html += "<div><span id='rdate'>"+ date +"</span>";
+						if(user == result[i].rwriter){
 							comment_html += "<a class='btn btn-outline-secondary btn-sm m-1' data-rid="+ rid +" onclick='javascript:modify(this)'>수정</a>"
 							comment_html += "<a class='btn btn-outline-secondary btn-sm m-1' data-rid="+ rid +" onclick='javascript:deleteReply(this)'>삭제</a></div>"	
-						} */
+						}
 						comment_html += "</div>";
-						comment_html += "<div id='bcontent' data-rid="+ rid +">" + content + "</div><br>";
+						comment_html += "</div>";
+						comment_html += "<div id='bcontent' data-rid="+ rid +">" + content + "</div>";
 						comment_html += "</div><hr>";
 					}
 					$("#comment_list").html(comment_html);
@@ -201,7 +202,6 @@
 		var id = "CommnetTextarea" + rid;
 		var rcontent = document.getElementById(id).value;
 		var bid = ${freeBoard.bid};
-		console.log(rcontent);
 		
 		$.ajax({
 			type : "POST",
@@ -230,24 +230,21 @@
 <body>
 <sec:authentication property="principal" var="user" />
 	<div class="container col-9">
-		<div>
-			<h4>글 상세보기</h4>
-		</div>
 		<div class="card">
 			<div class="card-header">
 				<p class="fs-4">${freeBoard.btitle}</p>
 				<div class = "d-flex justify-content-between">
-					<p>작성자 : ${freeBoard.bwriter }</p>
+					<p>작성자 : ${freeBoard.bwriterName }</p>
 					<p>${freeBoard.bdate}</p>
 				</div>
 			</div>
 			<div class="card-body">
 				<div class="d-flex justify-content-end">
 					<!-- 작성자만 수정 가능 -->
-					<%-- <c:if test="${user.username eq freeBoard.bwriter}">
+					<c:if test="${username eq freeBoard.bwriter}">
 						<a class="btn btn-outline-secondary btn-sm m-1" href=<c:url value="/freeBoard/freeBoardModify?bid=${freeBoard.bid }"/>>수정</a>
 						<a class="btn btn-outline-secondary btn-sm m-1" data-bs-toggle="modal" data-bs-target="#exampleModal">삭제</a>
-					</c:if>	 --%>
+					</c:if>
 				</div>
 				<div id="content">
 					${freeBoard.bcontent}
@@ -262,7 +259,7 @@
 						  <label for="floatingTextarea">Comment</label>
 						</div>
 						<div class="row align-items-end">
-							<a class="btn btn-primary btn-sm ms-3" onclick="inputCheck(this, 'new')">등록</a>
+							<a class="btn btn-outline-dark btn-sm ms-3" onclick="inputCheck(this, 'new')">등록</a>
 						</div>
 					</div>
 					<div id="comment_list" class="mt-3">
@@ -271,7 +268,7 @@
 		</div>
 		</div>
 		<div>
-			<a class="btn btn-primary m-1" href=<c:url value="/freeBoard/freeBoardList"/>>목록으로</a>
+			<a class="btn btn-sm btn-outline-dark m-1" href=<c:url value="/freeBoard/freeBoardList"/>>목록으로</a>
 		</div>
 	</div>
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -281,8 +278,8 @@
 					정말 삭제하시겠습니까?
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" onclick="javascript:deleteBoard()">확인</button>
+					<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-sm btn-warning" onclick="javascript:deleteBoard()">확인</button>
 				</div>
 			</div>
 		</div>

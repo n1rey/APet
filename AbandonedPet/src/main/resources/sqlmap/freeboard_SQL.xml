@@ -13,9 +13,12 @@
 	
 	<select id="select_list" parameterType="HashMap" resultType="com.ap.freeBoard.FreeBoard">
 		<![CDATA[
-			select a.bid, a.btitle, a.bwriter, a.bdate, a.bhit
-			from (select @rownum := @rownum + 1 rownum, bid, btitle, bwriter, date_format(bdate, '%Y-%m-%d') as bdate, bhit
-			FROM freeboard where(@rownum := 0) = 0 order by bid desc) as a
+			select a.bid, a.btitle, a.bwriter, a.bdate, a.bhit, a.mname as bwritername
+			from (select @rownum := @rownum + 1 rownum, bid, btitle, bwriter, date_format(bdate, '%Y-%m-%d') as bdate, bhit, mname
+			FROM (SELECT bid, btitle, bwriter, date_format(bdate, '%Y-%m-%d') as bdate, bhit, mname
+			FROM freeboard f
+			INNER JOIN member m on (f.bwriter = m.username)) as b
+			where(@rownum := 0) = 0 order by bid desc) as a
 			where rownum between (#{pageNum}-1)*#{pageSize}+1 and (#{pageNum}*#{pageSize});
 		]]>
 	</select>
@@ -23,8 +26,9 @@
 
 	<select id="select_detail" parameterType="Integer" resultType="com.ap.freeBoard.FreeBoard">
 		<![CDATA[
-			SELECT bid, btitle, bcontent, bwriter, date_format(bdate, '%Y-%m-%d') as bdate, bhit
-			FROM freeboard
+			SELECT bid, btitle, bcontent, bwriter, date_format(bdate, '%Y-%m-%d') as bdate, bhit, m.mname as bwritername
+			FROM freeboard f
+			LEFT JOIN member m ON (f.bwriter = m.username)
 			WHERE bid=#{bid};
 		]]>
 	</select>
@@ -57,8 +61,9 @@
 	</insert>
 	<select id="reply_list" parameterType="Integer" resultType="com.ap.freeBoard.Reply">
 		<![CDATA[
-			SELECT *
-			FROM freeBoardReply
+			SELECT fr.*, m.mname as rwriterName
+			FROM freeBoardReply fr
+			LEFT JOIN member m ON (fr.rwriter = m.username)
 			WHERE bid = #{bid}
 			ORDER BY rid DESC;
 		]]>
@@ -86,4 +91,9 @@
 			WHERE bid = #{bid};
 		]]>
 	</update>
+	<select id="count_list" resultType="Integer">
+		<![CDATA[
+			select count(bid) as cnt from freeBoard;
+		]]>
+	</select>
 </mapper>
