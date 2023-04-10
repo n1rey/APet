@@ -30,15 +30,12 @@
   <div class="row justify-content-md-center">
     <div class="col-lg-9">
       <div class="card">
-        <div class="card-header">
-          <h4>신규 게시물 등록</h4>
-        </div>
         <div class="card-body">
           <form:form modelAttribute="freeBoard" action="./addFreeBoard?${_csrf.parameterName}=${_csrf.token}"
             class="form-horizontal" method="post">
             <fieldset>
             <sec:authentication property="principal" var="user" />
-<%-- 			<form:input path="nwriter" type="hidden" value="${user.username}" class="form-control"/> --%>
+ 			<form:input path="bwriter" type="hidden" value="${user.username}" class="form-control"/>
               <div class="form-group">
                 <label for="inputName">제목</label>
                 <form:errors path="btitle" cssClass="error" />

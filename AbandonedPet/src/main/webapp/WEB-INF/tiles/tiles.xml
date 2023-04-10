@@ -5,7 +5,7 @@
 <tiles-definitions>
 	<definition name="base-Template"
 		template="/WEB-INF/tiles/layout/baseLayout.jsp">
-		<put-attribute name="title" value="Sample Title" />
+		<put-attribute name="title" value="A Pet" />
 		<put-attribute name="heading" value="" />
 		<put-attribute name="subheading" value="" />
 		<put-attribute name="menu"
@@ -15,14 +15,11 @@
 			value="/WEB-INF/tiles/template/footer.jsp" />
 	</definition>
 
-	<definition name="main" extends="base-Template">
+<!--  	<definition name="main" extends="base-Template">
 		<put-attribute name="title" value="Welcome" />
-		<put-attribute name="heading" value="유기동물 분양사이트" />
-		<put-attribute name="subheading"
-			value="Welcome to Abandoned pet Site " />
 		<put-attribute name="content"
 			value="/WEB-INF/views/main.jsp" />
-	</definition>
+	</definition> -->
 
 	
 
@@ -50,6 +47,18 @@
 		<put-attribute name="subheading" value="Members" />
 		<put-attribute name="content"
 			value="/WEB-INF/views/users/list.jsp" />
+	</definition>
+	
+	<definition name="/notice/*" extends="base-Template">
+		<put-attribute name="heading" value="공지사항" />
+		<put-attribute name="subheading" value="Notice" />
+		<put-attribute name="content" value="/WEB-INF/views/notice/{1}.jsp" />
+	</definition>
+	
+	<definition name="/freeBoard/*" extends="base-Template">
+		<put-attribute name="heading" value="자유게시판" />
+		<put-attribute name="subheading" value="freeBoard" />
+		<put-attribute name="content" value="/WEB-INF/views/freeBoard/{1}.jsp" />
 	</definition>
 
 	

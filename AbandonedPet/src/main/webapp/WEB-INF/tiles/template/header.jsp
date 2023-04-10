@@ -4,21 +4,14 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
+	
 
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
-	crossorigin="anonymous">
-
-<nav class="navbar navbar-expand navbar-dark bg-dark fixed-top"
-	aria-label="Second navbar example">
+<header>
+<nav class="navbar navbar-expand fixed-top" aria-label="Second navbar example">
 	<div class="container-fluid">
-		<a class="navbar-brand" href="/"> <img
-			src="http://austiny.snu.ac.kr/image/mine.jpg" alt="Bootstrap"
-			width="35" height="40">
+		<a class="navbar-brand" href="/">
+			<img src="/resources/images/logo.png" alt="logo" width="50px">
 		</a>
-
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 			data-bs-target="#navbarsExample02" aria-controls="navbarsExample02"
 			aria-expanded="false" aria-label="Toggle navigation">
@@ -27,15 +20,26 @@
 
 		<div class="collapse navbar-collapse" id="navbarsExample02">
 			<ul class="navbar-nav me-auto">
-				<li class="nav-item"><a class="nav-link active"
+				<li class="nav-item"><a class="nav-link"
 					aria-current="page" href="/">홈</a></li>
-				<li class="nav-item"><a class="nav-link" href="/#">커뮤니티</a></li>
+				
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#" role="button"
+					data-bs-toggle="dropdown" aria-expanded="false"> 커뮤니티</a>
+
+					<ul class="dropdown-menu">
+							<li><a class="dropdown-item" href="/notice/noticeList">공지사항</a></li>
+							<li><a class="dropdown-item" href="/freeBoard/freeBoardList">자유게시판</a></li>
+					</ul>
+				</li>
+				
+				
 				<li class="nav-item"><a class="nav-link" href="/#">임시보호</a></li>
 				<li class="nav-item"><a class="nav-link" href="/#">보호소 목록</a></li>
 
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" href="#" role="button"
-					data-bs-toggle="dropdown" aria-expanded="false"> 회원관리</a>
+					data-bs-toggle="dropdown" aria-expanded="false"> 마이페이지</a>
 
 					<ul class="dropdown-menu">
 						<sec:authorize access="isAnonymous()">
@@ -47,9 +51,12 @@
 							<li><a class="dropdown-item" href="#">회원탈퇴</a></li>
 
 						</sec:authorize>
+					</ul>
+				</li>
 
-					</ul> <sec:authentication property="principal" var="user" /> <sec:authorize
-						access="hasRole('ROLE_ADMIN')">
+					<sec:authentication property="principal" var="user" />
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
+
 
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#" role="button"
@@ -65,28 +72,34 @@
 
 
 							</ul>
-					</sec:authorize></li>
-			</ul>
+						</li>
+
+					</sec:authorize>
+			</ul>	
 
 
 			<sec:authentication property="principal" var="user" />
 			<sec:authorize access="isAuthenticated()">
-				<div class="bg-white h6">${user.username}님로그인하셨습니다.</div> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-			<form method="post" action="/logout">
-					<input type="submit" class="btn btn-success btn-xs" value="Logout" />
+				<div class="h6" style="margin-right:20px">${user.username}님</div>
+				<div style="text-align:center; padding-top:10px;">
+				<form method="post" action="/logout">
+					<input type="submit" class="btn btn-warning btn-sm" value="Logout" />
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
 				</form>
+				</div>
 			</sec:authorize>
 
 
 			<sec:authorize access="isAnonymous()">
-				<div class="bg-white h6">로그인 하세요.</div>  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+				<div class="h6" style="margin-right:20px">로그인 하세요.</div>
+				<div style="text-align:center; padding-top:10px;"> 
 				<form method="get" action="/login">
-					<input type="submit" class="btn btn-primary btn-xs" value="Login" />
+					<input type="submit" class="btn btn-outline-dark btn-sm" value="Login" />
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
 				</form>
+				</div>
 			</sec:authorize>
 
 
@@ -94,5 +107,6 @@
 		</div>
 	</div>
 </nav>
+</header>
 
 

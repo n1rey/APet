@@ -1,41 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
-
 <head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
-	<script src="https://code.jquery.com/jquery-3.6.4.slim.js"
-		integrity="sha256-dWvV84T6BhzO4vG6gWhsWVKVoa4lVmLnpBOZh/CAHU4=" crossorigin="anonymous"></script>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous">
-	</script>
-
-	<style>
-		.table th,
+<style>
+	.table th,
 		tr {
 			text-align: center;
 		}
-		a {
+	a {
 			text-decoration:none;
 			color:black;
-		}
-	</style>
-
+	}
+</style>
 </head>
 
 <body>
 	<div class="container col-9">
-		<div>
-			<h4>공지사항</h4>
-		</div>
-<!-- 		관리자 확인 추가해야함 -->
+		<!-- 관리자 확인 추가 -->
 		<div class="d-flex justify-content-end">
-			<a href="/notice/addNotice" class="btn btn-primary btn-sm"">글쓰기</a>
+			<sec:authorize access="hasAuthority('ROLE_ADMIN')">
+			<a href=<c:out value='/notice/addNotice' /> class="btn btn-outline-dark btn-sm"">글쓰기</a>
+			</sec:authorize>
 		</div>
 		<table class="table">
 			<thead>
@@ -48,7 +36,7 @@
 			<tbody>
 				<c:forEach items="${noticeList}" var="notice">
 					<tr>
-						<th scope="row">${notice.nid }</th>
+						<td scope="row">${notice.nid }</td>
 						<td><a href="/notice/noticeDetail?nid=${notice.nid }"><div width='100%'>${notice.ntitle }</div></a></td>
 						<td>${notice.ndate }</td>
 					</tr>
@@ -72,7 +60,8 @@
 	if (last > totalPage){last = totalPage};
 	var previous = start > 1;
 	var next = last < totalPage;
-
+	
+	
  	window.onload = function(){
  		pagination();
  	}

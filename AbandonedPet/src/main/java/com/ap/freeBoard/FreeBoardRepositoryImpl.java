@@ -16,7 +16,7 @@ public class FreeBoardRepositoryImpl implements FreeBoardRepository {
 
 	@Override
 	public int countList() {
-		return sqlSessionTemplate.selectOne("notice.count_list");
+		return sqlSessionTemplate.selectOne("freeboard.count_list");
 	}
 
 	@Override

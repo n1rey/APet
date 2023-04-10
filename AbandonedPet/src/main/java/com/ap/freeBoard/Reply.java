@@ -6,5 +6,6 @@ import lombok.Data;
 public class Reply {
 	private int rid, bid;
 	private String rcontent;
-	private String rwritter, rdate;
+	private String rwriter, rdate;
+	private String rwriterName;
 }

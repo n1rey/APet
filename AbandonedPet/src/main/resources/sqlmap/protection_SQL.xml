@@ -8,25 +8,73 @@
 			INSERT INTO protection
 			(username, pname, page, pgender, petc, pimage)
 			VALUES
-			(#{username}, #{pname}, #{page}, #{pgender}, #{petc}, #{pimage})
+			(#{username}, #{pname}, #{page}, #{pgender}, #{petc}, #{pimage});
 		]]>
 	</insert>
 
-	<select id="select_list" resultType="com.ap.protection.Protection">
+	<select id="select_list"  parameterType="hashMap"
+				  			  resultType="com.ap.protection.Protection">
 		<![CDATA[
-			SELECT * 
+			SELECT a.pid, a.username, a.pname, a.page, a.pgender, a.petc, a.pimage, 
+				   a.pcondition, a.pdate
+				   , (SELECT COUNT(*) FROM heart h WHERE h.pid = a.pid ) AS hcnt
+			FROM (SELECT @rownum := @rownum + 1 rownum, pid, username, pname, page, pgender, petc, pimage, pcondition, DATE_FORMAT(pdate, '%Y-%m-%d') AS pdate
+				  FROM protection 
+				  WHERE(@rownum := 0) = 0 AND pcondition LIKE '%보호 중%'
+				  ORDER BY pid desc) as a
+			WHERE rownum between (#{pageNum}-1)*#{pageSize}+1 and (#{pageNum}*#{pageSize});
+		]]>	
+	</select>
+	
+	<select id="count_list" resultType="Integer">
+		<![CDATA[
+			SELECT count(pid) as cnt 
 			FROM protection
-			WHERE pcondition LIKE '%보호 중%'
-			ORDER BY pid DESC
+			WHERE pcondition LIKE '%보호 중%';
+		]]>
+	</select>
+	
+	<select id="count_admin_list" resultType="Integer">
+		<![CDATA[
+			SELECT count(pid) as cnt 
+			FROM protection;
+		]]>
+	</select>
+	
+	<select id="count_my_list"  parameterType="String"
+								resultType="Integer">
+		<![CDATA[
+			SELECT count(pid) as cnt 
+			FROM protection
+			WHERE username = #{username};
+		]]>
+	</select>
+
+	<select id="select_admin_list"  parameterType="hashMap"
+									resultType="com.ap.protection.Protection">
+		<![CDATA[
+			SELECT a.pid, a.username, a.pname, a.page, a.pgender, a.petc, a.pimage, 
+				   a.pcondition, a.pdate
+				   , (SELECT COUNT(*) FROM heart h WHERE h.pid = a.pid ) AS hcnt
+			FROM (SELECT @rownum := @rownum + 1 rownum, pid, username, pname, page, pgender, petc, pimage, pcondition, pdate
+				  FROM protection 
+				  WHERE(@rownum := 0) = 0
+				  ORDER BY pid desc) as a
+			WHERE rownum between (#{pageNum}-1)*#{pageSize}+1 and (#{pageNum}*#{pageSize});
 		]]>	
 	</select>
 
-	<select id="select_mylist" resultType="com.ap.protection.Protection">
+	<select id="select_my_list" parameterType="hashMap"
+								resultType="com.ap.protection.Protection">
 		<![CDATA[
-			SELECT * 
-			FROM protection
-			WHERE username = #{username}
-			ORDER BY pid DESC
+			SELECT a.pid, a.username, a.pname, a.page, a.pgender, a.petc, a.pimage, 
+				   a.pcondition, a.pdate
+				   , (SELECT COUNT(*) FROM heart h WHERE h.pid = a.pid ) AS hcnt
+			FROM (SELECT @rownum := @rownum + 1 rownum, pid, username, pname, page, pgender, petc, pimage, pcondition, DATE_FORMAT(pdate, '%Y-%m-%d') AS pdate
+				  FROM protection 
+				  WHERE(@rownum := 0) = 0 AND username = #{username}
+				  ORDER BY pid desc) as a
+			WHERE rownum between (#{pageNum}-1)*#{pageSize}+1 and (#{pageNum}*#{pageSize});
 		]]>	
 	</select>
 
@@ -38,7 +86,7 @@
 			WHERE pid = #{pid}
 		]]>	
 	</select>
-	
+
 	<update id="update" parameterType="com.ap.protection.Protection">
 		<![CDATA[
 			UPDATE protection

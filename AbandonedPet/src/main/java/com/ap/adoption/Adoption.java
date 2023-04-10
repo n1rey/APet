@@ -4,10 +4,18 @@ public class Adoption {
 
 	private int aid;
 	
-	private String oid, nid, pid, aname, aage, agender, aphone, adistrict, ajob, acondition;
+	private String oid, nid, pid, aname, aage, agender, aphone, adistrict, ajob, acondition, pname;
 
 	public int getAid() {
 		return aid;
+	}
+
+	public String getPname() {
+		return pname;
+	}
+
+	public void setPname(String pname) {
+		this.pname = pname;
 	}
 
 	public void setAid(int aid) {
@@ -95,7 +103,7 @@ public class Adoption {
 	}
 
 	public Adoption(int aid, String oid, String nid, String pid, String aname, String aage, String agender,
-			String aphone, String adistrict, String ajob, String acondition) {
+			String aphone, String adistrict, String ajob, String acondition, String pname) {
 		this.aid = aid;
 		this.oid = oid;
 		this.nid = nid;
@@ -107,6 +115,7 @@ public class Adoption {
 		this.adistrict = adistrict;
 		this.ajob = ajob;
 		this.acondition = acondition;
+		this.pname = pname;
 	}
 
 	public Adoption() {

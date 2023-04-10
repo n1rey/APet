@@ -15,12 +15,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ap.protection.Protection;
+import com.ap.protection.ProtectionService;
+
 
 @Controller
 @RequestMapping("/adoption")
 public class AdoptionController {
 	@Autowired
 	AdoptionService adoptionService;
+	
+	@Autowired
+	ProtectionService protectionService;
 	
 	@GetMapping("/addAdoption")
 	public String requestAddAdoptionForm(@ModelAttribute("NewAdoption") Adoption adoption) {
@@ -29,28 +35,42 @@ public class AdoptionController {
 	}
 	
 	@PostMapping("/addAdoption")
-	public String submitAddAdoptionForm(@ModelAttribute("NewAdoption") Adoption adoption) {
+	public String submitAddAdoptionForm(@ModelAttribute("NewAdoption") Adoption adoption,
+										@RequestParam("phone1") String phone1,
+										@RequestParam("phone2") String phone2,
+										@RequestParam("phone3") String phone3) {
+		
+		adoption.setAphone(phone1 + phone2 + phone3);
 		
 		adoptionService.setNewAdoption(adoption);
 		
-		return "redirect:/adoption/list";
+		return "redirect:/adoption/myList?nid=" + adoption.getNid();
 	}
 	
 	
 	@GetMapping("/list")
-	public String adoptionList(Model model) {
-	    List<Adoption> list = adoptionService.getAllAdoptionList();
-	    model.addAttribute("adoptionList", list);
-
+	public String adoptionList(Model model, @RequestParam("oid") String oid) {
+		// 입양 신청 목록 가져오기
+	    List<Adoption> alist = adoptionService.getAllAdoptionList(oid);
+	    model.addAttribute("adoptionList", alist);
+	    
 	    return "adoption/list";
 	}
 	
-	@GetMapping("/mylist")
-	public String myAdoptionList(@RequestParam("aid") String aid, Model model) {
-		List<Adoption> list = adoptionService.getMyAdoptionList(aid);
+	@GetMapping("/adminList")
+	public String adminAdoptionList(Model model) {
+		List<Adoption> alist = adoptionService.getAdminAdoptionList();
+		model.addAttribute("adoptionList", alist);
+		
+		return "adoption/adminList";
+	}
+	
+	@GetMapping("/myList")
+	public String myAdoptionList(@RequestParam("nid") String nid, Model model) {
+		List<Adoption> list = adoptionService.getMyAdoptionList(nid);
 		model.addAttribute("adoptionList", list);
 		
-		return "adoption/list";
+		return "adoption/myList";
 	}
 	
 	@GetMapping("/detail")
@@ -76,14 +96,20 @@ public class AdoptionController {
 		
 		adoptionService.updateCondition(adoption);
 		
-		return "redirect:/adoption/list";
+		return "redirect:/protection/list";
 	}
 	
 	@RequestMapping("/delete")
-	public String delete(@RequestParam("aid") String aid) {
+	public String delete(@RequestParam("aid") String aid, @RequestParam("nid") String nid) {
 		//주 게시물
 		adoptionService.deleteAdoption(aid);
 		
-		return "redirect:/adoption/list";
+		if(nid.equals("admin")) {
+			return "redirect:/adoption/adminList";
+		} else {
+			return "redirect:/adoption/myList?nid=" + nid;
+			
+		}
+		
 	}
 }

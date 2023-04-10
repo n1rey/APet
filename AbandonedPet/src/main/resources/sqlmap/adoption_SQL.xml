@@ -8,24 +8,34 @@
   			INSERT INTO adoption  
   			(oid, nid, pid, aname, aage, agender, aphone, adistrict, ajob)  
   			VALUES  
-  			(#{oid}, #{nid}, #{pid}, #{aname}, #{aage}, #{agender}, #{aphone}, #{adistrict}, #{ajob})  
+  			(#{oid}, #{nid}, #{pid}, #{aname}, #{aage}, #{agender}, #{aphone}, #{adistrict}, #{ajob});  
   		]]>  
 	</insert>
 
 	<select id="select_list" resultType="com.ap.adoption.Adoption">
 		<![CDATA[
-  			SELECT *   
-  			FROM adoption  
-  			ORDER BY aid DESC  
+			SELECT a.*, (SELECT p.pname FROM protection p WHERE p.pid = a.pid) AS pname
+			FROM adoption AS a
+			WHERE a.oid = #{oid}
+			ORDER BY a.aid DESC;
   		]]>	  
 	</select>
 
-	<select id="select_mylist" resultType="com.ap.adoption.Adoption">
+	<select id="select_admin_list" resultType="com.ap.adoption.Adoption">
 		<![CDATA[
-  			SELECT *   
-  			FROM adoption  
-  			WHERE nid = #{nid}  
-  			ORDER BY aid DESC  
+  			SELECT a.*, p.pname
+			FROM adoption a
+			INNER JOIN protection p ON(a.pid = p.pid)
+			ORDER BY a.aid DESC;  
+  		]]>	  
+	</select>
+
+	<select id="select_my_list" resultType="com.ap.adoption.Adoption">
+		<![CDATA[
+			SELECT a.*, (SELECT p.pname FROM protection p WHERE p.pid = a.pid) AS pname
+			FROM adoption AS a
+			WHERE a.nid = #{nid}
+			ORDER BY a.aid DESC;
   		]]>	  
 	</select>
 
@@ -34,7 +44,7 @@
 		<![CDATA[
   			SELECT *   
   			FROM adoption   
-  			WHERE nid = #{nid}  
+  			WHERE aid = #{aid}; 
   		]]>	  
 	</select>
 	
@@ -42,7 +52,7 @@
 		<![CDATA[
   			UPDATE adoption  
   			SET acondition = #{acondition} 
- 			WHERE aid = #{aid} 
+ 			WHERE aid = #{aid};
  		]]>	 
 	</update>
 	
@@ -50,7 +60,7 @@
 	<delete id="delete" parameterType="hashMap">
 			<![CDATA[
  				DELETE FROM adoption 
- 				WHERE aid = #{aid}
+ 				WHERE aid = #{aid};
 
 			]]>
 	</delete>

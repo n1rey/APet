@@ -19,13 +19,18 @@ public class AdoptionRepositoryImpl implements AdoptionRepository {
 	}
 
 	@Override
-	public List<Adoption> getAllAdoptionList() {
-		return this.sqlSessionTemplate.selectList("adoption.select_list");
+	public List<Adoption> getAllAdoptionList(String oid) {
+		return this.sqlSessionTemplate.selectList("adoption.select_list", oid);
+	}
+	
+	@Override
+	public List<Adoption> getAdminAdoptionList() {
+		return this.sqlSessionTemplate.selectList("adoption.select_admin_list");
 	}
 
 	@Override
-	public List<Adoption> getMyAdoptionList(String aid) {
-		return this.sqlSessionTemplate.selectList("adoption.select_mylist", aid);
+	public List<Adoption> getMyAdoptionList(String nid) {
+		return this.sqlSessionTemplate.selectList("adoption.select_my_list", nid);
 	}
 
 	@Override

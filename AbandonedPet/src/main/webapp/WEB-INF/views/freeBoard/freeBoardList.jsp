@@ -1,19 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
-	<script src="https://code.jquery.com/jquery-3.6.4.slim.js"
-		integrity="sha256-dWvV84T6BhzO4vG6gWhsWVKVoa4lVmLnpBOZh/CAHU4=" crossorigin="anonymous"></script>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous">
-	</script>
 
 	<style>
 		.table th,
@@ -24,18 +18,21 @@
 			text-decoration:none;
 			color:black;
 		}
+		
+		$pagination-active-color {
+			background-color:#fff380;
+		}
 	</style>
 
 </head>
 
 <body>
 	<div class="container col-9">
-		<div>
-			<h4>자유게시판</h4>
-		</div>
-		<div class="d-flex justify-content-end">
-			<a href="/freeBoard/addFreeBoard" class="btn btn-primary btn-sm"">글쓰기</a>
-		</div>
+		<sec:authorize access="isAuthenticated()">
+			<div class="d-flex justify-content-end">
+				<a href="/freeBoard/addFreeBoard" class="btn btn-outline-dark btn-sm"">글쓰기</a>
+			</div>
+		</sec:authorize>
 		<table class="table">
 			<thead>
 				<tr>
@@ -51,7 +48,7 @@
 					<tr>
 						<th scope="row">${freeBoard.bid }</th>
 						<td><a href="/freeBoard/freeBoardDetail?bid=${freeBoard.bid }"><div width='100%'>${freeBoard.btitle }</div></a></td>
-						<td>${freeBoard.bwriter }</td>
+						<td>${freeBoard.bwriterName }</td>
 						<td>${freeBoard.bdate }</td>
 						<td>${freeBoard.bhit }</td>
 					</tr>
@@ -75,6 +72,8 @@
 	if (last > totalPage){last = totalPage};
 	var previous = start > 1;
 	var next = last < totalPage;
+	
+	
 
  	window.onload = function(){
  		pagination();

@@ -7,13 +7,6 @@
 
 <head>
   <meta charset="UTF-8">
-  <script src="https://code.jquery.com/jquery-3.6.4.slim.js"
-    integrity="sha256-dWvV84T6BhzO4vG6gWhsWVKVoa4lVmLnpBOZh/CAHU4=" crossorigin="anonymous"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous">
-  </script>
 
 <style>
 	.error {
@@ -30,9 +23,6 @@
   <div class="row justify-content-md-center">
     <div class="col-lg-9">
       <div class="card">
-        <div class="card-header">
-          <h4>공지사항 수정</h4>
-        </div>
         <div class="card-body">
           <form:form modelAttribute="notice" action="./noticeModify?${_csrf.parameterName}=${_csrf.token}"
             class="form-horizontal" method="post">

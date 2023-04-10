@@ -13,4 +13,5 @@ public class FreeBoard {
 	@NotBlank(message="내용을 입력해주세요.")
 	private String bcontent;
 	private String bwriter, bdate;
+	private String bwriterName;
 }

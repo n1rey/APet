@@ -25,8 +25,9 @@
 	</select>
 	<select id="select_detail" parameterType="Integer" resultType="com.ap.notice.Notice">
 		<![CDATA[
-			SELECT nid, ntitle, ncontent, nwriter, date_format(ndate, '%Y-%m-%d') as ndate
-			FROM notice
+			SELECT nid, ntitle, ncontent, nwriter, date_format(ndate, '%Y-%m-%d') as ndate, m.mname as nwriterName
+			FROM notice n
+			LEFT JOIN member m on (n.nwriter = m.username)
 			WHERE nid=#{nid};
 		]]>
 	</select>
@@ -45,36 +46,4 @@
 			WHERE nid = #{nid};
 		]]>
 	</update>
-<!-- 	<insert id="insert_reply" parameterType="HashMap" useGeneratedKeys="true" keyProperty="bid">
-		<![CDATA[
-			INSERT INTO gloryBoard
-			(bpid, bcontent, bwriter)
-			VALUES
-			(#{bid}, #{bcontent}, #{bwriter});
-		]]>
-	</insert> -->
-<!-- 	<select id="select_reply_list" parameterType="String" resultType="com.aglory.notice.Notice">
-		<![CDATA[
-			SELECT *
-			FROM gloryBoard
-			WHERE bpid=#{bid}
-			ORDER BY bid DESC;
-		]]>
-	</select> -->
-<!-- 	<update id="update_like" parameterType="HashMap">
-		<![CDATA[
-			UPDATE gloryBoard
-			SET
-			blike = blike + 1
-			WHERE bid = #{bid};
-		]]>
-	</update>
-	<update id="update_hate" parameterType="HashMap">
-		<![CDATA[
-			UPDATE gloryBoard
-			SET
-			bhate = bhate + 1
-			WHERE bid = #{bid};
-		]]>
-	</update> -->
 </mapper>
