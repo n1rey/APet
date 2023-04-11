@@ -30,142 +30,148 @@
 
 
 <!-- main -->
-        <section class="py-5">
-            <div class="container px-4 px-lg-5 my-4">
-                <div class="row gx-4 gx-lg-5 align-items-center">
-                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="/resources/images/${protection.pimage}" alt="" /></div>
-                    <div class="col-md-6">
-                    	
-                    	<sec:authentication property="principal" var="user" />
-                    
-                    	<input type="hidden" value="${protection.pid }" id="pid" />
-                    	
-                        <h1 class="display-5 fw-bolder">${protection.pname}</h1>
-                        <p>${protection.page}</p>
-                        <p>${protection.pgender}</p>
-                        <p>${protection.pcondition}</p>
-                        <p class="lead">${protection.petc}</p>
-                        <p>${protection.pdate}</p>
-						<a class="text-dark heart" style="text-decoration-line: none;">
-							<img id="heart" src="/resources/icon/heart.svg">
-							좋아요
-						</a>
-						<br><br>
-                        <div class="d-flex">
-                        
-                        
-                        
-                        <c:choose>
-                        	<c:when test="${user.username eq protection.username}">
-                        		<a href="/protection/list" class="btn btn-outline-dark flex-shrink-0">돌아가기</a>&nbsp&nbsp
-                        		<a href="/adoption/list?oid=${protection.username}" class="btn btn-outline-dark flex-shrink-0">입양 신청서 목록</a>&nbsp&nbsp
-                				<a href="/protection/update?pid=${protection.pid}" class="btn btn-outline-dark flex-shrink-0">수정</a>
-                        	</c:when>
-                        	<c:when test="${user.username eq 'admin@admin'}">
-                        		<a href="/protection/list" class="btn btn-outline-dark flex-shrink-0">돌아가기</a>&nbsp&nbsp
-                        		<a href="/adoption/list?oid=${protection.username}" class="btn btn-outline-dark flex-shrink-0">입양 신청서 목록</a>&nbsp&nbsp
-                        		<a href="/adoption/addAdoption?pid=${protection.pid}&oid=${protection.username}" class="btn btn-outline-dark flex-shrink-0">입양 신청서 작성</a>&nbsp&nbsp
-                				<a href="/protection/update?pid=${protection.pid}" class="btn btn-outline-dark flex-shrink-0">수정</a>
-                        	</c:when>
-                        	<c:otherwise>
-                        		<a href="/protection/list" class="btn btn-outline-dark flex-shrink-0">돌아가기</a>&nbsp&nbsp
-                        		<a href="/adoption/addAdoption?pid=${protection.pid}&oid=${protection.username}" class="btn btn-outline-dark flex-shrink-0">입양 신청서 작성</a>&nbsp&nbsp
-                        	</c:otherwise>
-                        </c:choose>
-                        
-                
-                        </div>
-                    </div>
-                </div>
-                </div>
-                
-                <div class="container">
-                
-<!-- Chat 페이지 -->
-				<div class="col-4" style="margin-left: 655px;">
-					<div class="card direct-chat direct-chat-primary">
-						<div class="card-header">
-							<h3 class="card-title">임시 보호자와 대화해 보세요!</h3>
-								<div style="text-align:right">
-								<button type="button" class="btn btn-tool"
-									data-card-widget="collapse">
-									<img src="/resources/icon/dash-square.svg">
-								</button>
-								<button type="button" class="btn btn-tool"
-									data-card-widget="remove">
-									<img src="/resources/icon/x-square.svg">
-								</button>
-								</div>
-						</div>
+<sec:authentication property="principal" var="user" />
 
-						<div class="card-body">
+<input type="hidden" value="${protection.pid }" id="pid" />
 
-						<div class="direct-chat-messages" id="chatting">
-						
-						<c:forEach items="${chatList}" var="chat">
-						
-						<c:if test="${chat.username != user.username}">
-							<div class="direct-chat-msg">
-								<div class="direct-chat-infos clearfix">
-									<span class="direct-chat-name float-left">${chat.username eq protection.username ? '임시보호자' : chat.username}</span>
-									<span class="direct-chat-timestamp float-right">${chat.date}</span></div>
-									<c:choose>
-										<c:when test="${chat.username eq user.username }">
-											<a href="javascript:deleteChat('${chat.cid }', '${protection.pid }');">
-												<img class="direct-chat-img" src="/resources/icon/x-circle.svg">
-											</a>
-										</c:when>
-										<c:otherwise>
-												<img class="direct-chat-img" src="/resources/icon/person.svg">
-										</c:otherwise>
-									</c:choose>
-									<div class="direct-chat-text">
-										${chat.content}
-									</div>
-							</div>
-						</c:if>
-						
-						<c:if test="${chat.username == user.username}">
-							<div class="direct-chat-msg right">
-								<div class="direct-chat-infos clearfix">
-									<span class="direct-chat-name float-right">${chat.username eq protection.username ? '임시보호자' : chat.username}</span>
-									<span class="direct-chat-timestamp float-left">${chat.date}</span></div>
-									<c:choose>
-										<c:when test="${chat.username eq user.username }">
-											<a href="javascript:deleteChat('${chat.cid }', '${protection.pid }');">
-												<img class="direct-chat-img" src="/resources/icon/x-circle.svg">
-											</a>
-										</c:when>
-										<c:otherwise>
-												<img class="direct-chat-img" src="/resources/icon/person.svg">
-										</c:otherwise>
-									</c:choose>
-									<div class="direct-chat-text">
-										${chat.content}
-									</div>
-							</div>
-						</c:if>
-						</c:forEach>
-						</div>
+<div class="col-6" style="width:100%; margin-left:400px;">
 
-						</div>
+	<div class="card card-widget">
+		<div class="card-header">
+		 <div class="user-block">
+		<img class="img-circle" src="/resources/icon/person.svg" alt="User Image">
+		<span class="username"><a href="#">${protection.username }</a></span>
+		<span class="description">${protection.pdate}</span>
+		</div>
+	
+	
+	</div>
 
-						<div class="card-footer">
-							<div class="input-group">
-								<input type="text" name="content" id="content"
-									placeholder="Type Message ..." class="form-control"> 
-									<span class="input-group-append">
-										<button type="button" class="btn btn-primary" onclick="javascript:addChat();">Send</button>
-									</span>
-							</div>
-						</div>
+	<div class="card-body">
+		<h5>${protection.pname}</h5>
+		<img class="img-fluid pad" src="/resources/images/${protection.pimage}" alt="Photo">
+		<p>${protection.page}</p>
+		<p>${protection.pgender}</p>
+		<p>${protection.pcondition}</p>
+		<p>${protection.petc}</p>
+		<br>
+		<a class="text-dark heart" style="text-decoration-line: none;">
+			<img id="heart" src="/resources/icon/heart.svg">
+			좋아요
+		</a>
+		<c:choose>
+         	<c:when test="${user.username eq protection.username}">
+         		<a href="/protection/list" class="btn btn-sm btn-outline-primary flex-shrink-0 float-right">돌아가기</a> 
+         		<a href="/adoption/list?oid=${protection.username}" class="btn btn-sm btn-outline-primary flex-shrink-0 float-right">입양 신청서 목록</a> 
+ 				<a href="/protection/update?pid=${protection.pid}" class="btn btn-sm btn-outline-primary flex-shrink-0 float-right">수정</a> 
+         	</c:when>
+         	<c:when test="${user.username eq 'admin@admin'}">
+         		<a href="/protection/list" class="btn btn-sm btn-outline-primary flex-shrink-0 float-right">돌아가기</a> 
+         		<a href="/adoption/list?oid=${protection.username}" class="btn btn-sm btn-outline-primary flex-shrink-0 float-right">입양 신청서 목록</a> 
+         		<a href="/adoption/addAdoption?pid=${protection.pid}&oid=${protection.username}" class="btn btn-outline-primary flex-shrink-0 float-right">입양 신청서 작성</a> 
+ 				<a href="/protection/update?pid=${protection.pid}" class="btn btn-sm btn-outline-primary flex-shrink-0 float-right">수정</a> 
+         	</c:when>
+         	<c:otherwise>
+         		<a href="/protection/list" class="btn btn-sm btn-outline-primary flex-shrink-0 float-right">돌아가기</a> 
+         		<a href="/adoption/addAdoption?pid=${protection.pid}&oid=${protection.username}" class="btn btn-sm btn-outline-primary flex-shrink-0 float-right">입양 신청서 작성</a> 
+         	</c:otherwise>
+         </c:choose>
+	</div>
 
+<div class="card-footer card-comments">
+	<div class="card-comment">
+	
+	<div class="card direct-chat direct-chat-primary">
+		<div class="card-header">
+			<h3 class="card-title">임시 보호자와 대화해 보세요!</h3>
+				<div style="text-align:right">
+				<button type="button" class="btn btn-tool"
+					data-card-widget="collapse">
+					<img src="/resources/icon/dash-square.svg">
+				</button>
+				<button type="button" class="btn btn-tool"
+					data-card-widget="remove">
+					<img src="/resources/icon/x-square.svg">
+				</button>
+				</div>
+		</div>
+
+		<div class="card-body">
+
+		<div class="direct-chat-messages" id="chatting">
+		
+		<c:forEach items="${chatList}" var="chat">
+		
+		<c:if test="${chat.username != user.username}">
+			<div class="direct-chat-msg">
+				<div class="direct-chat-infos clearfix">
+					<span class="direct-chat-name float-left">${chat.username eq protection.username ? '임시보호자' : chat.username}</span>
+					<span class="direct-chat-timestamp float-right">${chat.date}</span></div>
+					<c:choose>
+						<c:when test="${chat.username eq user.username }">
+							<a href="javascript:deleteChat('${chat.cid }', '${protection.pid }');">
+								<img class="direct-chat-img" src="/resources/icon/x-circle.svg">
+							</a>
+						</c:when>
+						<c:otherwise>
+								<img class="direct-chat-img" src="/resources/icon/person.svg">
+						</c:otherwise>
+					</c:choose>
+					<div class="direct-chat-text">
+						${chat.content}
 					</div>
-              </div>  
-<!-- END Chat 페이지 -->
+			</div>
+		</c:if>
+		
+		<c:if test="${chat.username == user.username}">
+			<div class="direct-chat-msg right">
+				<div class="direct-chat-infos clearfix">
+					<span class="direct-chat-name float-right">${chat.username eq protection.username ? '임시보호자' : chat.username}</span>
+					<span class="direct-chat-timestamp float-left">${chat.date}</span></div>
+					<c:choose>
+						<c:when test="${chat.username eq user.username }">
+							<a href="javascript:deleteChat('${chat.cid }', '${protection.pid }');">
+								<img class="direct-chat-img" src="/resources/icon/x-circle.svg">
+							</a>
+						</c:when>
+						<c:otherwise>
+								<img class="direct-chat-img" src="/resources/icon/person.svg">
+						</c:otherwise>
+					</c:choose>
+					<div class="direct-chat-text">
+						${chat.content}
+					</div>
+			</div>
+		</c:if>
+		</c:forEach>
+		</div>
 
-            </div>
-        </section>
+		</div>
+
+		<div class="card-footer">
+			<div class="input-group">
+				<input type="text" name="content" id="content"
+					placeholder="Type Message ..." class="form-control"> 
+					<span class="input-group-append">
+						<button type="button" class="btn btn-primary" onclick="javascript:addChat();">Send</button>
+					</span>
+			</div>
+		</div>
+
+	</div>
+	
+		</div>
+	
+	
+	</div>
+	
+	
+	</div>
+
+</div>
+
+
+<!-- END main -->
 
 
 
