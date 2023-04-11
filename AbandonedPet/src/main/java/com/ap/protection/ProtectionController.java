@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
+import com.ap.chat.Chat;
 import com.ap.heart.Heart;
 import com.ap.heart.HeartService;
 
@@ -33,6 +35,9 @@ public class ProtectionController {
 	
 	@Autowired
 	HeartService heartService;
+	
+	@Autowired
+	SqlSessionTemplate sqlSessionTemplate;
 
 	@GetMapping("/addProtection")
 	public String requestAddProtectionForm(@ModelAttribute("NewProtection") Protection protection) {
@@ -138,11 +143,12 @@ public class ProtectionController {
 			pagination.put("pageNum", intPage);
 			pagination.put("username", username);		
 			
-			List<Protection> list = protectionService.getMyProtectionList(pagination);
+		List<Protection> list = protectionService.getMyProtectionList(pagination);
 	    
 	    int cnt = protectionService.countMyList(username);
 	    
 	    model.addAttribute("protectionList", list);
+//	    System.out.println("list[0]: " + list.get(0));
 	    model.addAttribute("cnt", cnt);
 	    model.addAttribute("page", intPage);
 		
@@ -163,6 +169,11 @@ public class ProtectionController {
 		
 		// 찾은 정보를 heart로 담아서 보냄
 		model.addAttribute("heart", heart);
+		
+		// Chat List 불러오기
+		List<Chat> chatList = this.sqlSessionTemplate.selectList("chat.select_chat", pid);
+		
+		model.addAttribute("chatList", chatList);
 
 		
 		return "protection/detail";
@@ -201,6 +212,24 @@ public class ProtectionController {
 		protectionService.deleteProtection(pid);
 		
 		return "redirect:/protection/list";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/addChat", method = RequestMethod.POST)
+	public void addChat(@RequestParam Map<String, Object> map) {
+		System.out.println("username : " + (String)map.get("username"));
+		System.out.println("content : " + (String)map.get("content"));
+		
+		this.sqlSessionTemplate.insert("chat.insert", map);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/deleteChat", method = RequestMethod.POST)
+	public void deleteChat(@RequestParam Map<String, Object> map) {
+		
+		System.out.println("cid : " + (String)map.get("cid"));
+		
+		this.sqlSessionTemplate.delete("chat.delete_chat", map);
 	}
 	
 }

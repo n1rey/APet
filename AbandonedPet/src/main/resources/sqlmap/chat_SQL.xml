@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="chat">
+
+	<insert id="insert" parameterType="hashMap" 
+			useGeneratedKeys="true" keyProperty="cid">
+		<![CDATA[
+			INSERT INTO chat
+			(pid, username, content)
+			VALUES
+			(#{pid}, #{username}, #{content})
+		]]>
+	</insert>
+
+	<select id="select_chat" parameterType="String"
+							 resultType="com.ap.chat.Chat">
+		<![CDATA[
+			SELECT * 
+			FROM chat 
+			WHERE pid = #{pid}
+			ORDER BY cid
+		]]>	
+	</select>
+
+	<update id="update_chat" parameterType="hashMap">
+		<![CDATA[
+			UPDATE chat
+			SET content = #{content} 
+			WHERE cid = #{cid} 
+		]]>	
+	</update>
+
+	<delete id="delete_chat" parameterType="hashMap">
+			<![CDATA[
+				DELETE FROM chat
+				WHERE cid = #{cid}
+
+			]]>
+	</delete>
+
+
+</mapper>
