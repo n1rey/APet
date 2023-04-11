@@ -71,6 +71,26 @@ footer .sub-menu a {
 	marign-top:10px;
 }
 
+.page-link {
+  	color: #333; 
+  	background-color: #fff;
+  	border: 1px solid #ccc; 
+}
+
+	.page-item.active .page-link {
+ 	z-index: 1;
+ 	color: #333;
+ 	background-color: #ffc107;
+ 	border-color: #ccc;
+ 
+}
+
+	.page-link:focus, .page-link:hover {
+	  color: #000;
+	  background-color: #fafafa; 
+	  border-color: #ccc;
+	}
+
 
 </style>
 </head>
@@ -144,7 +164,7 @@ footer .sub-menu a {
       	<sec:authentication property="principal" var="user" />
       	<div class="h6" style="margin-right:20px; margin-top:20px;">${user.username}님</div>
       	<form method="POST" action=<c:out value="/logout/"/>>
-        	<button class="btn btn-sm btn-primary" style="margin-top:15px;" type="submit">Logout</button>
+        	<button class="btn btn-sm btn-warning" style="margin-top:15px;" type="submit">Logout</button>
         	<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
       	</form>
