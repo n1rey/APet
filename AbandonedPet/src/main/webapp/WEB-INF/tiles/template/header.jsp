@@ -118,7 +118,7 @@ footer .sub-menu a {
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">임시보호</a>
+          <a class="nav-link" href="/protection/list">임시보호</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">보호소확인</a>
