@@ -233,7 +233,7 @@ function addChat(){
 }
 
 function deleteChat(cid, pid){
-	 if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+	 if (confirm("정말 삭제하시겠습니까?") == true){    //확인
 			$.ajax({
 		        type:"POST",
 		        url:"/protection/deleteChat",
