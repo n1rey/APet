@@ -11,14 +11,6 @@
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 
-<!-- 카카오 로그인 오류때문에 시도중인데.. 일단 주석처리함 -->	
-<!-- 	<mvc:interceptors>
-	    <mvc:interceptor>
-	        <mvc:mapping path="/**"/>
-	        <beans:bean class="com.ap.member.SecurityInterceptor" />
-	    </mvc:interceptor>
-	</mvc:interceptors> -->
-
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />

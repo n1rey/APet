@@ -163,7 +163,7 @@ footer .sub-menu a {
       <div class="d-flex button_box">
       	<sec:authentication property="principal" var="user" />
       	<div class="h6" style="margin-right:20px; margin-top:20px;">${user.username}님</div>
-      	<form method="POST" action=<c:out value="/logout/"/>>
+      	<form method="POST" action=<c:out value="/logout"/>>
         	<button class="btn btn-sm btn-warning" style="margin-top:15px;" type="submit">Logout</button>
         	<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
