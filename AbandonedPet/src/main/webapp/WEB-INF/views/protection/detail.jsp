@@ -16,7 +16,6 @@
 </head>
 <link rel="stylesheet" href="/resources/admin/dist/css/adminlte.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 
 <body>
@@ -44,10 +43,11 @@
 	<div class="card-body">
 		<h5>${protection.pname}</h5>
 		<img class="img-fluid pad" src="/resources/images/${protection.pimage}" alt="Photo">
-		<p>${protection.page}</p>
-		<p>${protection.pgender}</p>
-		<p>${protection.pcondition}</p>
-		<p>${protection.petc}</p>
+		<p>나이 : ${protection.page}살</p>
+		<p>성별 : ${protection.pgender}</p>
+		<p>상황 : ${protection.pcondition}</p>
+		특이 사항 : 
+		<p> ${protection.petc} </p>
 		<br>
 		<a class="text-dark heart" style="text-decoration-line: none;">
 			<img id="heart" src="/resources/icon/heart.svg">
@@ -62,8 +62,7 @@
          	<c:otherwise>
          		<sec:authorize access="hasRole('ROLE_USER')">
          		<a href="/protection/list" class="btn btn-sm btn-outline-warning flex-shrink-0 float-right">돌아가기</a> 
-         		<a href="/adoption/list?oid=${protection.username}" class="btn btn-sm btn-outline-warning flex-shrink-0 float-right">입양 신청서 목록</a> 
- 				<a href="/protection/update?pid=${protection.pid}" class="btn btn-sm btn-outline-warning flex-shrink-0 float-right">수정</a> 
+				<a href="/adoption/addAdoption?pid=${protection.pid}&oid=${protection.username}" class="btn btn-sm btn-outline-warning flex-shrink-0 float-right">입양 신청서 작성</a>          		
          		</sec:authorize>
          		<sec:authorize access="hasRole('ROLE_ADMIN')">
 	         		<a href="/protection/list" class="btn btn-sm btn-outline-warning flex-shrink-0 float-right">돌아가기</a> 
@@ -166,10 +165,10 @@ $(document).ready(function () {
 	
 	// 좋아요가 있는지 확인한 값을 heartval에 저장
 		let heartval = ${empty heart.heart ? 0 : heart.heart};
+            console.log(heartval);
 	
         // heartval이 1이면 좋아요가 이미 되있는것이므로 heart-fill.svg를 출력하는 코드
         if(heartval > 0) {
-            console.log(heartval);
             $("#heart").prop("src", "/resources/icon/heart-fill.svg");
             $(".heart").prop('name',heartval)
         } else {
@@ -234,7 +233,7 @@ function addChat(){
 }
 
 function deleteChat(cid, pid){
-	 if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+	 if (confirm("정말 삭제하시겠습니까?") == true){    //확인
 			$.ajax({
 		        type:"POST",
 		        url:"/protection/deleteChat",

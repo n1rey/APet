@@ -50,10 +50,10 @@
             </div>
             
             
-            <div class="col-6">
+            <div class="col-3">
               <label class="form-label">보호 동물 추정 나이</label>
               <div class="input-group has-validation">
-                <form:input path="page" id="age" class="form-control"/>
+                <form:input type="number" path="page" id="age" class="form-control" min="0" max="100"/>&nbsp살
                  <form:errors path="page" cssClass="error" style="color: red;" />
               </div>
             </div>

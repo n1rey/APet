@@ -50,10 +50,10 @@
               </div>
             </div>
             
-            <div class="col-6">
+            <div class="col-3">
               <label class="form-label">입양 희망자 나이</label>
               <div class="input-group has-validation">
-                <form:input path="aage" id="age" class="form-control" required="required"/>
+                <form:input type="number" path="aage" id="age" class="form-control" min="0" max="100" required="required"/>&nbsp살
               </div>
             </div>
             

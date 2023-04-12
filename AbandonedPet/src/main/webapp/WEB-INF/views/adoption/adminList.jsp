@@ -33,7 +33,7 @@
                  <th>직업</th>
                  <th>지역</th>
                  <th>입양 결과</th>
-                 <th></th>
+                 <th>테스트</th>
                  </tr>
 				</thead>
 				<tbody>
@@ -50,7 +50,8 @@
 		   				<td>${list.ajob}</td>
 		   				<td>${list.adistrict}</td>
 		   				<td>${list.acondition }</td>
-		   				<td><a href="/adoption/delete?aid=${list.aid }&nid=${list.nid}" class="btn btn-outline-warning flex-shrink-0">삭제</a></td>
+		   				
+		   				<td><button onclick="javascript:delFunction('${list.aid }','${user.username}')" class="btn btn-outline-warning flex-shrink-0">삭제</button></td>
 		   			</tr>
 		   			</c:forEach>
 				</tbody>	
@@ -60,24 +61,15 @@
 
 
 
-<script
-		src="/resources/admin/plugins/datatables/jquery.dataTables.min.js"></script>
-	<script
-		src="/resources/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-	<script
-		src="/resources/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-	<script
-		src="/resources/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-	<script
-		src="/resources/admin/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-	<script
-		src="/resources/admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-	<script
-		src="/resources/admin/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-	<script
-		src="/resources/admin/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-	<script
-		src="/resources/admin/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<script src="/resources/admin/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/resources/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="/resources/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/resources/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="/resources/admin/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="/resources/admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="/resources/admin/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="/resources/admin/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="/resources/admin/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
 <script>
     $(function () {
@@ -91,6 +83,16 @@
             "responsive": true,
         });
     });
+    
+//     <td><a href="/adoption/delete?aid=${list.aid }&nid=${list.nid}" class="btn btn-outline-warning flex-shrink-0">삭제</a></td>
+    
+    function delFunction(aid, username){
+    	if(confirm("정말 삭제하시겠습니까??")){
+    		location.href="/adoption/delete?aid="+ aid + "&username=" + username;
+    	} else {
+    		return false;
+    	}
+    }
 
 </script>
 </body>

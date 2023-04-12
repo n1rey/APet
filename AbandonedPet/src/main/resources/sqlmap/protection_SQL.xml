@@ -34,6 +34,14 @@
 		]]>
 	</select>
 	
+	<select id="count_done" resultType="Integer">
+		<![CDATA[
+			SELECT count(pid) as cnt 
+			FROM protection
+			WHERE pcondition LIKE '%입양 완료%';
+		]]>
+	</select>
+	
 	<select id="count_admin_list" resultType="Integer">
 		<![CDATA[
 			SELECT count(pid) as cnt 

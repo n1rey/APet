@@ -100,14 +100,14 @@ public class AdoptionController {
 	}
 	
 	@RequestMapping("/delete")
-	public String delete(@RequestParam("aid") String aid, @RequestParam("nid") String nid) {
+	public String delete(@RequestParam("aid") String aid, @RequestParam("username") String username) {
 		//주 게시물
 		adoptionService.deleteAdoption(aid);
 		
-		if(nid.equals("admin")) {
+		if(username.equals("admin")) {
 			return "redirect:/adoption/adminList";
 		} else {
-			return "redirect:/adoption/myList?nid=" + nid;
+			return "redirect:/adoption/myList?nid=" + username;
 			
 		}
 		

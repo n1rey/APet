@@ -47,6 +47,30 @@
   			WHERE aid = #{aid}; 
   		]]>	  
 	</select>
+		
+	<select id="count_wait" resultType="Integer">
+		<![CDATA[
+			SELECT count(aid) as cnt 
+			FROM adoption
+			WHERE acondition LIKE '%대기 중%';
+		]]>
+	</select>
+		
+	<select id="count_refuse" resultType="Integer">
+		<![CDATA[
+			SELECT count(aid) as cnt 
+			FROM adoption
+			WHERE acondition LIKE '%입양 거절%';
+		]]>
+	</select>
+		
+	<select id="count_permit" resultType="Integer">
+		<![CDATA[
+			SELECT count(aid) as cnt 
+			FROM adoption
+			WHERE acondition LIKE '%입양 승낙%';
+		]]>
+	</select>
 	
 	<update id="update_condition" parameterType="com.ap.adoption.Adoption">
 		<![CDATA[
@@ -56,7 +80,6 @@
  		]]>	 
 	</update>
 	
-<!-- 	신청서 작성 후에 수정은 못 하고 삭제만 하게끔 일단.... -->
 	<delete id="delete" parameterType="hashMap">
 			<![CDATA[
  				DELETE FROM adoption 
