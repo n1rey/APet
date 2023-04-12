@@ -1,3 +1,5 @@
+<!-- 작성자 : 변예린 -->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -9,14 +11,6 @@
 <meta charset="UTF-8">
 <title>Car List</title>
 </head>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-	<script src="https://code.jquery.com/jquery-3.6.4.slim.js"
-		integrity="sha256-dWvV84T6BhzO4vG6gWhsWVKVoa4lVmLnpBOZh/CAHU4=" crossorigin="anonymous"></script>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous">
-	</script>
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -76,16 +70,7 @@
 
 <!-- Main -->	
 
-  <section class="py-5 text-center container">
-    <div class="row py-lg-5">
-      <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">임시 보호 목록</h1>
-        <p class="lead text-muted">사지 말고 입양하세요!</p>
-      </div>
-    </div>
-  </section>
-
-  <div class="album py-5 bg-light">
+  <div class="album py-5">
     <div class="container">
 
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -101,7 +86,7 @@
               <p class="card-text">${list.pname}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <a href="/protection/detail?pid=${list.pid}&username=${user.username}" class="btn btn-sm btn-outline-secondary">보러 가기</a>
+                  <a href="/protection/detail?pid=${list.pid}&username=${user.username}" class="btn btn-sm btn-outline-warning">보러 가기</a>
                 </div>
                 <small class="text-muted">좋아요 수 : ${list.hcnt}</small>
               </div>

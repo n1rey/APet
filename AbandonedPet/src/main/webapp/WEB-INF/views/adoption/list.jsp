@@ -1,3 +1,5 @@
+<!-- 작성자 : 변예린 -->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -8,9 +10,6 @@
 <meta charset="UTF-8">
 <title>Car List</title>
 </head>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 
 
 <script>
@@ -29,6 +28,7 @@ function updateAccept(aid) {
         },
         success: function (result) {
             alert('변경 완료');
+            window.location.reload(); 
         },
         error: function (request, status, error) {
             alert(request.status + " " + request.responseText);
@@ -53,6 +53,7 @@ function updateDecline(aid) {
         },
         success: function (result) {
             alert('변경 완료');
+            window.location.reload(); 
         },
         error: function (request, status, error) {
             alert(request.status + " " + request.responseText);
@@ -105,8 +106,8 @@ function updateDecline(aid) {
 			   					${list.acondition}
 		   					</c:when>
 		   					<c:otherwise>
-			   					<a href="javascript:updateAccept('${list.aid }')" class = "btn btn-outline-dark flex-shrink-0">입양 승낙</a>
-			   					<a href="javascript:updateDecline('${list.aid }')" class = "btn btn-outline-dark flex-shrink-0">입양 거절</a>
+			   					<a href="javascript:updateAccept('${list.aid }')" class = "btn btn-outline-warning flex-shrink-0">입양 승낙</a>
+			   					<a href="javascript:updateDecline('${list.aid }')" class = "btn btn-outline-warning flex-shrink-0">입양 거절</a>
 		   					</c:otherwise>
 		   				</c:choose>
 		   				</td>
@@ -136,7 +137,6 @@ function updateDecline(aid) {
 		src="/resources/admin/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 	<script
 		src="/resources/admin/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 
 <script>
     $(function () {

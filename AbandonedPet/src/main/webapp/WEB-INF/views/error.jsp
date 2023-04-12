@@ -1,10 +1,16 @@
+<!-- 작성자 : 변예린 -->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
-	
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%> 
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<!DOCTYPE html>
+<html>
 <head>
+<meta charset="UTF-8">
+<title>error</title>
+
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" href="/resources/images/favicon.png" />
@@ -17,94 +23,19 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js" integrity="sha512-cOH8ndwGgPo+K7pTvMrqYbmI8u8k6Sho3js0gOqVWTmQMlLIi6TbqGWRTpf1ga8ci9H3iPsvDLr4X7xwhC/+DQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 	<link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
-<style>
-header nav {
-  font-family: Arial, sans-serif;
-  background-color:white;
-  border-bottom:1px solid #c8c8c8;
-}
-
-.navbar-brand {
-	font-family: 'Righteous', cursive, sans-serif;
-}
-
-.button_box > button {
-  margin-left: 10px;
-  margin-top: 10px;
-}
-
-html {
-  color: #333;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.4;
-  font-family: 'Nanum Gothic', sans-serif;
-}
-
-footer {
-	margin-top:100px;
-	border-top:1px solid #c8c8c8;
-	background-color : #fafafa;
-}
-
-footer p {
-  font-size:14px;
-  margin-left: 10px;
-}
-
-footer .navbar-brand {
-  font-size: 18px;
-  margin-left: 10px;
-}
-
-footer .sub-menu {
-	font-size:14px;
-  margin : 10px 0;
-}
-
-footer .sub-menu a {
-  margin: 10px;
-	color:#363636;
-	text-decoration: none;
-}
-
-.subheader {
-	marign-top:10px;
-}
-
-.page-link {
-  	color: #333; 
-  	background-color: #fff;
-  	border: 1px solid #ccc; 
-}
-
-	.page-item.active .page-link {
- 	z-index: 1;
- 	color: #333;
- 	background-color: #ffc107;
- 	border-color: #ccc;
- 
-}
-
-	.page-link:focus, .page-link:hover {
-	  color: #000;
-	  background-color: #fafafa; 
-	  border-color: #ccc;
-	}
+	<script defer src="/resources/js/main.js"></script>
+	<link rel="stylesheet" href="/resources/css/main.css" />
 
 
-</style>
 </head>
 
-	
-
+<body>
 <header>
 <sec:authentication property="principal" var="user" />
 <div class="container">
-<nav class="navbar navbar-expand-lg d-flex justify-content-md-between">
+<nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-md-between">
   <div class="container-fluid">
   	<a class="navbar-brand" href="/">A Pet</a>
-    <!-- <a class="navbar-brand" href="#"><img src="/resources/images/logo.png" alt="logo" width="50px"></a> -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -131,7 +62,7 @@ footer .sub-menu a {
            	마이페이지
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-          	<li><a class="nav-link" href="#">내 정보</a></li>
+            <li><a class="nav-link" href="#">내 정보</a></li>
             <li><a class="nav-link" href="<c:out value="/protection/myList?username=${user.username}" />">내 임시보호 목록</a></li>
             <li><a class="nav-link" href="<c:out value="/adoption/myList?nid=${user.username}" />">내 입양신청서</a></li>
           </ul>
@@ -143,8 +74,8 @@ footer .sub-menu a {
            	관리자
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="nav-link" href="#">공지사항</a></li>
-            <li><a class="nav-link" href="#">자유게시판</a></li>
+            <li><a class="nav-link" href="/notice/noticeList">공지사항</a></li>
+            <li><a class="nav-link" href="/freeBoard/freeBoardList">자유게시판</a></li>
           </ul>
         </li>
         </sec:authorize>
@@ -152,7 +83,7 @@ footer .sub-menu a {
       </div>
       <div>
       <sec:authorize access="isAnonymous()">
-      <div class="d-flex button_box">
+      <div class="d-flex">
       <form method="get" action="/login">
         <button class="btn btn-sm btn-outline-dark" style="margin-top:15px; margin-right:10px" type="submit">login</button>
       </form>
@@ -162,8 +93,7 @@ footer .sub-menu a {
       </div>
       </sec:authorize>
       <sec:authorize access="isAuthenticated()">
-      <div class="d-flex button_box">
-      	<sec:authentication property="principal" var="user" />
+      <div class="d-flex">	
       	<div class="h6" style="margin-right:20px; margin-top:20px;">${user.username}님</div>
       	<form method="POST" action=<c:out value="/logout"/>>
         	<button class="btn btn-sm btn-warning" style="margin-top:15px;" type="submit">Logout</button>
@@ -177,3 +107,37 @@ footer .sub-menu a {
 </nav>
 </div>
 </header>
+
+<br>
+
+<div class="container" style="text-align:center;">
+		<h1 style="font-family: 'Righteous', cursive, sans-serif;">A Pet</h1><br>
+		
+		<img src="/resources/icon/search.png" style="width:80px; height:80px;"><br><br>
+		
+		<h4 style="font-family: 'Righteous', sans-serif;">요청하신 페이지를 찾을 수 없습니다.</h4><br><br>
+		
+		<p>입력하신 주소가 정확한지 다시 확인해 주세요.</p>
+		
+		<a href="/" class="btn btn-outline-warning">홈으로 이동하기</a>
+</div>
+
+<footer>
+<div class="container">
+	<a class="navbar-brand" href="#">Abandoned Pet</a>
+	<div class="sub-menu">
+		<a href="/">홈</a>
+		<a href="/notice/noticeList">공지사항</a>
+		<a href="/freeBoard/freeBoardList">자유게시판</a>
+		<a href="/protection/list">임시보호</a>
+		<a href="#">보호소</a>
+	</div>
+	<p>유기동물 커뮤니티<br>
+	Copyright ⓒ 2023 A pet - 유기동물 커뮤니티 All rights reserved.<br>
+	문의사항 admin@admin.com</p>
+</div>
+</footer>
+
+</body>
+</html>
+

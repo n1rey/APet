@@ -1,3 +1,5 @@
+<!-- 작성자 : 변예린 -->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -9,17 +11,15 @@
 <meta charset="UTF-8">
 <title>임시 보호 등록</title>
 </head>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 <body>
 
 	
 
 <!-- main -->
-  <section class="py-5 text-center container">
-    <div class="row py-lg-5">
+  <section class="py-1 text-center container">
+    <div class="row py-lg-3">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">임시 보호 등록</h1>
-        <p class="lead text-muted">사지 말고 입양하세요!</p>
+        <h4 class="fw-light">입양 신청서 작성</h4>
       </div>
     </div>
   </section>
@@ -37,7 +37,7 @@
 	           <form:input type="hidden" path="pid" value="${pid}" class="form-control"/>
 	           <form:input type="hidden" path="nid" value="${user.username }" class="form-control"/>
 	           
-<div class="album py-5 bg-light">	                 
+<div class="album py-5">	                 
 <div class="container"> 
   <main>        
       <div class="row g-5 justify-content-center">
@@ -97,7 +97,7 @@
  
 		  </div>
           <hr class="my-4"> 
-          <button class="w-100 btn btn-outline-dark flex-shrink-0" type="button" 
+          <button class="w-100 btn btn-outline-warning flex-shrink-0" type="button" 
           		  onclick="javascript:checkFunction();">등록</button>
       </div>
     </div>
@@ -108,8 +108,6 @@
 
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 <script>
 function checkFunction(){
 	var txtPtn = /[a-z|A-Z|가-힣]/; //문자만 가능
