@@ -25,6 +25,9 @@ public class Protection {
 	
 	private String hcnt;
 	
+	@NotNull(message="사진을 첨부해 주세요")
+	private MultipartFile image;
+	
 	public String getHcnt() {
 		return hcnt;
 	}
@@ -32,9 +35,6 @@ public class Protection {
 	public void setHcnt(String hcnt) {
 		this.hcnt = hcnt;
 	}
-
-	@NotNull(message="사진을 첨부해 주세요")
-	private MultipartFile image;
 
 	public int getPid() {
 		return pid;

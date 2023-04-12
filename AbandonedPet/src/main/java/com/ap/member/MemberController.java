@@ -20,6 +20,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -133,6 +134,7 @@ public class MemberController {
 		String username = auth.getName();
 
 		model.addAttribute("member", memberService.getMember(username));
+
 		return "member/myPage";
 	}
 
@@ -242,21 +244,30 @@ public class MemberController {
 	@ResponseBody
 	public String loginCheckKakao(HttpServletRequest request, HttpServletResponse response, @RequestParam String username) {
 		Member member = memberService.getMember(username);
-		
+
 		if (member != null) {
 			System.out.println("디비에 회원정보 있음");
 			//디비에 있는 사용자이므로 로그인 세션처리
 			//독자적인 처리가 아니라 스프링 시큐리티 규격에 맞게 세션처리
 			List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
 			list.add(new SimpleGrantedAuthority(member.getAuthority()));
-			
+
+//			UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, member.getPassword(), list);
+//
+//			// Authenticate the user
+//			AuthenticationManager authenticationManager = new ProviderManager();
+//			Authentication authentication = authenticationManager.authenticate(authRequest);
+//			SecurityContext sc = SecurityContextHolder.getContext();
+//			sc.setAuthentication(authentication);
+
+			System.out.println("member = " + member);
+			System.out.println(member instanceof Member);
 			SecurityContext sc = SecurityContextHolder.getContext();
-			
-			sc.setAuthentication(new UsernamePasswordAuthenticationToken(username, null, list));
-			// user이름으로 해야됨!!!!, null 패스워드 , list 권한 설정
-			
+			sc.setAuthentication(new UsernamePasswordAuthenticationToken(member, null, list));
+//			// user이름으로 해야됨!!!!, null 패스워드 , list 권한 설정
+
 			HttpSession session = request.getSession(true);
-			
+
 			session.setAttribute(
 					HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, sc);
 			

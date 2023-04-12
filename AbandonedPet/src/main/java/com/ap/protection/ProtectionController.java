@@ -42,7 +42,7 @@ public class ProtectionController {
 	@GetMapping("/addProtection")
 	public String requestAddProtectionForm(@ModelAttribute("NewProtection") Protection protection) {
 		
-		return "protection/addProtection";
+		return "/protection/addProtection";
 	}
 	
 	@Resource(name="uploadPath")
@@ -53,7 +53,7 @@ public class ProtectionController {
 										  Errors errors) {
 		if(errors.hasErrors()) {
 
-	        return "protection/addProtection";
+	        return "/protection/addProtection";
 
 	    }
 
@@ -126,7 +126,7 @@ public class ProtectionController {
 	    model.addAttribute("page", intPage);
 		
 		
-		return "protection/adminList";
+		return "/protection/adminList";
 	}
 	
 	@GetMapping("/myList")
@@ -152,7 +152,7 @@ public class ProtectionController {
 	    model.addAttribute("cnt", cnt);
 	    model.addAttribute("page", intPage);
 		
-		return "protection/myList";
+		return "/protection/myList";
 	}
 	
 	@GetMapping("/detail")
@@ -176,7 +176,7 @@ public class ProtectionController {
 		model.addAttribute("chatList", chatList);
 
 		
-		return "protection/detail";
+		return "/protection/detail";
 	}
 	
 	@GetMapping("/update")
@@ -185,7 +185,7 @@ public class ProtectionController {
 		Protection pro = protectionService.getProtectionById(pid);
 		model.addAttribute("protection", pro);
 		
-		return "protection/update";
+		return "/protection/update";
 	}
 	
 	@PostMapping("/update")

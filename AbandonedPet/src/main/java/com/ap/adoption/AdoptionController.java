@@ -31,7 +31,7 @@ public class AdoptionController {
 	@GetMapping("/addAdoption")
 	public String requestAddAdoptionForm(@ModelAttribute("NewAdoption") Adoption adoption) {
 		
-		return "adoption/addAdoption";
+		return "/adoption/addAdoption";
 	}
 	
 	@PostMapping("/addAdoption")
@@ -54,7 +54,7 @@ public class AdoptionController {
 	    List<Adoption> alist = adoptionService.getAllAdoptionList(oid);
 	    model.addAttribute("adoptionList", alist);
 	    
-	    return "adoption/list";
+	    return "/adoption/list";
 	}
 	
 	@GetMapping("/adminList")
@@ -62,7 +62,7 @@ public class AdoptionController {
 		List<Adoption> alist = adoptionService.getAdminAdoptionList();
 		model.addAttribute("adoptionList", alist);
 		
-		return "adoption/adminList";
+		return "/adoption/adminList";
 	}
 	
 	@GetMapping("/myList")
@@ -70,7 +70,7 @@ public class AdoptionController {
 		List<Adoption> list = adoptionService.getMyAdoptionList(nid);
 		model.addAttribute("adoptionList", list);
 		
-		return "adoption/myList";
+		return "/adoption/myList";
 	}
 	
 	@GetMapping("/detail")
@@ -79,7 +79,7 @@ public class AdoptionController {
 		Adoption adoptionById = adoptionService.getAdoptionById(aid);
 		model.addAttribute("adoption", adoptionById);
 		
-		return "adoption/detail";
+		return "/adoption/detail";
 	}
 	
 	@GetMapping("/update")
@@ -88,7 +88,7 @@ public class AdoptionController {
 		Adoption adopt = adoptionService.getAdoptionById(aid);
 		model.addAttribute("adoption", adopt);
 		
-		return "adoption/update";
+		return "/adoption/update";
 	}
 	
 	@PostMapping("/update")
