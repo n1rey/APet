@@ -179,30 +179,6 @@ public class ProtectionController {
 		return "/protection/detail";
 	}
 	
-	@GetMapping("/detail22")
-	public String requestProtectionById22(@RequestParam("pid") String pid, @RequestParam("username") String username, Model model) {
-		//주 게시물
-		Protection protectionById = protectionService.getProtectionById(pid);
-		model.addAttribute("protection", protectionById);
-		
-		//좋아요 기능
-		Heart heart = new Heart();
-		
-		// 좋아요가 돼있는지 찾기위해 정보를 보냄
-		heart = heartService.getHeartById(pid, username);
-		
-		// 찾은 정보를 heart로 담아서 보냄
-		model.addAttribute("heart", heart);
-		
-		// Chat List 불러오기
-		List<Chat> chatList = this.sqlSessionTemplate.selectList("chat.select_chat", pid);
-		
-		model.addAttribute("chatList", chatList);
-		
-		
-		return "/protection/detail22";
-	}
-	
 	@GetMapping("/update")
 	public String submitUpdateProtection(@ModelAttribute("updateProtection") Protection protection, 
 									   @RequestParam("pid") String pid, Model model) {
