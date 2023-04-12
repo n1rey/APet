@@ -16,7 +16,6 @@ public class MainController {
 		return "main";
 	}
 	
-	
 	@GetMapping("/map")
 	public String goMap() {
 		return "map";
@@ -25,7 +24,7 @@ public class MainController {
 	@GetMapping("/admin")
 	public String goAdmin(Model model) {
 		// 회원 수
-		int memberCnt = this.sqlSessionTemplate.selectOne("member.selectAllCount");
+		int memberCnt = this.sqlSessionTemplate.selectOne("AdminMapper.selectAllCount");
 			model.addAttribute("memberCnt", memberCnt);
 		
 		
