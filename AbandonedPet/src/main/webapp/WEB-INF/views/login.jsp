@@ -151,6 +151,8 @@ if (searchParams.has("error")) {
 	alert("회원 탈퇴가 완료되었습니다.")
 } else if (searchParams.has("modPw")) {
 	alert("비밀번호가 변경되었습니다. 다시 로그인해주세요.")
+} else if (searchParams.has("join")) {
+	alert("회원가입이 완료되었습니다. 다시 로그인해주세요.")
 }
 
 </script>
@@ -184,7 +186,7 @@ if (searchParams.has("error")) {
 								console.log(data);
 								data = data.trim()
 								if (data == 'success') {
-									location.href = '/main.jsp';
+									location.href = '/';
 								} else if (data == 'fail') {
 									if (confirm('존재하지 않는 회원입니다 회원가입을 하시겠습니까?')) {
 										document.getElementById("kakaoEmail").value = kakaoAccount.email;

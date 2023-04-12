@@ -151,7 +151,7 @@
 				보호소를 확인해보세요!<span class="material-symbols-outlined">search</span>
 			</div>
 			<div class="find_shelter_text">
-				<a class="btn btn-outline-dark">바로가기</a>
+				<a href="/map" class="btn btn-outline-dark">바로가기</a>
 			</div>
 		</div>
 	</div>

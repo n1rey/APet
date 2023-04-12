@@ -26,7 +26,7 @@
 		<security:form-login login-page="/login" />
 
 		<!-- 로그인은 했지만 권한이 없는 사용자의 경우 보낼 페이지 -->
-		<security:access-denied-handler error-page="/main" />
+		<security:access-denied-handler error-page="/" />
 
 		<!-- 로그아웃 처리 지정 -->
 		<security:logout logout-url="/logout"

@@ -47,7 +47,7 @@
 							<li><a class="dropdown-item" href="/users/join">회원가입</a></li>
 						</sec:authorize>
 						<sec:authorize access="isAuthenticated()">
-							<li><a class="dropdown-item" href="/logout">로그아웃</a></li>
+							<li><a class="dropdown-item" href="/member/myPage">내 정보 보기</a></li>
 							<li><a class="dropdown-item" href="#">회원탈퇴</a></li>
 
 						</sec:authorize>
@@ -65,7 +65,7 @@
 							<ul class="dropdown-menu">
 
 
-								<li><a class="dropdown-item" href="#">회원관리</a></li>
+								<li><a class="dropdown-item" href="/admin/member">회원관리</a></li>
 								<li><a class="dropdown-item" href="#">커뮤니티관리</a></li>
 
 								<li><a class="dropdown-item" href="#">임시보호관리</a></li>
@@ -80,7 +80,7 @@
 
 			<sec:authentication property="principal" var="user" />
 			<sec:authorize access="isAuthenticated()">
-				<div class="h6" style="margin-right:20px">${user.username}님</div>
+				<div class="h6" style="margin-right:20px">${username}님</div>
 				<div style="text-align:center; padding-top:10px;">
 				<form method="post" action="/logout">
 					<input type="submit" class="btn btn-warning btn-sm" value="Logout" />

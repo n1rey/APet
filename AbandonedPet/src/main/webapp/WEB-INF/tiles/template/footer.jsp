@@ -15,7 +15,7 @@
 					aria-current="page" href="#">공지사항</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">자유게시판</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">임시보호</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">보호소목록</a></li>
+				<li class="nav-item"><a class="nav-link" href="/map">보호소목록</a></li>
 			
 			</ul>
 		</div>

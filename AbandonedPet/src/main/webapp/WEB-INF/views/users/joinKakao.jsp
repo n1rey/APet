@@ -20,18 +20,65 @@ color: red;
 	           class="form-horizontal"
 	           method = "post">
 	<fieldset>
-	아이디 : <form:input path="username" class="form-control" value="${member.username }" readonly="true"/>
-	 		<form:errors path="username" cssClass="error" element="div" />
-	비밀번호 : <form:input path="password" type="password" class="form-control"/>
+	<div class="mb-3 row">
+		<label class="col-sm-2 col-form-label">아이디 : </label>
+		<div class="col-sm-10">
+			<form:input path="username" class="form-control"/>
+		</div>
+		<div class="text-end">
+			<form:errors path="username" cssClass="error" element="div" />
+		</div>
+	</div>
+	
+	<div class="mb-3 row">
+		<label class="col-sm-2 col-form-label">비밀번호 : </label>
+		<div class="col-sm-10">
+			<form:input path="password" type="password" class="form-control"/>
+		</div>
+		<div class="text-end">
 			<form:errors path="password" cssClass="error" element="div" />
-	비밀번호 확인: <form:input path="passwordConfirm" type="password" class="form-control"/>
+		</div>
+	</div>
+	
+	<div class="mb-3 row">
+		<label class="col-sm-2 col-form-label">비밀번호확인 :</label>
+		<div class="col-sm-10">
+			<form:input path="passwordConfirm" type="password" class="form-control"/>
+		</div>
+		<div class="text-end">
 			<form:errors cssClass="error" element="div" />
-	이름 : <form:input path="mname" class="form-control"/>
-		<form:errors path="mname" cssClass="error" element="div" />
-	닉네임 : <form:input path="mnickname" class="form-control" value="${member.mnickname }"/>
+		</div>
+	</div>
+	
+	<div class="mb-3 row">
+		<label class="col-sm-2 col-form-label">이름 : </label>
+		<div class="col-sm-10">
+			<form:input path="mname" class="form-control"/>
+		</div>
+		<div class="text-end">
+			<form:errors path="mname" cssClass="error" element="div" />
+		</div>
+	</div>
+	
+	<div class="mb-3 row">
+		<label class="col-sm-2 col-form-label">닉네임 : </label>
+		<div class="col-sm-10">
+			<form:input path="mnickname" class="form-control"/>
+		</div>
+		<div class="text-end">
 			<form:errors path="mnickname" cssClass="error" element="div" />
-	휴대폰 : <form:input path="mphone" class="form-control"/>
+		</div>
+	</div>
+	
+	<div class="mb-3 row">
+		<label class="col-sm-2 col-form-label">휴대폰 : </label>
+		<div class="col-sm-10">
+			<form:input path="mphone" class="form-control"/>
+		</div>
+		<div class="text-end">
 			<form:errors path="mphone" cssClass="error" element="div" />
+		</div>
+	</div>
 			
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	<input type="submit" class="btn btn-primary" value="등록"/>
