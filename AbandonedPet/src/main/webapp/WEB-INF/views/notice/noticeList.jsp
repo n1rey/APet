@@ -63,6 +63,7 @@
 	var previous = start > 1;
 	var next = last < totalPage;
 	
+
 	
  	window.onload = function(){
  		pagination();

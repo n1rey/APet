@@ -133,7 +133,6 @@ function delFunction(){
 	if(confirm('정말로 삭제하시겠습니까?')){
 		location.href='/protection/delete?pid=${protection.pid}';
 	} else {
-		alert('취소됐습니다');
 		return false;
 	}
 }

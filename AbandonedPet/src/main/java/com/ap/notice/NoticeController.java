@@ -95,7 +95,7 @@ public class NoticeController {
 			return "/notice/noticeModify";
 		}
 		noticeService.updateNotice(notice);
-		return "redirect:/notice/noticeList";
+		return "redirect:/notice/noticeDetail?nid="+notice.getNid();
 	}
 	
 	

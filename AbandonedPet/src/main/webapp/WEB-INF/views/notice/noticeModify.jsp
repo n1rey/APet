@@ -41,8 +41,8 @@
 
               <div class="row">
                 <div class="col d-flex justify-content-end">
-                  <a href="/notice/noticeDetail?nid=${notice.nid }" class="btn btn-secondary m-1">취소</a>
-                  <input type="submit" value="등록" class="btn btn-success m-1">
+                  <a href="<c:out value="/notice/noticeDetail?nid=${notice.nid }"/>" class="btn btn-secondary m-1">취소</a>
+                  <input type="submit" value="등록" class="btn btn-warning m-1">
                 </div>
               </div>
             </fieldset>
