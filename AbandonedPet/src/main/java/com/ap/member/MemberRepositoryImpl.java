@@ -47,6 +47,12 @@ public class MemberRepositoryImpl implements MemberRepository {
 	}
 
 	@Override
+	public int getAllCount() {
+		return this.sqlSessionTemplate.selectOne("AdminMapper.selectAllCount");
+	}
+
+
+	@Override
 	public int updatePassword(Member member) {
 		return this.sqlSessionTemplate.update("members.updatepw", member);
 	}
@@ -60,6 +66,7 @@ public class MemberRepositoryImpl implements MemberRepository {
 	public int updateAuth(Member member) {
 		return this.sqlSessionTemplate.update("members.updateAuth", member);
 	}
-	
-	
+
+
+
 }

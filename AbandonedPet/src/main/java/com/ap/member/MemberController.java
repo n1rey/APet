@@ -1,25 +1,14 @@
 package com.ap.member;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.security.Principal;
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,30 +16,20 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
-import org.springframework.security.web.csrf.CsrfToken;
-import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.client.RestTemplate;
-
-import com.ap.mail.MailService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
@@ -130,9 +109,17 @@ public class MemberController {
 	public String myPage(Model model) {
 		SecurityContext securityContext = SecurityContextHolder.getContext();
 		Authentication auth = securityContext.getAuthentication();
-		String username = auth.getName();
-
+		
+		String username = null;
+		
+		if(auth.getPrincipal() instanceof Member) {
+			Member principal = (Member) auth.getPrincipal();
+			username = principal.getUsername();
+		} else {
+			username = auth.getName();
+		}
 		model.addAttribute("member", memberService.getMember(username));
+
 		return "member/myPage";
 	}
 
@@ -140,7 +127,16 @@ public class MemberController {
 	public String modForm(Model model) {
 		SecurityContext securityContext = SecurityContextHolder.getContext();
 		Authentication auth = securityContext.getAuthentication();
-		String username = auth.getName();
+		String username = null;
+		
+
+		if(auth.getPrincipal() instanceof Member) {
+			Member principal = (Member) auth.getPrincipal();
+			username = principal.getUsername();
+		} else {
+			username = auth.getName();
+		}
+		
 		Member member = memberService.getMember(username);
 		
 		ModMember modMember = new ModMember();
@@ -202,7 +198,14 @@ public class MemberController {
 	public String modMyPwForm(Model model) {
 		SecurityContext securityContext = SecurityContextHolder.getContext();
 		Authentication auth = securityContext.getAuthentication();
-		String username = auth.getName();
+		String username = null;
+		
+		if(auth.getPrincipal() instanceof Member) {
+			Member principal = (Member) auth.getPrincipal();
+			username = principal.getUsername();
+		} else {
+			username = auth.getName();
+		}
 		
 		ModPwMember modPwMember = new ModPwMember();
 		modPwMember.setUsername(username);
@@ -242,21 +245,23 @@ public class MemberController {
 	@ResponseBody
 	public String loginCheckKakao(HttpServletRequest request, HttpServletResponse response, @RequestParam String username) {
 		Member member = memberService.getMember(username);
-		
+
 		if (member != null) {
 			System.out.println("디비에 회원정보 있음");
 			//디비에 있는 사용자이므로 로그인 세션처리
 			//독자적인 처리가 아니라 스프링 시큐리티 규격에 맞게 세션처리
 			List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
 			list.add(new SimpleGrantedAuthority(member.getAuthority()));
-			
+
+
+			System.out.println("member = " + member);
+			System.out.println(member instanceof Member);
 			SecurityContext sc = SecurityContextHolder.getContext();
-			
-			sc.setAuthentication(new UsernamePasswordAuthenticationToken(username, null, list));
-			// user이름으로 해야됨!!!!, null 패스워드 , list 권한 설정
-			
+			sc.setAuthentication(new UsernamePasswordAuthenticationToken(member, null, list));
+//			// user이름으로 해야됨!!!!, null 패스워드 , list 권한 설정
+
 			HttpSession session = request.getSession(true);
-			
+
 			session.setAttribute(
 					HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, sc);
 			

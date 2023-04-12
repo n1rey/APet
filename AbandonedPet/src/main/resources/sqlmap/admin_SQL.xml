@@ -41,4 +41,10 @@
   			<include refid="criteria"/> 
   	<![CDATA[ mid > 0 ]]>
   </select>
+
+	<select id="selectAllCount" resultType="int">
+		<![CDATA[
+  		SELECT COUNT(*) FROM member ]]>
+	</select>
+
 </mapper>

@@ -27,7 +27,7 @@ public class GoogleMailServiceImpl implements MailService {
 
 		try {
 			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-			messageHelper.setFrom("보낸 사람", "유기동물 커뮤니티 인증센터");
+			messageHelper.setFrom("davidgeun@gmail.com", "유기동물 커뮤니티 인증센터");
 			messageHelper.setSubject("유기동물 커뮤니티 임시 비밀번호입니다.");
 			messageHelper.setTo(to);
 			messageHelper.setText("임시 비밀번호는 [ " + tempPw + " ] 입니다." );
