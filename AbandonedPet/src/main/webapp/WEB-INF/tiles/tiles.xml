@@ -114,6 +114,18 @@
 		<put-attribute name="subheading" value="freeBoard" />
 		<put-attribute name="content" value="/WEB-INF/views/freeBoard/{1}.jsp" />
 	</definition>
+	
+	<definition name="/protection/*" extends="base-Template">
+		<put-attribute name="heading" value="임시 보호" />
+		<put-attribute name="subheading" value="protection" />
+		<put-attribute name="content" value="/WEB-INF/views/protection/{1}.jsp" />
+	</definition>
+	
+	<definition name="/adoption/*" extends="base-Template">
+		<put-attribute name="heading" value="입양 신청" />
+		<put-attribute name="subheading" value="adoption" />
+		<put-attribute name="content" value="/WEB-INF/views/adoption/{1}.jsp" />
+	</definition>
 
 	
 

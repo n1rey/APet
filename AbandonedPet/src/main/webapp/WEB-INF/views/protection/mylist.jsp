@@ -11,7 +11,14 @@
 </head>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.slim.js"
+		integrity="sha256-dWvV84T6BhzO4vG6gWhsWVKVoa4lVmLnpBOZh/CAHU4=" crossorigin="anonymous"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous">
+	</script>
+	
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -109,9 +116,49 @@
         </c:forEach>
       </div>
     </div>
+       	<nav aria-label="Page navigation example">
+			<ul class="pagination justify-content-center">
+			</ul>
+		</nav>
   </div>
 
 
 
 </body>
+<script>
+	var cnt = ${cnt};
+	var pageSize = 9;
+	var totalPage = Math.ceil(cnt/pageSize);
+	var currentPage = ${requestScope.page };
+	var pageGroup = Math.ceil(currentPage / 5);
+	var last = pageGroup * 5;
+	var start = last - (5 - 1);
+	
+	if (last > totalPage){last = totalPage};
+	
+	var previous = start > 1;
+	var next = last < totalPage;
+
+	window.onload = function(){
+		pagination();
+	}
+	
+	function pagination(){
+		if (cnt <= pageSize) return;
+		var str = '';
+		if (previous) {
+	 		  str += "<li class='page-item prev'><a class='page-link' href='/protection/list?page="+ (start - 1) +"'>&laquo; Previous</a></li>";
+	 	}
+		for(i=start; i<=last; i++){
+			str += "<li class='page-item "+ (i==currentPage?'active':'') +"'><a class='page-link' href='/protection/list?page=" + i +"'>"+ i +"</a></li>"
+		}
+		if (next) {
+ 		  str += "<li class='page-item next'><a class='page-link' href='/protection/list?page="+ (start + 5) +"'>Next &raquo;</a></li>"
+ 		}
+
+
+
+		$('.pagination').html(str);
+	}
+</script>
 </html>

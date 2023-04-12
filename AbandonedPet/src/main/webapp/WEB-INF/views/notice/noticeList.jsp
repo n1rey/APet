@@ -12,8 +12,10 @@
 		}
 	a {
 			text-decoration:none;
-			color:black;
+			color:#333;
 	}
+	
+	
 </style>
 </head>
 

@@ -15,112 +15,88 @@
 	<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500&display=swap" rel="stylesheet">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js" integrity="sha512-cOH8ndwGgPo+K7pTvMrqYbmI8u8k6Sho3js0gOqVWTmQMlLIi6TbqGWRTpf1ga8ci9H3iPsvDLr4X7xwhC/+DQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+	<link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
 	<script defer src="/resources/js/main.js"></script>
 	<link rel="stylesheet" href="/resources/css/main.css" />
 
 	
 </head>
 <header>
-<nav class="navbar navbar-expand fixed-top" aria-label="Second navbar example">
-	<div class="container-fluid">
-		<a class="navbar-brand" href="/">
-			<img src="/resources/images/logo.png" alt="logo" width="50px">
-		</a>
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-			data-bs-target="#navbarsExample02" aria-controls="navbarsExample02"
-			aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-
-		<div class="collapse navbar-collapse" id="navbarsExample02">
-			<ul class="navbar-nav me-auto">
-				<li class="nav-item"><a class="nav-link"
-					aria-current="page" href="/">홈</a></li>
-				
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" role="button"
-					data-bs-toggle="dropdown" aria-expanded="false"> 커뮤니티</a>
-
-					<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="/notice/noticeList">공지사항</a></li>
-							<li><a class="dropdown-item" href="/freeBoard/freeBoardList">자유게시판</a></li>
-					</ul>
-				</li>
-				
-				
-				<li class="nav-item"><a class="nav-link" href="/#">임시보호</a></li>
-				<li class="nav-item"><a class="nav-link" href="/#">보호소 목록</a></li>
-
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" role="button"
-					data-bs-toggle="dropdown" aria-expanded="false"> 마이페이지</a>
-
-					<ul class="dropdown-menu">
-						<sec:authorize access="isAnonymous()">
-							<li><a class="dropdown-item" href="/login">로그인</a></li>
-							<li><a class="dropdown-item" href="/users/join">회원가입</a></li>
-						</sec:authorize>
-						<sec:authorize access="isAuthenticated()">
-							<li><a class="dropdown-item" href="/logout">로그아웃</a></li>
-							<li><a class="dropdown-item" href="#">회원탈퇴</a></li>
-
-						</sec:authorize>
-					</ul>
-				</li>
-
-					<sec:authentication property="principal" var="user" />
-					<sec:authorize access="hasRole('ROLE_ADMIN')">
-
-
-						<li class="nav-item dropdown"><a
-							class="nav-link dropdown-toggle" href="#" role="button"
-							data-bs-toggle="dropdown" aria-expanded="false"> 관리자</a>
-
-							<ul class="dropdown-menu">
-
-
-								<li><a class="dropdown-item" href="#">회원관리</a></li>
-								<li><a class="dropdown-item" href="#">커뮤니티관리</a></li>
-
-								<li><a class="dropdown-item" href="#">임시보호관리</a></li>
-
-
-							</ul>
-						</li>
-
-					</sec:authorize>
-			</ul>	
-
-
-			<sec:authentication property="principal" var="user" />
-			<sec:authorize access="isAuthenticated()">
-				<div class="h6" style="margin-right:20px">${user.username}님</div>
-				<div style="text-align:center; padding-top:10px;">
-				<form method="post" action="/logout">
-					<input type="submit" class="btn btn-warning btn-sm" value="Logout" />
-					<input type="hidden" name="${_csrf.parameterName}"
+<sec:authentication property="principal" var="user" />
+<div class="container">
+<nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-md-between">
+  <div class="container-fluid">
+  	<a class="navbar-brand" href="/">A Pet</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+           	커뮤니티
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="nav-link" href="/notice/noticeList">공지사항</a></li>
+            <li><a class="nav-link" href="/freeBoard/freeBoardList">자유게시판</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/protection/list">임시보호</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">보호소확인</a>
+        </li>
+        <sec:authorize access="isAuthenticated()">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+           	마이페이지
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="nav-link" href="#">내 정보</a></li>
+            <li><a class="nav-link" href="<c:out value="/protection/myList?username=${user.username}" />">내 임시보호 목록</a></li>
+            <li><a class="nav-link" href="<c:out value="/adoption/myList?nid=${user.username}" />">내 입양신청서 확인</a></li>
+          </ul>
+        </li>
+        </sec:authorize>
+        <sec:authorize access="hasRole('ROLE_ADMIN')">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+           	관리자
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="nav-link" href="/notice/noticeList">공지사항</a></li>
+            <li><a class="nav-link" href="/freeBoard/freeBoardList">자유게시판</a></li>
+          </ul>
+        </li>
+        </sec:authorize>
+      </ul>
+      </div>
+      <div>
+      <sec:authorize access="isAnonymous()">
+      <div class="d-flex">
+      <form method="get" action="/login">
+        <button class="btn btn-sm btn-outline-dark" style="margin-top:15px; margin-right:10px" type="submit">login</button>
+      </form>
+      <form method="get" action="/join">
+        <button class="btn btn-sm btn-outline-dark" style="margin-top:15px;" type="submit">Sign-up</button>
+      </form>
+      </div>
+      </sec:authorize>
+      <sec:authorize access="isAuthenticated()">
+      <div class="d-flex">	
+      	<div class="h6" style="margin-right:20px; margin-top:20px;">${user.username}님</div>
+      	<form method="POST" action=<c:out value="/logout/"/>>
+        	<button class="btn btn-sm btn-warning" style="margin-top:15px;" type="submit">Logout</button>
+        	<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
-				</form>
-				</div>
-			</sec:authorize>
-
-
-			<sec:authorize access="isAnonymous()">
-				<div class="h6" style="margin-right:20px">로그인 하세요.</div>
-				<div style="text-align:center; padding-top:10px;"> 
-				<form method="get" action="/login">
-					<input type="submit" class="btn btn-outline-dark btn-sm" value="Login" />
-					<input type="hidden" name="${_csrf.parameterName}"
-						value="${_csrf.token}" />
-				</form>
-				</div>
-			</sec:authorize>
-
-
-
-		</div>
-	</div>
+      	</form>
+      	</div>
+      </sec:authorize>
+    </div>
+  </div>
 </nav>
+</div>
 </header>
 <section class="main_box">
 	<div class="main_content">
@@ -148,36 +124,29 @@
 	<div class="find_shelter">
 		<div class="inner">
 			<div class="find_shelter_text h4">
-				보호소를 확인해보세요!<span class="material-symbols-outlined">search</span>
+				보호소를 확인해보세요!
 			</div>
 			<div class="find_shelter_text">
-				<a href="/map" class="btn btn-outline-dark">바로가기</a>
+				<a href="/map" class="btn btn-outline-dark"><span class="material-symbols-outlined">search</span>바로가기</a>
 			</div>
 		</div>
 	</div>
 </section>
 
 <footer>
-<nav class="navbar fixed-bottom navbar-expand-sm">
-	<div class="container-fluid">
-		<a class="navbar-brand" href="#">Abandoned Pet</a>
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-			data-bs-target="#navbarCollapse" aria-controls="navbarCollapse"
-			aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarCollapse">
-			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link"
-					aria-current="page" href="#">공지사항</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">자유게시판</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">임시보호</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">보호소목록</a></li>
-			
-			</ul>
-		</div>
+<div class="container">
+	<a class="navbar-brand" href="#">Abandoned Pet</a>
+	<div class="sub-menu">
+		<a href="/">홈</a>
+		<a href="/notice/noticeList">공지사항</a>
+		<a href="/freeBoard/freeBoardList">자유게시판</a>
+		<a href="/protection/list">임시보호</a>
+		<a href="#">보호소</a>
 	</div>
-</nav>
+	<p>유기동물 커뮤니티<br>
+	Copyright ⓒ 2023 A pet - 유기동물 커뮤니티 All rights reserved.<br>
+	문의사항 admin@admin.com</p>
+</div>
 </footer>
 
 
