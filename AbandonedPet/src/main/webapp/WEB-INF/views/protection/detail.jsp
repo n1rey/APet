@@ -1,3 +1,5 @@
+<!-- 작성자 : 변예린 -->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -11,19 +13,11 @@
 <meta charset="UTF-8">
 <title>Car Detail</title>
 
-
 </head>
-
 <link rel="stylesheet" href="/resources/admin/dist/css/adminlte.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 
 <body>
 
@@ -34,7 +28,7 @@
 
 <input type="hidden" value="${protection.pid }" id="pid" />
 
-<div class="col-6" style="width:100%; margin-left:400px;">
+<div class="col-6" style="margin-left:auto; margin-right:auto;">
 
 	<div class="card card-widget">
 		<div class="card-header">
@@ -61,19 +55,22 @@
 		</a>
 		<c:choose>
          	<c:when test="${user.username eq protection.username}">
-         		<a href="/protection/list" class="btn btn-sm btn-outline-primary flex-shrink-0 float-right">돌아가기</a> 
-         		<a href="/adoption/list?oid=${protection.username}" class="btn btn-sm btn-outline-primary flex-shrink-0 float-right">입양 신청서 목록</a> 
- 				<a href="/protection/update?pid=${protection.pid}" class="btn btn-sm btn-outline-primary flex-shrink-0 float-right">수정</a> 
-         	</c:when>
-         	<c:when test="${user.username eq 'admin@admin'}">
-         		<a href="/protection/list" class="btn btn-sm btn-outline-primary flex-shrink-0 float-right">돌아가기</a> 
-         		<a href="/adoption/list?oid=${protection.username}" class="btn btn-sm btn-outline-primary flex-shrink-0 float-right">입양 신청서 목록</a> 
-         		<a href="/adoption/addAdoption?pid=${protection.pid}&oid=${protection.username}" class="btn btn-outline-primary flex-shrink-0 float-right">입양 신청서 작성</a> 
- 				<a href="/protection/update?pid=${protection.pid}" class="btn btn-sm btn-outline-primary flex-shrink-0 float-right">수정</a> 
+         		<a href="/protection/list" class="btn btn-sm btn-outline-warning flex-shrink-0 float-right">돌아가기</a> 
+         		<a href="/adoption/list?oid=${protection.username}" class="btn btn-sm btn-outline-warning flex-shrink-0 float-right">입양 신청서 목록</a> 
+ 				<a href="/protection/update?pid=${protection.pid}" class="btn btn-sm btn-outline-warning flex-shrink-0 float-right">수정</a> 
          	</c:when>
          	<c:otherwise>
-         		<a href="/protection/list" class="btn btn-sm btn-outline-primary flex-shrink-0 float-right">돌아가기</a> 
-         		<a href="/adoption/addAdoption?pid=${protection.pid}&oid=${protection.username}" class="btn btn-sm btn-outline-primary flex-shrink-0 float-right">입양 신청서 작성</a> 
+         		<sec:authorize access="hasRole('ROLE_USER')">
+         		<a href="/protection/list" class="btn btn-sm btn-outline-warning flex-shrink-0 float-right">돌아가기</a> 
+         		<a href="/adoption/list?oid=${protection.username}" class="btn btn-sm btn-outline-warning flex-shrink-0 float-right">입양 신청서 목록</a> 
+ 				<a href="/protection/update?pid=${protection.pid}" class="btn btn-sm btn-outline-warning flex-shrink-0 float-right">수정</a> 
+         		</sec:authorize>
+         		<sec:authorize access="hasRole('ROLE_ADMIN')">
+	         		<a href="/protection/list" class="btn btn-sm btn-outline-warning flex-shrink-0 float-right">돌아가기</a> 
+	         		<a href="/adoption/list?oid=${protection.username}" class="btn btn-sm btn-outline-warning flex-shrink-0 float-right">입양 신청서 목록</a> 
+	         		<a href="/adoption/addAdoption?pid=${protection.pid}&oid=${protection.username}" class="btn btn-sm btn-outline-warning flex-shrink-0 float-right">입양 신청서 작성</a> 
+	 				<a href="/protection/update?pid=${protection.pid}" class="btn btn-sm btn-outline-warning flex-shrink-0 float-right">수정</a> 
+         		</sec:authorize>
          	</c:otherwise>
          </c:choose>
 	</div>
@@ -81,7 +78,7 @@
 <div class="card-footer card-comments">
 	<div class="card-comment">
 	
-	<div class="card direct-chat direct-chat-primary">
+	<div class="card direct-chat direct-chat-warning">
 		<div class="card-header">
 			<h3 class="card-title">임시 보호자와 대화해 보세요!</h3>
 				<div style="text-align:right">
@@ -107,16 +104,7 @@
 				<div class="direct-chat-infos clearfix">
 					<span class="direct-chat-name float-left">${chat.username eq protection.username ? '임시보호자' : chat.username}</span>
 					<span class="direct-chat-timestamp float-right">${chat.date}</span></div>
-					<c:choose>
-						<c:when test="${chat.username eq user.username }">
-							<a href="javascript:deleteChat('${chat.cid }', '${protection.pid }');">
-								<img class="direct-chat-img" src="/resources/icon/x-circle.svg">
-							</a>
-						</c:when>
-						<c:otherwise>
-								<img class="direct-chat-img" src="/resources/icon/person.svg">
-						</c:otherwise>
-					</c:choose>
+						<img class="direct-chat-img" src="/resources/icon/person.svg">
 					<div class="direct-chat-text">
 						${chat.content}
 					</div>
@@ -128,19 +116,12 @@
 				<div class="direct-chat-infos clearfix">
 					<span class="direct-chat-name float-right">${chat.username eq protection.username ? '임시보호자' : chat.username}</span>
 					<span class="direct-chat-timestamp float-left">${chat.date}</span></div>
-					<c:choose>
-						<c:when test="${chat.username eq user.username }">
-							<a href="javascript:deleteChat('${chat.cid }', '${protection.pid }');">
-								<img class="direct-chat-img" src="/resources/icon/x-circle.svg">
-							</a>
-						</c:when>
-						<c:otherwise>
-								<img class="direct-chat-img" src="/resources/icon/person.svg">
-						</c:otherwise>
-					</c:choose>
-					<div class="direct-chat-text">
-						${chat.content}
-					</div>
+						<a href="javascript:deleteChat('${chat.cid }', '${protection.pid }');">
+							<img class="direct-chat-img float-right" src="/resources/icon/x-circle.svg">
+						</a>
+						<div class="direct-chat-text">
+							${chat.content}
+						</div>
 			</div>
 		</c:if>
 		</c:forEach>
@@ -153,7 +134,7 @@
 				<input type="text" name="content" id="content"
 					placeholder="Type Message ..." class="form-control"> 
 					<span class="input-group-append">
-						<button type="button" class="btn btn-primary" onclick="javascript:addChat();">Send</button>
+						<button type="button" class="btn btn-warning" onclick="javascript:addChat();">Send</button>
 					</span>
 			</div>
 		</div>
@@ -175,15 +156,10 @@
 
 
 
-<!-- jQuery -->
 <script src="/resources/admin/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
 <script src="/resources/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
 <script src="/resources/admin/dist/js/adminlte.min.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 <script>
 $(document).ready(function () {
 	$("#chatting").scrollTop($(document).height());
@@ -248,6 +224,7 @@ function addChat(){
         success: function(result) {
             alert("등록 완료")
             $("#content").val().reset();
+            window.location.reload(); 
         },
         error:function (request, status, error) {
             alert(request.status + " " + request.responseText);

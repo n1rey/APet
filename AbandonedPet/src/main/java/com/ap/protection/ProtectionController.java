@@ -42,7 +42,7 @@ public class ProtectionController {
 	@GetMapping("/addProtection")
 	public String requestAddProtectionForm(@ModelAttribute("NewProtection") Protection protection) {
 		
-		return "protection/addProtection";
+		return "/protection/addProtection";
 	}
 	
 	@Resource(name="uploadPath")
@@ -53,7 +53,7 @@ public class ProtectionController {
 										  Errors errors) {
 		if(errors.hasErrors()) {
 
-	        return "protection/addProtection";
+	        return "/protection/addProtection";
 
 	    }
 
@@ -126,7 +126,7 @@ public class ProtectionController {
 	    model.addAttribute("page", intPage);
 		
 		
-		return "protection/adminList";
+		return "/protection/adminList";
 	}
 	
 	@GetMapping("/myList")
@@ -152,7 +152,7 @@ public class ProtectionController {
 	    model.addAttribute("cnt", cnt);
 	    model.addAttribute("page", intPage);
 		
-		return "protection/myList";
+		return "/protection/myList";
 	}
 	
 	@GetMapping("/detail")
@@ -176,7 +176,31 @@ public class ProtectionController {
 		model.addAttribute("chatList", chatList);
 
 		
-		return "protection/detail";
+		return "/protection/detail";
+	}
+	
+	@GetMapping("/detail22")
+	public String requestProtectionById22(@RequestParam("pid") String pid, @RequestParam("username") String username, Model model) {
+		//주 게시물
+		Protection protectionById = protectionService.getProtectionById(pid);
+		model.addAttribute("protection", protectionById);
+		
+		//좋아요 기능
+		Heart heart = new Heart();
+		
+		// 좋아요가 돼있는지 찾기위해 정보를 보냄
+		heart = heartService.getHeartById(pid, username);
+		
+		// 찾은 정보를 heart로 담아서 보냄
+		model.addAttribute("heart", heart);
+		
+		// Chat List 불러오기
+		List<Chat> chatList = this.sqlSessionTemplate.selectList("chat.select_chat", pid);
+		
+		model.addAttribute("chatList", chatList);
+		
+		
+		return "/protection/detail22";
 	}
 	
 	@GetMapping("/update")
@@ -185,7 +209,7 @@ public class ProtectionController {
 		Protection pro = protectionService.getProtectionById(pid);
 		model.addAttribute("protection", pro);
 		
-		return "protection/update";
+		return "/protection/update";
 	}
 	
 	@PostMapping("/update")
