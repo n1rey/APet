@@ -87,13 +87,13 @@
 			value="/WEB-INF/views/member/pwModForm.jsp" />
 	</definition>
 	
-	<definition name="admin/member" extends="base-Template">
+<!--	<definition name="admin/member" extends="base-Template">
 		<put-attribute name="title" value="Member" />
 		<put-attribute name="heading" value="회원 관리" />
 		<put-attribute name="subheading" value="Members" />
 		<put-attribute name="content"
 			value="/WEB-INF/views/admin/member.jsp" />
-	</definition>
+	</definition>-->
 	
 	<definition name="map" extends="base-Template">
 		<put-attribute name="title" value="Member" />
