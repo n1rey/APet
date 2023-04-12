@@ -51,8 +51,12 @@ public class MemberServiceImpl implements MemberService {
 		return memberRepository.selectTotalCount(cri);
 	}
 
-	
-	
+	@Override
+	public int getAllMemberCount() {
+		return memberRepository.getAllCount();
+	}
+
+
 	@Override
 	public boolean changeTmpPw(Member member) {
 		

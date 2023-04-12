@@ -21,5 +21,7 @@ public interface MemberRepository {
 	int countIdDuplicated(String username);
 	
 	int updateAuth(Member member);
+
+	int getAllCount();
 	
 }

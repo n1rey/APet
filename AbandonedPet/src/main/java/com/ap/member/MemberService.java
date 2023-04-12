@@ -17,7 +17,9 @@ public interface MemberService {
 	boolean removeMember(String username);
 
 	int getTotalCount(Criteria cri);
-	
+
+	int getAllMemberCount();
+
 	boolean changeTmpPw(Member member);
 	
 	boolean modifyPassword(Member member);
