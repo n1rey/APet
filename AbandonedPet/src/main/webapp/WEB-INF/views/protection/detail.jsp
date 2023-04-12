@@ -61,8 +61,7 @@
          	<c:otherwise>
          		<sec:authorize access="hasRole('ROLE_USER')">
          		<a href="/protection/list" class="btn btn-sm btn-outline-warning flex-shrink-0 float-right">돌아가기</a> 
-         		<a href="/adoption/list?oid=${protection.username}" class="btn btn-sm btn-outline-warning flex-shrink-0 float-right">입양 신청서 목록</a> 
- 				<a href="/protection/update?pid=${protection.pid}" class="btn btn-sm btn-outline-warning flex-shrink-0 float-right">수정</a> 
+				<a href="/adoption/addAdoption?pid=${protection.pid}&oid=${protection.username}" class="btn btn-sm btn-outline-warning flex-shrink-0 float-right">입양 신청서 작성</a>          		
          		</sec:authorize>
          		<sec:authorize access="hasRole('ROLE_ADMIN')">
 	         		<a href="/protection/list" class="btn btn-sm btn-outline-warning flex-shrink-0 float-right">돌아가기</a> 
@@ -165,10 +164,10 @@ $(document).ready(function () {
 	
 	// 좋아요가 있는지 확인한 값을 heartval에 저장
 		let heartval = ${empty heart.heart ? 0 : heart.heart};
+            console.log(heartval);
 	
         // heartval이 1이면 좋아요가 이미 되있는것이므로 heart-fill.svg를 출력하는 코드
         if(heartval > 0) {
-            console.log(heartval);
             $("#heart").prop("src", "/resources/icon/heart-fill.svg");
             $(".heart").prop('name',heartval)
         } else {

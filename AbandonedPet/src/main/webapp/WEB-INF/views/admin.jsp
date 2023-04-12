@@ -287,17 +287,10 @@ footer .sub-menu a {
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="/admin/member">
           <i class="fas fa-users"></i>
           <span>Member</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">회원</h6>
-              <a class="collapse-item" href="#">회원 목록</a>
-                <a class="collapse-item" href="#">회원 관리</a>
-          </div>
-        </div>
       </li>
 
       <!-- Nav Item - Utilities Collapse Menu -->
@@ -309,8 +302,8 @@ footer .sub-menu a {
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">게시판 관리</h6>
-            <a class="collapse-item" href="#">공지관리</a>
-            <a class="collapse-item" href="#">게시판 관리</a>
+            <a class="collapse-item" href="/notice/noticeList">공지</a>
+            <a class="collapse-item" href="/freeBoard/freeBoardList">자유 게시판</a>
           </div>
         </div>
       </li>
@@ -332,8 +325,8 @@ footer .sub-menu a {
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header" >유기 동물</h6>
-            <a class="collapse-item" href="#">유기 동물 목록</a>           
-            <a class="collapse-item" href="#">입양 신청 목록</a>
+            <a class="collapse-item" href="/protection/adminList">유기 동물 목록</a>           
+            <a class="collapse-item" href="/adoption/adminList">입양 신청 목록</a>
             <div class="collapse-divider"></div>
          </div>
         </div>

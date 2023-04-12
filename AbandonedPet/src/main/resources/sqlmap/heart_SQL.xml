@@ -6,9 +6,9 @@
 			useGeneratedKeys="true">
 		<![CDATA[
  			INSERT INTO heart
- 			(pid, username)
+ 			(pid, username, heart)
  			VALUES 
- 			(#{pid}, #{username});
+ 			(#{pid}, #{username}, 1);
  		]]> 
 	</insert>
 
