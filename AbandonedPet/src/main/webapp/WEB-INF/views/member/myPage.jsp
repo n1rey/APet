@@ -16,28 +16,28 @@
 	<div class="container mt-5">
 		<div class="row">
 			<div class="row mb-3">
-				<div class="col-md-4">
-					<strong>아이디:</strong>
+				<div class="col-md-2">
+					<h5>아이디:</h5>
 				</div>
-				<div class="col-md-6">${member.username}</div>
+				<h5 class="col-md-10">${member.username}</h5>
 			</div>
 			<div class="row mb-3">
-				<div class="col-md-4">
-					<strong>이름:</strong>
+				<div class="col-md-2">
+					<h5>이름:</h5>
 				</div>
-				<div class="col-md-6">${member.mname}</div>
+				<h5 class="col-md-10">${member.mname}</h5>
 			</div>
 			<div class="row mb-3">
-				<div class="col-md-4">
-					<strong>닉네임:</strong>
+				<div class="col-md-2">
+					<h5>닉네임:</h5>
 				</div>
-				<div class="col-md-6">${member.mnickname}</div>
+				<h5 class="col-md-10">${member.mnickname}</h5>
 			</div>
 			<div class="row mb-3">
-				<div class="col-md-4">
-					<strong>휴대폰:</strong>
+				<div class="col-md-2">
+					<h5>휴대폰:</h5>
 				</div>
-				<div class="col-md-6">${member.mphone}</div>
+				<h5 class="col-md-10">${member.mphone}</h5>
 			</div>
 			<div class="text-end">
 				<a href="/member/mod" class="btn btn-warning"> 회원정보 수정 </a> <a

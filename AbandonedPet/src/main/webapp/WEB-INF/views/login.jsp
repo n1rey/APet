@@ -14,28 +14,28 @@
 	<div style="width: 300px" class="m-auto">
 		<form action="/login" method="post">
 
-			<div class="form-floating">
+			<div class="form-floating my-2">
 				<input type="text" name="username" class="form-control"
 					id="floatingInput" placeholder="아이디를 입력하세요"> <label
 					for="floatingInput">아이디</label>
 			</div>
-			<div class="form-floating">
+			<div class="form-floating my-2">
 				<input type="password" name="password" class="form-control"
 					id="floatingPassword" placeholder="암호를 입력하세요"> <label
 					for="floatingPassword">암호</label>
 			</div>
 
-			<div class="checkbox mb-3">
-				<label> <input type="checkbox" value="remember-me">
-					Remember me
-				</label>
-			</div>
-			<button class="w-100 btn btn-lg btn-primary" type="submit">로그인</button>
+			<button class="w-100 btn btn-lg btn-primary mt-4" type="submit">로그인</button>
 			<input type="hidden" name="${_csrf.parameterName}"
 				value="${_csrf.token}" />
 			<a href="javascript:kakaoLogin()"> <img style="object-fit: contain;"
 				src="/resources/images/kakaologin.png" height="50" width="300">
 			</a>
+			<div class="checkbox mt-3 text-center">
+				<a href="/pwfind">
+					비밀번호 찾기
+				</a>
+			</div>
 			<p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p>
 		</form>
 		
@@ -44,6 +44,7 @@
 			<input type="hidden" name="username" id="kakaoEmail">
 			<input type="hidden" name="mnickname" id="kakaoNickname">
 		</form>
+
 	</div>
 </div>
 <script>

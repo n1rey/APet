@@ -123,7 +123,7 @@ footer .sub-menu a {
           <a class="nav-link" href="/protection/list">임시보호</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">보호소확인</a>
+          <a class="nav-link" href="/map">보호소확인</a>
         </li>
         <sec:authorize access="isAuthenticated()">
         <li class="nav-item dropdown">
@@ -131,7 +131,7 @@ footer .sub-menu a {
            	마이페이지
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-          	<li><a class="nav-link" href="#">내 정보</a></li>
+          	<li><a class="nav-link" href="/member/myPage">내 정보</a></li>
             <li><a class="nav-link" href="<c:out value="/protection/myList?username=${user.username}" />">내 임시보호 목록</a></li>
             <li><a class="nav-link" href="<c:out value="/adoption/myList?nid=${user.username}" />">내 입양신청서</a></li>
           </ul>
@@ -143,6 +143,7 @@ footer .sub-menu a {
            	관리자
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="nav-link" href="/admin/member">회원 관리</a></li>
             <li><a class="nav-link" href="#">공지사항</a></li>
             <li><a class="nav-link" href="#">자유게시판</a></li>
           </ul>

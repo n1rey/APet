@@ -58,7 +58,7 @@
 							<a class="nav-link" href="/protection/list">임시보호</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">보호소확인</a>
+							<a class="nav-link" href="/map">보호소확인</a>
 						</li>
 						<sec:authorize access="isAuthenticated()">
 							<li class="nav-item dropdown">
@@ -67,7 +67,7 @@
 									마이페이지
 								</a>
 								<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-									<li><a class="nav-link" href="#">내 정보</a></li>
+									<li><a class="nav-link" href="/member/myPage">내 정보</a></li>
 									<li><a class="nav-link" href="<c:out value="/protection/myList?username=${user.username}" />">내 임시보호
 										목록</a></li>
 									<li><a class="nav-link" href="<c:out value="/adoption/myList?nid=${user.username}" />">내 입양신청서</a>
@@ -189,7 +189,7 @@
 			<a href="/notice/noticeList">공지사항</a>
 			<a href="/freeBoard/freeBoardList">자유게시판</a>
 			<a href="/protection/list">임시보호</a>
-			<a href="#">보호소</a>
+			<a href="/map">보호소</a>
 		</div>
 		<p>유기동물 커뮤니티<br>
 			Copyright ⓒ 2023 A pet - 유기동물 커뮤니티 All rights reserved.<br>
