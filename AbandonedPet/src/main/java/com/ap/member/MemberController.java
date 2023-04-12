@@ -127,7 +127,16 @@ public class MemberController {
 	public String modForm(Model model) {
 		SecurityContext securityContext = SecurityContextHolder.getContext();
 		Authentication auth = securityContext.getAuthentication();
-		String username = auth.getName();
+		String username = null;
+		
+
+		if(auth.getPrincipal() instanceof Member) {
+			Member principal = (Member) auth.getPrincipal();
+			username = principal.getUsername();
+		} else {
+			username = auth.getName();
+		}
+		
 		Member member = memberService.getMember(username);
 		
 		ModMember modMember = new ModMember();
@@ -189,7 +198,14 @@ public class MemberController {
 	public String modMyPwForm(Model model) {
 		SecurityContext securityContext = SecurityContextHolder.getContext();
 		Authentication auth = securityContext.getAuthentication();
-		String username = auth.getName();
+		String username = null;
+		
+		if(auth.getPrincipal() instanceof Member) {
+			Member principal = (Member) auth.getPrincipal();
+			username = principal.getUsername();
+		} else {
+			username = auth.getName();
+		}
 		
 		ModPwMember modPwMember = new ModPwMember();
 		modPwMember.setUsername(username);
