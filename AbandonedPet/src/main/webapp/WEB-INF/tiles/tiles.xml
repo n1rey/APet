@@ -126,7 +126,7 @@
 		<put-attribute name="subheading" value="adoption" />
 		<put-attribute name="content" value="/WEB-INF/views/adoption/{1}.jsp" />
 	</definition>
-
+	
 	
 
 </tiles-definitions>
