@@ -17,7 +17,7 @@
 			from (select @rownum := @rownum + 1 rownum, bid, btitle, bwriter, date_format(bdate, '%Y-%m-%d') as bdate, bhit, mname
 			FROM (SELECT bid, btitle, bwriter, date_format(bdate, '%Y-%m-%d') as bdate, bhit, mname
 			FROM freeboard f
-			INNER JOIN member m on (f.bwriter = m.username)) as b
+			LEFT JOIN member m on (f.bwriter = m.username)) as b
 			where(@rownum := 0) = 0 order by bid desc) as a
 			where rownum between (#{pageNum}-1)*#{pageSize}+1 and (#{pageNum}*#{pageSize});
 		]]>

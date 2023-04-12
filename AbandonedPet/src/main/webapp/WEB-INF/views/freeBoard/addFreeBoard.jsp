@@ -7,14 +7,6 @@
 <html>
 
 <head>
-  <meta charset="UTF-8">
-  <script src="https://code.jquery.com/jquery-3.6.4.slim.js"
-    integrity="sha256-dWvV84T6BhzO4vG6gWhsWVKVoa4lVmLnpBOZh/CAHU4=" crossorigin="anonymous"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous">
-  </script>
   
 <style>
 	.error {
@@ -50,7 +42,7 @@
               <div class="row">
                 <div class="col d-flex justify-content-end">
                   <a href="/freeBoard/freeBoardList" class="btn btn-secondary m-1">취소</a>
-                  <input type="submit" value="등록" class="btn btn-success m-1">
+                  <input type="submit" value="등록" class="btn btn-warning m-1">
                 </div>
               </div>
             </fieldset>

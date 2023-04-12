@@ -6,11 +6,7 @@
 <html>
 
 <head>
-
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
-	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-
 <style>
 	#content {
 		min-height:200px;
@@ -79,8 +75,8 @@
 					정말 삭제하시겠습니까?
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" onclick="javascript:deleteNotice()">확인</button>
+					<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-sm btn-warning" onclick="javascript:deleteNotice()">확인</button>
 				</div>
 			</div>
 		</div>

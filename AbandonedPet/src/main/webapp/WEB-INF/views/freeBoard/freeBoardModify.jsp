@@ -42,7 +42,7 @@
               <div class="row">
                 <div class="col d-flex justify-content-end">
                   <a href="/freeBoard/freeBoardDetail?bid=${freeBoard.bid }" class="btn btn-secondary m-1">취소</a>
-                  <input type="submit" value="등록" class="btn btn-success m-1">
+                  <input type="submit" value="등록" class="btn btn-warning m-1">
                 </div>
               </div>
             </fieldset>

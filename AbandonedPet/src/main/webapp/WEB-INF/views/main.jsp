@@ -76,17 +76,10 @@
 							</li>
 						</sec:authorize>
 						<sec:authorize access="hasRole('ROLE_ADMIN')">
-							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-									aria-expanded="false">
-									관리자
-								</a>
-								<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-									<li><a class="nav-link" href="/notice/noticeList">공지사항</a></li>
-									<li><a class="nav-link" href="/freeBoard/freeBoardList">자유게시판</a></li>
-								</ul>
-							</li>
-						</sec:authorize>
+					        <li class="nav-item">
+					          <a class="nav-link" href="/admin">관리자</a>
+					        </li>
+        				</sec:authorize>
 					</ul>
 				</div>
 				<div>
