@@ -43,10 +43,11 @@
 	<div class="card-body">
 		<h5>${protection.pname}</h5>
 		<img class="img-fluid pad" src="/resources/images/${protection.pimage}" alt="Photo">
-		<p>${protection.page}</p>
-		<p>${protection.pgender}</p>
-		<p>${protection.pcondition}</p>
-		<p>${protection.petc}</p>
+		<p>나이 : ${protection.page}살</p>
+		<p>성별 : ${protection.pgender}</p>
+		<p>상황 : ${protection.pcondition}</p>
+		특이 사항 : 
+		<p> ${protection.petc} </p>
 		<br>
 		<a class="text-dark heart" style="text-decoration-line: none;">
 			<img id="heart" src="/resources/icon/heart.svg">
