@@ -53,10 +53,10 @@
             </div>
             
             
-            <div class="col-6">
+            <div class="col-3">
               <label class="form-label">보호 동물 추정 나이</label>
               <div class="input-group has-validation">
-                <form:input path="page" id="age" value="${protection.page }" class="form-control"/>
+                <form:input type="number" path="page" id="age" value="${protection.page }" class="form-control" min="0" max="100"/>&nbsp살
               </div>
             </div>
             
@@ -102,7 +102,7 @@
 		  </div>
           <hr class="my-4"> 
           <input type="button" onclick="javascript:checkFunction();" class="w-100 btn btn-outline-warning flex-shrink-0" value="수정"/>
-          <a href="/protection/delete?pid=${protection.pid}" class = "w-100 btn btn-outline-danger flex-shrink-0">삭제</a>
+          <button class = "w-100 btn btn-outline-danger flex-shrink-0" onclick="javascript:delFunction();">삭제</button>
         </form>
       </div>
     </div>
@@ -126,6 +126,15 @@ function checkFunction(){
 		$('#age').focus();
 	} else {
 		$('#updateForm').submit();
+	}
+}
+
+function delFunction(){
+	if(confirm('정말로 삭제하시겠습니까?')){
+		location.href='/protection/delete?pid=${protection.pid}';
+	} else {
+		alert('취소됐습니다');
+		return false;
 	}
 }
 
