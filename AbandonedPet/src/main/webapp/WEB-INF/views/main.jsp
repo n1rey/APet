@@ -6,6 +6,7 @@
 
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" href="/resources/images/favicon.png" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
@@ -55,7 +56,7 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="nav-link" href="#">내 정보</a></li>
             <li><a class="nav-link" href="<c:out value="/protection/myList?username=${user.username}" />">내 임시보호 목록</a></li>
-            <li><a class="nav-link" href="<c:out value="/adoption/myList?nid=${user.username}" />">내 입양신청서 확인</a></li>
+            <li><a class="nav-link" href="<c:out value="/adoption/myList?nid=${user.username}" />">내 입양신청서</a></li>
           </ul>
         </li>
         </sec:authorize>
@@ -113,7 +114,7 @@
 					입양하세요
 				</div>
 				<br>
-				<a class="btn btn-outline-dark">임시보호 확인하기</a>
+				<a class="btn btn-outline-dark" href="/protection/list">임시보호 확인하기</a>
 			</div>
 		</div>
 	</div>
@@ -127,7 +128,7 @@
 				보호소를 확인해보세요!
 			</div>
 			<div class="find_shelter_text">
-				<a class="btn btn-outline-dark"><span class="material-symbols-outlined">search</span>바로가기</a>
+				<a href="/map" class="btn btn-outline-dark"><span class="material-symbols-outlined">search</span>바로가기</a>
 			</div>
 		</div>
 	</div>

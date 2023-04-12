@@ -6,6 +6,7 @@
 	
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" href="/resources/images/favicon.png" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
@@ -98,8 +99,9 @@ footer .sub-menu a {
 	
 
 <header>
+<sec:authentication property="principal" var="user" />
 <div class="container">
-<nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-md-between">
+<nav class="navbar navbar-expand-lg d-flex justify-content-md-between">
   <div class="container-fluid">
   	<a class="navbar-brand" href="/">A Pet</a>
     <!-- <a class="navbar-brand" href="#"><img src="/resources/images/logo.png" alt="logo" width="50px"></a> -->
@@ -118,7 +120,7 @@ footer .sub-menu a {
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">임시보호</a>
+          <a class="nav-link" href="/protection/list">임시보호</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">보호소확인</a>
@@ -131,7 +133,7 @@ footer .sub-menu a {
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
           	<li><a class="nav-link" href="#">내 정보</a></li>
             <li><a class="nav-link" href="<c:out value="/protection/myList?username=${user.username}" />">내 임시보호 목록</a></li>
-            <li><a class="nav-link" href="<c:out value="/adoption/myList?nid=${user.username}" />">내 입양신청서 확인</a></li>
+            <li><a class="nav-link" href="<c:out value="/adoption/myList?nid=${user.username}" />">내 입양신청서</a></li>
           </ul>
         </li>
         </sec:authorize>
@@ -163,7 +165,7 @@ footer .sub-menu a {
       <div class="d-flex button_box">
       	<sec:authentication property="principal" var="user" />
       	<div class="h6" style="margin-right:20px; margin-top:20px;">${user.username}님</div>
-      	<form method="POST" action=<c:out value="/logout/"/>>
+      	<form method="POST" action=<c:out value="/logout"/>>
         	<button class="btn btn-sm btn-warning" style="margin-top:15px;" type="submit">Logout</button>
         	<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />

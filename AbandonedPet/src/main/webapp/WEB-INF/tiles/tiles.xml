@@ -31,8 +31,6 @@
 			value="/WEB-INF/views/login.jsp" />
 	</definition>
 
-	
-
 	<definition name="users/joinform" extends="base-Template">
 		<put-attribute name="title" value="Member" />
 		<put-attribute name="heading" value="회원 가입" />
@@ -40,13 +38,69 @@
 		<put-attribute name="content"
 			value="/WEB-INF/views/users/joinform.jsp" />
 	</definition>
-
+	
+	<definition name="users/joinKakao" extends="base-Template">
+		<put-attribute name="title" value="Member" />
+		<put-attribute name="heading" value="회원 가입" />
+		<put-attribute name="subheading" value="Join Member" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/users/joinKakao.jsp" />
+	</definition>
+	
+	<definition name="users/pwfind" extends="base-Template">
+		<put-attribute name="title" value="Member" />
+		<put-attribute name="heading" value="비밀번호 찾기" />
+		<put-attribute name="subheading" value="Join Member" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/users/pwfind.jsp" />
+	</definition>
+	
 	<definition name="users/list" extends="base-Template">
-		<put-attribute name="title" value="Members" />
+		<put-attribute name="title" value="Member" />
 		<put-attribute name="heading" value="회원 관리" />
 		<put-attribute name="subheading" value="Members" />
 		<put-attribute name="content"
 			value="/WEB-INF/views/users/list.jsp" />
+	</definition>
+	
+	<definition name="member/myPage" extends="base-Template">
+		<put-attribute name="title" value="Member" />
+		<put-attribute name="heading" value="내 정보 보기" />
+		<put-attribute name="subheading" value="Members" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/member/myPage.jsp" />
+	</definition>
+	
+	<definition name="member/modMember" extends="base-Template">
+		<put-attribute name="title" value="Member" />
+		<put-attribute name="heading" value="내 정보 수정" />
+		<put-attribute name="subheading" value="Members" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/member/modMember.jsp" />
+	</definition>
+	
+	<definition name="member/pwModForm" extends="base-Template">
+		<put-attribute name="title" value="Member" />
+		<put-attribute name="heading" value="비밀번호 변경" />
+		<put-attribute name="subheading" value="Members" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/member/pwModForm.jsp" />
+	</definition>
+	
+	<definition name="admin/member" extends="base-Template">
+		<put-attribute name="title" value="Member" />
+		<put-attribute name="heading" value="회원 관리" />
+		<put-attribute name="subheading" value="Members" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/member.jsp" />
+	</definition>
+	
+	<definition name="map" extends="base-Template">
+		<put-attribute name="title" value="Member" />
+		<put-attribute name="heading" value="전국 유기동물 보호소 목록" />
+		<put-attribute name="subheading" value="Members" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/map.jsp" />
 	</definition>
 	
 	<definition name="/notice/*" extends="base-Template">
