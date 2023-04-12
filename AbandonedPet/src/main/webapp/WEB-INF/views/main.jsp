@@ -128,7 +128,7 @@
 				보호소를 확인해보세요!
 			</div>
 			<div class="find_shelter_text">
-				<a class="btn btn-outline-dark"><span class="material-symbols-outlined">search</span>바로가기</a>
+				<a href="/map" class="btn btn-outline-dark"><span class="material-symbols-outlined">search</span>바로가기</a>
 			</div>
 		</div>
 	</div>

@@ -15,46 +15,42 @@
 <body>
 	<div class="container mt-5">
 		<div class="row">
-			<div class="col-md-8">
-				<div class="row mb-3">
-					<div class="col-md-4">
-						<strong>아이디:</strong>
-					</div>
-					<div class="col-md-8">${member.username}</div>
+			<div class="row mb-3">
+				<div class="col-md-4">
+					<strong>아이디:</strong>
 				</div>
-				<div class="row mb-3">
-					<div class="col-md-4">
-						<strong>이름:</strong>
-					</div>
-					<div class="col-md-8">${member.mname}</div>
+				<div class="col-md-6">${member.username}</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-md-4">
+					<strong>이름:</strong>
 				</div>
-				<div class="row mb-3">
-					<div class="col-md-4">
-						<strong>닉네임:</strong>
-					</div>
-					<div class="col-md-8">${member.mnickname}</div>
+				<div class="col-md-6">${member.mname}</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-md-4">
+					<strong>닉네임:</strong>
 				</div>
-				<div class="row mb-3">
-					<div class="col-md-4">
-						<strong>휴대폰:</strong>
-					</div>
-					<div class="col-md-8">${member.mphone}</div>
+				<div class="col-md-6">${member.mnickname}</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-md-4">
+					<strong>휴대폰:</strong>
 				</div>
-				<div class="text-end">
-					<a href="/member/mod?username=${member.username}"
-						class="btn btn-warning"> 회원정보 수정하기 </a>
-					<a href="/member/modPw?username=${member.username}"
-						class="btn btn-dark"> 비밀번호 변경 </a>
+				<div class="col-md-6">${member.mphone}</div>
+			</div>
+			<div class="text-end">
+				<a href="/member/mod" class="btn btn-warning"> 회원정보 수정 </a> <a
+					href="/member/modPw" class="btn btn-dark"> 비밀번호 변경 </a>
 
-					<form id="quitForm" action="/member/quit" method="post">
-						<input type="hidden" name="username" value="${member.username }">
-						<input type="hidden" name="${_csrf.parameterName}"
-							value="${_csrf.token}" />
-						<button onclick="confirmDelete()" class="btn btn-danger">탈퇴하기</button>
-					</form>
-					<button id="logout-btn" class="btn btn-secondary">로그아웃</button>
+				<form id="quitForm" class="my-3" action="/member/quit" method="post">
+					<input type="hidden" name="username" value="${member.username }">
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
+					<button onclick="confirmDelete()" class="btn btn-danger">탈퇴하기</button>
+				</form>
+				<!-- <button id="logout-btn" class="btn btn-secondary">로그아웃</button> -->
 
-				</div>
 			</div>
 		</div>
 	</div>
@@ -72,8 +68,8 @@
 			}
 		}
 	</script>
-	
-	<script>
+
+	<!-- 	<script>
 	document.getElementById("logout-btn").addEventListener("click", function() {
 	    fetch("/logout", {
 	        method: "POST",
@@ -96,19 +92,18 @@
 
 	
 	</script>
-	
+	 -->
 	<script>
-//현재 URL의 파라미터 문자열을 가져온다.
-const paramsString = window.location.search;
-// URLSearchParams 객체를 만들어서 파라미터 문자열을 넘겨준다.
-const searchParams = new URLSearchParams(paramsString);
+		//현재 URL의 파라미터 문자열을 가져온다.
+		const paramsString = window.location.search;
+		// URLSearchParams 객체를 만들어서 파라미터 문자열을 넘겨준다.
+		const searchParams = new URLSearchParams(paramsString);
 
-if (searchParams.has("mod")) {
-  alert("회원정보 변경이 완료되었습니다.")
-} 
+		if (searchParams.has("mod")) {
+			alert("회원정보 변경이 완료되었습니다.")
+		}
+	</script>
 
-</script>
-	
 </body>
 </html>
 

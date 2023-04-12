@@ -65,11 +65,6 @@ public class MemberController {
 		return "login";
 	}
 
-	@GetMapping("/loginfail")
-	public String loginFail() {
-		return "loginfail";
-	}
-
 	@GetMapping("/join")
 	public String joinForm(Model model) {
 		model.addAttribute("member", new Member());
@@ -77,7 +72,7 @@ public class MemberController {
 	}
 
 	@PostMapping("/join")
-	public String joinMember(@Validated @ModelAttribute Member member, BindingResult bindingResult) {
+	public String joinMember(@Validated @ModelAttribute Member member, BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response) {
 
 		if (!member.getPassword().equals(member.getPasswordConfirm())) {
 			bindingResult.reject("pwConfirm", "비밀번호가 일치하지 않습니다.");
@@ -92,7 +87,14 @@ public class MemberController {
 		member.setPassword(encodedPassword);
 
 		memberService.createMember(member);
-		return "redirect:/login";
+		
+		//로그아웃 처리
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null) {
+			new SecurityContextLogoutHandler().logout(request, response, auth);
+		}
+		
+		return "redirect:/login?join";
 	}
 
 	@PostMapping("/kakaoForm")
@@ -101,7 +103,7 @@ public class MemberController {
 	}
 	
 	@PostMapping("/joinKakao")
-	public String joinkakao(@Validated @ModelAttribute Member member, BindingResult bindingResult) {
+	public String joinkakao(@Validated @ModelAttribute Member member, BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response) {
 		
 		if (!member.getPassword().equals(member.getPasswordConfirm())) {
 			bindingResult.reject("pwConfirm", "비밀번호가 일치하지 않습니다.");
@@ -116,7 +118,12 @@ public class MemberController {
 		member.setPassword(encodedPassword);
 
 		memberService.createMember(member);
-		return "redirect:/login";
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null) {
+			new SecurityContextLogoutHandler().logout(request, response, auth);
+		}
+		
+		return "redirect:/login?join";
 	}
 	
 	@GetMapping("/member/myPage")
@@ -134,9 +141,15 @@ public class MemberController {
 		SecurityContext securityContext = SecurityContextHolder.getContext();
 		Authentication auth = securityContext.getAuthentication();
 		String username = auth.getName();
+		Member member = memberService.getMember(username);
 		
-		model.addAttribute("member", memberService.getMember(username));
-		model.addAttribute("modMember", new ModMember());
+		ModMember modMember = new ModMember();
+		modMember.setUsername(username);
+		modMember.setMname(member.getMname());
+		modMember.setMnickname(member.getMnickname());
+		modMember.setMphone(member.getMphone());
+		
+		model.addAttribute("modMember", modMember);
 		return "member/modMember";
 	}
 
@@ -151,14 +164,14 @@ public class MemberController {
 		return "redirect:/member/myPage?mod";
 	}
 
-//	@GetMapping(value = "/logout")
-//	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
-//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//		if (auth != null) {
-//			new SecurityContextLogoutHandler().logout(request, response, auth);
-//		}
-//		return "redirect:/login?logout";
-//	}
+	@GetMapping(value = "/logout")
+	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null) {
+			new SecurityContextLogoutHandler().logout(request, response, auth);
+		}
+		return "redirect:/login?logout";
+	}
 
 	@PostMapping(value = "/member/quit")
 	public String quitMember(@RequestParam String username, HttpServletRequest request, HttpServletResponse response) {
@@ -239,7 +252,7 @@ public class MemberController {
 			
 			SecurityContext sc = SecurityContextHolder.getContext();
 			
-			sc.setAuthentication(new UsernamePasswordAuthenticationToken(member.getUsername(), null, list));
+			sc.setAuthentication(new UsernamePasswordAuthenticationToken(username, null, list));
 			// user이름으로 해야됨!!!!, null 패스워드 , list 권한 설정
 			
 			HttpSession session = request.getSession(true);
