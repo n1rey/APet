@@ -655,6 +655,9 @@
 			}
 			var imgHTML = '';
 			for (var i = 0; i < data.length; i++) {
+				if ( data[i].username == '${user.username}') {
+					continue;
+				}
 				imgHTML += ''
 						+ "<tr>"
 						+ "<td>" + data[i].username + "</td>"
@@ -669,8 +672,8 @@
 							+ '<option value="ROLE_USER" selected>ROLE_USER</option>'
 				}
 						  			
-				imgHTML	+= '</select><td/><td>'+ data[i].mdate.split(" ")[0] + "</td>"
-						+ "<td><button onclick=\"removeMember('"+ data[i].username +"')\" class='btn btn-danger' style=\'width: 70px; height: 35px;\'>삭제</button></td></tr>"
+				imgHTML	+= '</select><td/><td>'+ data[i].mdate.split(" ")[0] + "</td>";
+				imgHTML += "<td><button onclick=\"removeMember('"+ data[i].username +"')\" class='btn btn-danger' style=\'width: 70px; height: 35px;\'>삭제</button></td></tr>"
 			}
 			$('#imgList').html(imgHTML);
 		}
@@ -723,8 +726,10 @@ function updateAuth(username, e) {
     })
  }
  
- 
+
 </script>
+
+
 
 </body>
 </html>
