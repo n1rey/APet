@@ -16,10 +16,13 @@
 	<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500&display=swap" rel="stylesheet">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js" integrity="sha512-cOH8ndwGgPo+K7pTvMrqYbmI8u8k6Sho3js0gOqVWTmQMlLIi6TbqGWRTpf1ga8ci9H3iPsvDLr4X7xwhC/+DQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+	<link href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
 <style>
 header nav {
-  font-family: Arial, sans-serif;
+  /* font-family: Arial, sans-serif; */
+  /* font-family: 'Nanum Gothic', sans-serif; */
+  font-family: 'Poor Story', cursive;
   background-color:white;
   border-bottom:1px solid #c8c8c8;
 }
@@ -148,10 +151,10 @@ footer .sub-menu a {
       <sec:authorize access="isAnonymous()">
       <div class="d-flex button_box">
       <form method="get" action="/login">
-        <button class="btn btn-sm btn-outline-dark" style="margin-top:15px; margin-right:10px" type="submit">login</button>
+        <button class="btn btn-sm btn-outline-dark" style="margin-top:15px; margin-right:10px" type="submit">로그인</button>
       </form>
       <form method="get" action="/join">
-        <button class="btn btn-sm btn-outline-dark" style="margin-top:15px;" type="submit">Sign-up</button>
+        <button class="btn btn-sm btn-outline-dark" style="margin-top:15px;" type="submit">회원가입</button>
       </form>
       </div>
       </sec:authorize>
@@ -160,7 +163,7 @@ footer .sub-menu a {
       	<sec:authentication property="principal" var="user" />
       	<div class="h6" style="margin-right:20px; margin-top:20px;">${user.username}님</div>
       	<form method="POST" action=<c:out value="/logout"/>>
-        	<button class="btn btn-sm btn-warning" style="margin-top:15px;" type="submit">Logout</button>
+        	<button class="btn btn-sm btn-warning" style="margin-top:15px;" type="submit">로그아웃</button>
         	<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
       	</form>

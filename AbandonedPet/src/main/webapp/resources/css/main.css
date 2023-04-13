@@ -2,7 +2,8 @@
 
 
 nav {
-  font-family: Arial, sans-serif;
+  /* font-family: Arial, sans-serif; */
+  font-family: 'Poor Story', cursive;
   background-color: white;
   border-bottom: 1px solid #c8c8c8;
 }
@@ -105,7 +106,7 @@ html {
 .slider_content > .content_text > .content_text_resource > .h4 {
   line-height: 1.4;
   font-weight: 400;
-  font-size:20px;
+  font-size:16px;
 }
 
 .slider_content > .content_image {

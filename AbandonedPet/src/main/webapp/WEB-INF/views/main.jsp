@@ -23,6 +23,7 @@
 	<link rel="stylesheet"
 		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 	<link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap" rel="stylesheet">
 	<!-- ------------------ BX 슬라이더 라이브러리 ----------------------- -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -87,10 +88,10 @@
 						<div class="d-flex">
 							<form method="get" action="/login">
 								<button class="btn btn-sm btn-outline-dark" style="margin-top:15px; margin-right:10px"
-									type="submit">login</button>
+									type="submit">로그인</button>
 							</form>
 							<form method="get" action="/join">
-								<button class="btn btn-sm btn-outline-dark" style="margin-top:15px;" type="submit">Sign-up</button>
+								<button class="btn btn-sm btn-outline-dark" style="margin-top:15px;" type="submit">회원가입</button>
 							</form>
 						</div>
 					</sec:authorize>
@@ -98,7 +99,7 @@
 						<div class="d-flex">
 							<div class="h6" style="margin-right:20px; margin-top:20px;">${user.username}님</div>
 							<form method="POST" action=<c:out value="/logout" />>
-							<button class="btn btn-sm btn-warning" style="margin-top:15px;" type="submit">Logout</button>
+							<button class="btn btn-sm btn-warning" style="margin-top:15px;" type="submit">로그아웃</button>
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 							</form>
 						</div>
@@ -109,6 +110,7 @@
 	</div>
 </header>
 <section class="main_box">
+	<div class="container">
 	<div class="main_content">
 		<div class="content_image">
 			<div class="resource content_image_resource">
@@ -132,10 +134,10 @@
 		<div class="content_text">
 			<div class="resource content_text_resource">
 				<div class="h4">
-					"우리의 반려동물은 우리 삶에서 진정한 의미를 찾을 수 있게 해준다."<br>
+					<b>"우리의 반려동물은 우리 삶에서 진정한 의미를 찾을 수 있게 해준다."</b><br>
 					- Dean Koontz<br>
 					<br>
-					"반려동물은 우리의 가장 좋은 친구이며, 우리의 일생을 함께합니다." <br>
+					<b>"반려동물은 우리의 가장 좋은 친구이며, 우리의 일생을 함께합니다."</b><br>
 					- Unknown
 				</div>
 			</div>
@@ -171,6 +173,7 @@
 				<a href="/map" class="btn btn-outline-dark"><span class="material-symbols-outlined">search</span>바로가기</a>
 			</div>
 		</div>
+	</div>
 	</div>
 </section>
 

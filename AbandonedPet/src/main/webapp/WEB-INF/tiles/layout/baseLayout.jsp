@@ -7,7 +7,7 @@
 <title><tiles:insertAttribute name="title" /></title>
 	<link rel="icon" href="/resources/images/favicon.png" />
 	<meta charset="UTF-8">
-<!-- <style>
+<style>
 /* 	header nav, footer nav {
 	  font-family: Arial, sans-serif;
 	  background-color:white;
@@ -26,14 +26,19 @@
 	
 	
 	
-	.subheader {
-		margin-top:70px;
-	}
+
 	#cotent_box {
 		margin-bottom:70px;
 	} */
 	
-</style> -->	
+	
+	
+	.display-5 {
+		/* font-family: 'Nanum Gothic', sans-serif; */
+		font-family: 'Poor Story', cursive;
+	}
+	
+</style>
 </head>
 <body>
 <tiles:insertAttribute name="menu" /> 
