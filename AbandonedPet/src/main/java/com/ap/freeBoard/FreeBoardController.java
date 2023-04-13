@@ -1,5 +1,6 @@
 package com.ap.freeBoard;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -18,6 +22,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ap.member.Member;
+import com.ap.member.MemberService;
+
 @Controller
 @RequestMapping("/freeBoard")
 public class FreeBoardController {
@@ -25,12 +32,9 @@ public class FreeBoardController {
 	@Autowired
 	FreeBoardService freeBoardService;
 	
-//	// 예외처리
-//	@ExceptionHandler(Exception.class)
-//	public String catcher(Exception ex, Model m) {
-//			m.addAttribute("exception", ex);
-//			return "error";
-//	}
+	@Autowired
+	MemberService memberService;
+	
 	
 	
 	@GetMapping("/addFreeBoard")
@@ -54,8 +58,6 @@ public class FreeBoardController {
 	public String freeBoardList(Model m, String page, String keyword, String type) {
 		int pageSize = 10;
 		int intPage = 1;
-		String sKeyword = null;
-		String sType = null;
 		
 		if(page != null) {
 			intPage = Integer.parseInt(page);
@@ -81,6 +83,21 @@ public class FreeBoardController {
 	
 	@GetMapping("/freeBoardDetail")
 	public String requestById(String bid, Model m, HttpServletRequest request, HttpServletResponse response) {
+		
+		SecurityContext securityContext = SecurityContextHolder.getContext();
+		Authentication auth = securityContext.getAuthentication();
+	    
+	    String username = null;
+	    
+	    if(auth.getPrincipal() instanceof Member) {
+			Member principal = (Member) auth.getPrincipal();
+			username = principal.getUsername();
+			m.addAttribute("member", memberService.getMember(username));
+		} else {
+			username = auth.getName();
+			m.addAttribute("member", memberService.getMember(username));
+		}
+		
 		// 조회수 증가
 		Cookie oldCookie = null;
 	    Cookie[] cookies = request.getCookies();
@@ -116,6 +133,12 @@ public class FreeBoardController {
 		int bid2 = Integer.parseInt(bid);
 		FreeBoard freeBoardById = freeBoardService.getById(bid2);
 		m.addAttribute("freeBoard", freeBoardById);
+		
+//		System.out.println(member.getUsername());
+//		System.out.println(freeBoardById.getBwriter());
+//		System.out.println(member.getUsername().equals(freeBoardById.getBwriter()));
+		
+		
 		return "/freeBoard/freeBoardDetail";
 	}
 	
