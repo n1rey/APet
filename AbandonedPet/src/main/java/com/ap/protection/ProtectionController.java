@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -59,9 +60,14 @@ public class ProtectionController {
 
 		MultipartFile image = protection.getImage();
 		
-		String saveName = image.getOriginalFilename();
+		UUID uuid = UUID.randomUUID();
+		System.out.println("uuid : " + uuid);
+		
+		String saveName = uuid + "_" + image.getOriginalFilename();
+			System.out.println(saveName);
 		
 		File saveFile = new File(uploadPath + "\\images", saveName);
+			System.out.println("saveFile : " + saveFile);
 		
 		if (image != null && !image.isEmpty()) {
 			try {
@@ -191,9 +197,16 @@ public class ProtectionController {
 	@PostMapping("/update")
 	public String submitUpdate(@ModelAttribute("updateProtection") Protection protection) {
 		System.out.println(protection.toString());
+		
 		MultipartFile image = protection.getImage();
-		String saveName = image.getOriginalFilename();
+		
+		UUID uuid = UUID.randomUUID();
+		
+		String saveName = uuid + "_" + image.getOriginalFilename();
+		
 		File saveFile = new File(uploadPath + "\\images", saveName);
+			System.out.println("saveFile" + saveFile);
+		
 		if (image != null && !image.isEmpty()) {
 			try {
 				image.transferTo(saveFile);
@@ -208,7 +221,19 @@ public class ProtectionController {
 	
 	@RequestMapping("/delete")
 	public String delete(@RequestParam("pid") String pid) {
-		//주 게시물
+		System.out.println("pid : " + pid);
+		
+		//파일명 가져오기
+		Protection myProtection = protectionService.getProtectionById(pid);
+			String pimage = myProtection.getPimage();
+			System.out.println(pimage);
+		
+		//파일 삭제
+		File file = new File(uploadPath + "\\images", pimage);
+			System.out.println("file : " + file);
+			file.delete();
+		
+		//주 게시물 삭제
 		protectionService.deleteProtection(pid);
 		
 		return "redirect:/protection/list";

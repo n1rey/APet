@@ -34,6 +34,7 @@
 <div class="album py-5">	                 
 <div class="container"> 
   <main>        
+  
       <div class="row g-5 justify-content-center">
       <div class="col-md-7 col-lg-8">
           <div class="row g-3">
@@ -110,6 +111,7 @@
 function checkFunction(){
 	var txtPtn = /[a-z|A-Z|가-힣]/; //문자만 가능
 	var numPtn = /\d/; //숫자만 가능
+	var regex = /\.(gif|jpg|jpeg|png)$/; // gif|jpg|jpeg|png 확장자만 가능
 	
 	if(!txtPtn.test( $('#name').val().trim() ) ){
 		alert('[이름]\n영문 또는 한글만 입력해 주세요');
@@ -117,6 +119,9 @@ function checkFunction(){
 	} else if ( !numPtn.test( $('#age').val().trim() ) ){
 		alert('[나이]\n숫자만 입력해 주세요');
 		$('#age').focus();
+	} else if(!regex.test($('#photo').val().trim())){
+		alert('[사진]\ngif, jpg, png 확장자만 첨부해 주세요');
+		$('#photo').focus();
 	} else {
 		$('#protectionForm').submit();
 	}

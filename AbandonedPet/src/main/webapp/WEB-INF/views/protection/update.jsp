@@ -131,7 +131,23 @@ function checkFunction(){
 
 function delFunction(){
 	if(confirm('정말로 삭제하시겠습니까?')){
-		location.href='/protection/delete?pid=${protection.pid}';
+		$.ajax({
+	        type:"POST",
+	        url:"/protection/delete",
+	        data:{pid : ${protection.pid}
+	        },
+	        beforeSend : function(xhr)
+	        {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+	            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+	        },
+	        success: function(result) {
+	            alert("삭제 완료");
+	            location.href = "/protection/list";
+	        },
+	        error:function (request, status, error) {
+	            alert(request.status + " " + request.responseText);
+	        }
+	    })
 	} else {
 		return false;
 	}

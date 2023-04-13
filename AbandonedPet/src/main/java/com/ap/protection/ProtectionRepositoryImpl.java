@@ -43,7 +43,6 @@ public class ProtectionRepositoryImpl implements ProtectionRepository {
 
 	@Override
 	public void update(Protection protection) {
-		System.out.println("리파지토리 들어옴");
 		String pimage = protection.getPimage();
 		
 		// 사진까지 변경할 경우
