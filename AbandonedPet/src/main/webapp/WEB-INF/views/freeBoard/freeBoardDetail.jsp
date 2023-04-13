@@ -2,12 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 
 <head>
 <sec:authorize access="isAuthenticated()">
-	<sec:authentication property="principal.username" var="username"/>
+	<sec:authentication property="principal" var="user"/>
 </sec:authorize>
 	<meta charset="UTF-8">
 <style>
@@ -49,10 +50,11 @@
 	function inputCheck(element, type){
 		
 		var content;
-		var writer = '${username}';
+		var writer = '${user.username}';
 		
 		if(writer == null || writer == ''){
 			alert("로그인 해주세요.");
+			$('#CommnetTextarea').val('');
 			return;
 		}
 		
@@ -81,7 +83,7 @@
 	function insertReply(){
 		var bid = '${freeBoard.bid }';
 		var content = $('#CommnetTextarea').val();
- 		var writer = '${username}';
+ 		var writer = '${user.username}';
 		
 		$.ajax({
 			type : "POST",
@@ -126,7 +128,7 @@
 					var comment_html = "<div>";
 					
 					for(i = 0;i < result.length;i++){
-						var user = "${username}";
+						var user = "${user.username}";
 						var content = result[i].rcontent;
 						var writer = result[i].rwriterName;
 						var date = result[i].rdate;
@@ -228,7 +230,6 @@
 </head>
 
 <body>
-<sec:authentication property="principal" var="user" />
 	<div class="container col-9">
 		<div class="card">
 			<div class="card-header">
@@ -240,11 +241,17 @@
 			</div>
 			<div class="card-body">
 				<div class="d-flex justify-content-end">
-					<!-- 작성자만 수정 가능 -->
-					<c:if test="${username eq freeBoard.bwriter}">
-						<a class="btn btn-outline-secondary btn-sm m-1" href=<c:url value="/freeBoard/freeBoardModify?bid=${freeBoard.bid }"/>>수정</a>
-						<a class="btn btn-outline-secondary btn-sm m-1" data-bs-toggle="modal" data-bs-target="#exampleModal">삭제</a>
-					</c:if>
+					<!-- 관리자, 작성자만 수정 가능 -->					
+					<c:choose>
+						<c:when test="${user.username eq freeBoard.bwriter}">
+							<a class="btn btn-outline-secondary btn-sm m-1" href=<c:url value="/freeBoard/freeBoardModify?bid=${freeBoard.bid }"/>>수정</a>
+							<a class="btn btn-outline-secondary btn-sm m-1" data-bs-toggle="modal" data-bs-target="#exampleModal">삭제</a>
+						</c:when>
+	 					<c:when test="${member.authority eq 'ROLE_ADMIN'}">
+							<a class="btn btn-outline-secondary btn-sm m-1" href=<c:url value="/freeBoard/freeBoardModify?bid=${freeBoard.bid }"/>>수정</a>
+							<a class="btn btn-outline-secondary btn-sm m-1" data-bs-toggle="modal" data-bs-target="#exampleModal">삭제</a>
+						</c:when> 
+					</c:choose>
 				</div>
 				<div id="content">
 					${freeBoard.bcontent}
