@@ -36,7 +36,7 @@
 	<!-- 업로드 패스 설정 -->
 	<beans:bean class="java.lang.String" id="uploadPath">
 		<beans:constructor-arg
-			value="C:\develop\폴더명\AbandonedPet\src\main\webapp\resources" />
+			value="D:\develop\spring\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\AbandonedPet\resources" />
 	</beans:bean>
 	
 	

@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <title>Car List</title>
 </head>
-    <style>
+    <style>    
       .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
@@ -61,7 +61,6 @@
         white-space: nowrap;
         -webkit-overflow-scrolling: touch;
       }
-      
     </style>
     
     
@@ -80,7 +79,7 @@
       <c:forEach items="${protectionList}" var="list">
         <div class="col">
           <div class="card shadow-sm">
-			<img src="<c:url value="/resources/images/${list.pimage}"/>" class="bd-placeholder-img card-img-top" width="100%" height="225"/>
+			<img src="<c:url value="/resources/images/${list.pimage}"/>" class="bd-placeholder-img card-img-top" width="100%" height="225"  style="object-fit: contain;"/>
 
             <div class="card-body">
               <p class="card-text">${list.pname}</p>

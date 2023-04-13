@@ -1,0 +1,132 @@
+-- --------------------------------------------------------
+-- 호스트:                          127.0.0.1
+-- 서버 버전:                        8.0.31 - MySQL Community Server - GPL
+-- 서버 OS:                        Win64
+-- HeidiSQL 버전:                  12.3.0.6589
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+-- 테이블 apet.adoption 구조 내보내기
+CREATE TABLE IF NOT EXISTS `adoption` (
+  `aid` int NOT NULL AUTO_INCREMENT,
+  `oid` varchar(100) NOT NULL,
+  `nid` varchar(100) NOT NULL,
+  `pid` varchar(100) NOT NULL,
+  `aname` varchar(100) NOT NULL,
+  `aage` varchar(100) DEFAULT NULL,
+  `agender` varchar(100) DEFAULT NULL,
+  `aphone` varchar(100) NOT NULL,
+  `adistrict` varchar(100) DEFAULT NULL,
+  `ajob` varchar(100) DEFAULT NULL,
+  `acondition` varchar(100) NOT NULL DEFAULT '대기 중',
+  PRIMARY KEY (`aid`)
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+
+-- 테이블 apet.chat 구조 내보내기
+CREATE TABLE IF NOT EXISTS `chat` (
+  `cid` int NOT NULL AUTO_INCREMENT,
+  `pid` int DEFAULT NULL,
+  `username` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `content` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`cid`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+
+-- 테이블 apet.freeboard 구조 내보내기
+CREATE TABLE IF NOT EXISTS `freeboard` (
+  `bid` int NOT NULL AUTO_INCREMENT,
+  `btitle` varchar(50) DEFAULT NULL,
+  `bcontent` longtext,
+  `bwriter` varchar(50) DEFAULT NULL,
+  `bdate` datetime DEFAULT CURRENT_TIMESTAMP,
+  `bhit` int DEFAULT '0',
+  PRIMARY KEY (`bid`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+
+-- 테이블 apet.freeboardreply 구조 내보내기
+CREATE TABLE IF NOT EXISTS `freeboardreply` (
+  `rid` int NOT NULL AUTO_INCREMENT,
+  `bid` int DEFAULT NULL,
+  `rcontent` varchar(100) DEFAULT NULL,
+  `rwriter` varchar(50) DEFAULT NULL,
+  `rdate` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`rid`),
+  KEY `bid` (`bid`),
+  CONSTRAINT `freeboardreply_ibfk_1` FOREIGN KEY (`bid`) REFERENCES `freeboard` (`bid`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+
+-- 테이블 apet.heart 구조 내보내기
+CREATE TABLE IF NOT EXISTS `heart` (
+  `pid` int DEFAULT NULL,
+  `username` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `heart` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+
+-- 테이블 apet.member 구조 내보내기
+CREATE TABLE IF NOT EXISTS `member` (
+  `mid` int NOT NULL AUTO_INCREMENT,
+  `enabled` tinyint NOT NULL DEFAULT '1',
+  `username` varchar(100) NOT NULL,
+  `password` varchar(200) NOT NULL,
+  `authority` varchar(50) DEFAULT 'ROLE_USER',
+  `mname` varchar(50) DEFAULT NULL,
+  `mnickname` varchar(100) DEFAULT NULL,
+  `mphone` varchar(50) DEFAULT NULL,
+  `mdate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`username`),
+  KEY `mid` (`mid`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+
+-- 테이블 apet.notice 구조 내보내기
+CREATE TABLE IF NOT EXISTS `notice` (
+  `nid` int NOT NULL AUTO_INCREMENT,
+  `ntitle` varchar(50) DEFAULT NULL,
+  `ncontent` longtext,
+  `nwriter` varchar(50) DEFAULT NULL,
+  `ndate` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`nid`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+
+-- 테이블 apet.protection 구조 내보내기
+CREATE TABLE IF NOT EXISTS `protection` (
+  `pid` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(100) NOT NULL,
+  `pname` varchar(100) NOT NULL,
+  `page` varchar(100) NOT NULL,
+  `petc` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `pgender` varchar(100) NOT NULL,
+  `pimage` varchar(100) NOT NULL,
+  `pcondition` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '보호 중',
+  `pdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`pid`)
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
