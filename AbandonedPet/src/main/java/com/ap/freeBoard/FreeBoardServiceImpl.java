@@ -15,8 +15,8 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		
 
 	@Override
-	public int countList() {
-		return freeBoardRepository.countList();
+	public int countList(Map<String, Object> pagination) {
+		return freeBoardRepository.countList(pagination);
 	}
 
 	@Override
@@ -26,7 +26,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	}
 
 	@Override
-	public List<FreeBoard> getAllList(Map<String, Integer> pagination) {
+	public List<FreeBoard> getAllList(Map<String, Object> pagination) {
 		return freeBoardRepository.getAllList(pagination);
 	}
 

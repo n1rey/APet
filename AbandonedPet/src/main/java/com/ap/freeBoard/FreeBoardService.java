@@ -5,11 +5,11 @@ import java.util.Map;
 
 public interface FreeBoardService {
 	void insert(FreeBoard freeBoard);
-	List<FreeBoard> getAllList(Map<String, Integer> pagination);
+	List<FreeBoard> getAllList(Map<String, Object> pagination);
 	FreeBoard getById(int bid);
 	void update(FreeBoard freeBoard);
 	void delete(int bid);
-	int countList();
+	int countList(Map<String, Object> pagination);
 	List<Reply> replyList(int bid);
 	void replyUpdate(Reply reply);
 	void replyDelete(int rid);

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="freeboard">
+
+
 	<!-- 주 게시물 등록 -->
 	<insert id="insert" parameterType="com.ap.freeBoard.FreeBoard" useGeneratedKeys="true" keyProperty="bid">
 		<![CDATA[
@@ -18,7 +20,19 @@
 			FROM (SELECT bid, btitle, bwriter, date_format(bdate, '%Y-%m-%d') as bdate, bhit, mname
 			FROM freeboard f
 			LEFT JOIN member m on (f.bwriter = m.username)) as b
-			where(@rownum := 0) = 0 order by bid desc) as a
+			where(@rownum := 0) = 0 ]]>
+			<trim prefix="AND">
+				<choose>
+					<when test="type == 'T'.toString()">
+							btitle LIKE concat_ws(#{ keyword }, '%', '%') <!-- '%' || #{ keyword } || '%' -->
+					</when>
+					<when test="type == 'W'.toString()">
+							mname LIKE concat_ws(#{ keyword }, '%', '%') <!-- '%' || #{ keyword } || '%' -->
+					</when>
+				</choose>
+			</trim>
+		<![CDATA[	
+			order by bid desc) as a
 			where rownum between (#{pageNum}-1)*#{pageSize}+1 and (#{pageNum}*#{pageSize});
 		]]>
 	</select>
@@ -36,7 +50,7 @@
 	<delete id="delete" parameterType="Integer">
 		<![CDATA[
 			DELETE
-			FROM freeBoard
+			FROM freeboard
 			WHERE bid = #{bid};
 		]]>
 	</delete>
@@ -53,7 +67,7 @@
 	
 	<insert id="insert_reply" parameterType="com.ap.freeBoard.Reply" useGeneratedKeys="true" keyProperty="rid">
 		<![CDATA[
-			INSERT INTO freeboardReply
+			INSERT INTO freeboardreply
 			(bid, rcontent, rwriter)
 			VALUES
 			(#{bid}, #{rcontent}, #{rwriter});
@@ -62,7 +76,7 @@
 	<select id="reply_list" parameterType="Integer" resultType="com.ap.freeBoard.Reply">
 		<![CDATA[
 			SELECT fr.*, m.mname as rwriterName
-			FROM freeBoardReply fr
+			FROM freeboardreply fr
 			LEFT JOIN member m ON (fr.rwriter = m.username)
 			WHERE bid = #{bid}
 			ORDER BY rid DESC;
@@ -70,7 +84,7 @@
 	</select>
 	<update id="reply_update" parameterType="com.ap.freeBoard.Reply">
 		<![CDATA[
-			UPDATE freeBoardReply
+			UPDATE freeboardreply
 			SET
 			rcontent = #{rcontent}
 			WHERE rid = #{rid};
@@ -79,21 +93,35 @@
 	<delete id="reply_delete" parameterType="Integer">
 		<![CDATA[
 			DELETE
-			FROM freeBoardReply
+			FROM freeboardreply
 			WHERE rid = #{rid};
 		]]>
 	</delete>
 	<update id="update_hit" parameterType="String">
 		<![CDATA[
-			UPDATE freeBoard
+			UPDATE freeboard
 			SET
 			bhit = bhit + 1
 			WHERE bid = #{bid};
 		]]>
 	</update>
-	<select id="count_list" resultType="Integer">
+	<select id="count_list" parameterType="HashMap" resultType="Integer">
 		<![CDATA[
-			select count(bid) as cnt from freeBoard;
+			select count(bid) as cnt from freeboard f
+			LEFT JOIN member m ON (f.bwriter = m.username)
+		]]>
+			<trim prefix="WHERE">
+				<choose>
+					<when test="type == 'T'.toString()">
+							btitle LIKE concat_ws(#{ keyword }, '%', '%') <!-- '%' || #{ keyword } || '%' -->
+					</when>
+					<when test="type == 'W'.toString()">
+							mname LIKE concat_ws(#{ keyword }, '%', '%') <!-- '%' || #{ keyword } || '%' -->
+					</when>
+				</choose>
+			</trim>
+		<![CDATA[
+			
 		]]>
 	</select>
 </mapper>

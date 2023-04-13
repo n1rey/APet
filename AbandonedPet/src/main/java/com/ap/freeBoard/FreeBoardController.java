@@ -47,34 +47,35 @@ public class FreeBoardController {
 		return "redirect:/freeBoard/freeBoardList";
 	}
 	
+	
+
+	
 	@GetMapping("/freeBoardList")
 	public String freeBoardList(Model m, String page, String keyword, String type) {
 		int pageSize = 10;
 		int intPage = 1;
+		String sKeyword = null;
+		String sType = null;
 		
 		if(page != null) {
 			intPage = Integer.parseInt(page);
 		}
 		
-//		System.out.println(keyword);
-//		System.out.println(type);
-//		System.out.println("------------");
 		
-//		Map<String, Object> pagination = new HashMap<String, Object>();
-//		pagination.put("pageSize", pageSize);
-//		pagination.put("pageNum", intPage);
-//		pagination.put("keyword", keyword);
-//		pagination.put("type", type);
-		
-		Map<String, Integer> pagination = new HashMap<String, Integer>();
+		Map<String, Object> pagination = new HashMap<String, Object>();
 		pagination.put("pageSize", pageSize);
 		pagination.put("pageNum", intPage);
+		pagination.put("keyword", keyword);
+		pagination.put("type", type);
+		List<FreeBoard> freeBoardList = freeBoardService.getAllList(pagination);		
+		int cnt = freeBoardService.countList(pagination);
+
 		
-		List<FreeBoard> freeBoardList = freeBoardService.getAllList(pagination);
-		int cnt = freeBoardService.countList();
 		m.addAttribute("freeBoardList",freeBoardList);
 		m.addAttribute("cnt", cnt);
 		m.addAttribute("page", intPage);
+		m.addAttribute("keyword", keyword);
+		m.addAttribute("type", type);
 		return "/freeBoard/freeBoardList";
 	}
 	

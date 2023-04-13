@@ -15,8 +15,8 @@ public class FreeBoardRepositoryImpl implements FreeBoardRepository {
 		
 
 	@Override
-	public int countList() {
-		return sqlSessionTemplate.selectOne("freeboard.count_list");
+	public int countList(Map<String, Object> pagination) {
+		return sqlSessionTemplate.selectOne("freeboard.count_list", pagination);
 	}
 
 	@Override
@@ -26,7 +26,7 @@ public class FreeBoardRepositoryImpl implements FreeBoardRepository {
 	}
 
 	@Override
-	public List<FreeBoard> getAllList(Map<String, Integer> pagination) {
+	public List<FreeBoard> getAllList(Map<String, Object> pagination) {
 		return sqlSessionTemplate.selectList("freeboard.select_list", pagination);
 	}
 
