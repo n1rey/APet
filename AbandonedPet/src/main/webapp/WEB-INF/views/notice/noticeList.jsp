@@ -30,7 +30,7 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th style="width:10%" scope="col">글번호</th>
+					<th style="width:10%" scope="col">No</th>
 					<th style="width:70%" scope="col">글제목</th>
 					<th style="width:20%" scope="col">작성일</th>
 				</tr>

@@ -29,7 +29,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 	<script defer src="/resources/js/main.js"></script>
-	<link rel="stylesheet" href="/resources/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="/resources/css/main.css" />
 
 
 </head>
@@ -134,10 +134,12 @@
 		<div class="content_text">
 			<div class="resource content_text_resource">
 				<div class="h4">
-					<b>"우리의 반려동물은 우리 삶에서 진정한 의미를 찾을 수 있게 해준다."</b><br>
+					<b>"우리의 반려동물은<br>
+					우리 삶에서 진정한 의미를 찾을 수 있게 해준다."</b><br>
 					- Dean Koontz<br>
 					<br>
-					<b>"반려동물은 우리의 가장 좋은 친구이며, 우리의 일생을 함께합니다."</b><br>
+					<b>"반려동물은 우리의 가장 좋은 친구이며,<br>
+					우리의 일생을 함께합니다."</b><br>
 					- Unknown
 				</div>
 			</div>
@@ -160,9 +162,9 @@
 	<div class="video_content">
 		<p class="video_title">입양 이야기 확인하기▼</p>
 		<iframe width="672" height="378" src="https://www.youtube-nocookie.com/embed/3nxwIbxHEvs"
-			title="YouTube video player" frameborder="0"
-			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-			allowfullscreen></iframe>
+				title="YouTube video player" frameborder="0"
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+				allowfullscreen></iframe>
 	</div>
 	<div class="find_shelter d-flex justify-content-center" style="align-items:center;">
 		<div class="inner d-flex justify-content-center" style="align-items:center;">

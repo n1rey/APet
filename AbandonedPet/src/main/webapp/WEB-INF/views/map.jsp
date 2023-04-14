@@ -5,9 +5,35 @@
   <head>
     <meta charset="UTF-8" />
     <title>Insert title here</title>
+  
+  <style>
+/* 	.box {
+		position:relative;
+	}  
+  
+  */
+  	.animal-header {
+  		z-index:999;
+  		margin-left:30px;
+  	}
+  	
+  	#map {
+  		z-index:-1;
+  		margin-top:-33px;
+  	}
+  </style>
+  
   </head>
   <body>
-    <div id="map" style="width: 100%; height: 350px"></div>
+  	<div>
+  		<div class="box">
+  			<div class="animal-header">
+		  		<img src="/resources/images/animal-header.png" alt="image-header" width="250px"/>
+		  	</div>
+	    	<div id="map" style="width: 100%; height: 350px"></div>
+	  	</div>
+	  	<!-- <div class="box2" style="height:200px;"></div> -->
+    </div>
 
     <script
       src="https://code.jquery.com/jquery-3.6.4.min.js"

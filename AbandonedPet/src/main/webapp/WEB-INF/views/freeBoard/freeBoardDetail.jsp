@@ -230,7 +230,7 @@
 </head>
 
 <body>
-	<div class="container col-9">
+	<div class="container col-10">
 		<div class="card">
 			<div class="card-header">
 				<p class="fs-4">${freeBoard.btitle}</p>
@@ -260,8 +260,8 @@
 					<div class="row">
 						<p>댓글 <span id="replyCnt"></span> 건</p>
 					</div>
-					<div class="d-flex">
-						<div class="form-floating col-11">
+					<div class="d-flex justify-content-center">
+						<div class="form-floating col-10">
 						  <textarea class="form-control" id="CommnetTextarea"></textarea>
 						  <label for="floatingTextarea">Comment</label>
 						</div>
