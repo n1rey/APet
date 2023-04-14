@@ -99,6 +99,7 @@
         </c:forEach>
       </div>
     </div>
+    <br>
     	<nav aria-label="Page navigation example">
 			<ul class="pagination justify-content-center">
 			</ul>
@@ -130,13 +131,13 @@
 		if (cnt <= pageSize) return;
 		var str = '';
 		if (previous) {
-	 		  str += "<li class='page-item prev'><a class='page-link' href='/protection/adminList?page="+ (start - 1) +"'>&laquo; Previous</a></li>";
+	 		  str += "<li class='page-item prev'><a class='page-link' href='/protection/adminList?page="+ (start - 1) +"'>&laquo; 이전</a></li>";
 	 	}
 		for(i=start; i<=last; i++){
 			str += "<li class='page-item "+ (i==currentPage?'active':'') +"'><a class='page-link' href='/protection/adminList?page=" + i +"'>"+ i +"</a></li>"
 		}
 		if (next) {
- 		  str += "<li class='page-item next'><a class='page-link' href='/protection/adminList?page="+ (start + 5) +"'>Next &raquo;</a></li>"
+ 		  str += "<li class='page-item next'><a class='page-link' href='/protection/adminList?page="+ (start + 5) +"'>다음 &raquo;</a></li>"
  		}
 
 

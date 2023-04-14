@@ -239,7 +239,7 @@ html {
 .find_shelter {
   height: 300px;
   background-color: #fff9ed;
-  text-align: center;
+  /* text-align: center; */
   margin-top: 50px;
   border-top: 1px solid #c8c8c8;
   border-bottom: 1px solid #c8c8c8;
@@ -247,9 +247,7 @@ html {
 }
 
 .find_shelter>.inner {
-  width: 100%;
   position: absolute;
-  top: 110px;
 }
 
 

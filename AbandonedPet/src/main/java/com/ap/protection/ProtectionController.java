@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -41,7 +42,9 @@ public class ProtectionController {
 	SqlSessionTemplate sqlSessionTemplate;
 
 	@GetMapping("/addProtection")
-	public String requestAddProtectionForm(@ModelAttribute("NewProtection") Protection protection) {
+	public String requestAddProtectionForm(@ModelAttribute("NewProtection") Protection protection, HttpServletRequest request, Model model) {
+		
+		model.addAttribute("realPath", request.getSession().getServletContext().getRealPath("/"));
 		
 		return "/protection/addProtection";
 	}
