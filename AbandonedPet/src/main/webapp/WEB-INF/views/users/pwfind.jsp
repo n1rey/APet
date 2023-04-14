@@ -56,7 +56,7 @@ body {
 	  <form action="/user/pwedit.jsp" method="post" id="findFrm">
 	    <h1 class="h3 py-5 fw-normal">회원 이메일 확인</h1>
 	    <div class="form-floating">
-	      <input type="email" class="form-control" id="email" name="email" placeholder="이메일" data-type="email">
+	      <input type="email" class="form-control" id="email" name="email" placeholder="이메일" data-type="email" >
 	      <label for="floatingInput">이메일</label>
 	    </div>
 	  	<input type="hidden" id="check" name="check" value="">
