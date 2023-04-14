@@ -164,13 +164,18 @@
 			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 			allowfullscreen></iframe>
 	</div>
-	<div class="find_shelter">
-		<div class="inner">
-			<div class="find_shelter_text h4">
-				보호소를 확인해보세요!
+	<div class="find_shelter d-flex justify-content-center" style="align-items:center;">
+		<div class="inner d-flex justify-content-center" style="align-items:center;">
+			<div class="icon" style="margin-right:30px;">
+				<img src="/resources/images/animal-shelter.png" alt="home" width="80"/>
 			</div>
-			<div class="find_shelter_text">
-				<a href="/map" class="btn btn-outline-dark"><span class="material-symbols-outlined">search</span>바로가기</a>
+			<div>
+				<div class="find_shelter_text h4" style="margin-bottom:15px;">
+					보호소를 확인해보세요!
+				</div>
+				<div class="find_shelter_text">
+					<a href="/map" class="btn btn-outline-dark"><span class="material-symbols-outlined" style="font-size:18px">search</span>&nbsp;&nbsp;바로가기</a>
+				</div>
 			</div>
 		</div>
 	</div>
