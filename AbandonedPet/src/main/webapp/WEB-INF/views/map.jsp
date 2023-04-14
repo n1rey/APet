@@ -18,22 +18,18 @@
   	}
   	
   	#map {
-  		z-index:-1;
+  		/* z-index:-1; */
   		margin-top:-33px;
   	}
   </style>
   
   </head>
   <body>
-  	<div>
-  		<div class="box">
-  			<div class="animal-header">
+  		<div class="animal-header">
 		  		<img src="/resources/images/animal-header.png" alt="image-header" width="250px"/>
-		  	</div>
-	    	<div id="map" style="width: 100%; height: 350px"></div>
-	  	</div>
+		</div>
+	   	<div id="map" style="width: 100%; height: 350px"></div>
 	  	<!-- <div class="box2" style="height:200px;"></div> -->
-    </div>
 
     <script
       src="https://code.jquery.com/jquery-3.6.4.min.js"
