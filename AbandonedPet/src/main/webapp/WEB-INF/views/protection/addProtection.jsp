@@ -14,8 +14,6 @@
 </head>
 <body>
 
-	
-
 <!-- main -->
   <section class="py-1 text-center container">
     <div class="row py-lg-3">

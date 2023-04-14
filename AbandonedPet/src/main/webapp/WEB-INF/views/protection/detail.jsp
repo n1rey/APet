@@ -18,6 +18,12 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 
+<style>
+.icon {
+    filter: invert(16%) sepia(89%) saturate(6054%) hue-rotate(358deg) brightness(97%) contrast(113%);
+}
+</style>
+
 <body>
 
 
@@ -50,7 +56,7 @@
 		<p> ${protection.petc} </p>
 		<br>
 		<a class="text-dark heart" style="text-decoration-line: none;">
-			<img id="heart" src="/resources/icon/heart.svg">
+			<img class="icon" id="heart" src="/resources/icon/heart.svg">
 			좋아요
 		</a>
 		<c:choose>

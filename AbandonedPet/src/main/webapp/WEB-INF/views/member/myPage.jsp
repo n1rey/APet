@@ -7,31 +7,31 @@
 <title>My Page</title>
 </head>
 <body>
-	<div class="container mt-5">
+	<div class="container mt-5 col-9">
 		<div class="row">
 			<div class="row mb-3">
 				<div class="col-md-2">
-					<h5>아이디:</h5>
+					<h6>아이디:</h6>
 				</div>
-				<h5 class="col-md-10">${member.username}</h5>
+				<h6 class="col-md-10">${member.username}</h6>
 			</div>
 			<div class="row mb-3">
 				<div class="col-md-2">
-					<h5>이름:</h5>
+					<h6>이름:</h6>
 				</div>
-				<h5 class="col-md-10">${member.mname}</h5>
+				<h6 class="col-md-10">${member.mname}</h6>
 			</div>
 			<div class="row mb-3">
 				<div class="col-md-2">
-					<h5>닉네임:</h5>
+					<h6>닉네임:</h6>
 				</div>
-				<h5 class="col-md-10">${member.mnickname}</h5>
+				<h6 class="col-md-10">${member.mnickname}</h6>
 			</div>
 			<div class="row mb-3">
 				<div class="col-md-2">
-					<h5>휴대폰:</h5>
+					<h6>휴대폰:</h6>
 				</div>
-				<h5 class="col-md-10">${member.mphone}</h5>
+				<h6 class="col-md-10">${member.mphone}</h6>
 			</div>
 			<div class="text-end">
 				<a href="/member/mod" class="btn btn-warning"> 회원정보 수정 </a> <a

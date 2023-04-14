@@ -10,7 +10,7 @@
 
 </head>
 <body>
-<div class="d-flex justify-content-center mt-4">
+<div class="d-flex justify-content-center mt-3">
 	<div style="width: 300px" class="m-auto">
 		<form action="/login" method="post">
 
@@ -24,19 +24,27 @@
 					id="floatingPassword" placeholder="암호를 입력하세요"> <label
 					for="floatingPassword">암호</label>
 			</div>
-
+			<div class="text-center">
 			<button class="w-100 btn btn-lg btn-primary mt-4" type="submit">로그인</button>
+			</div>
 			<input type="hidden" name="${_csrf.parameterName}"
 				value="${_csrf.token}" />
 			<a href="javascript:kakaoLogin()"> <img style="object-fit: contain;"
-				src="/resources/images/kakaologin.png" height="50" width="300">
+				src="/resources/images/kakaoLogin.png" height="50" width="300">
 			</a>
-			<div class="checkbox mt-3 text-center">
-				<a href="/pwfind">
+
+			<hr>
+
+			<div class="checkbox mt-3 text-center d-flex justify-content-between">
+				<a class="btn btn-sm btn-outline-primary" href="/join">
+					회원가입
+				</a>
+
+				<a class="btn btn-sm btn-outline-secondary" href="/pwfind">
 					비밀번호 찾기
 				</a>
 			</div>
-			<p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p>
+
 		</form>
 		
 		<form id="kakaoForm" action="/kakaoForm" method="post">

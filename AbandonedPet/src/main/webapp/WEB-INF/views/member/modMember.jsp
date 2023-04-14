@@ -14,14 +14,15 @@ color: red;
 </style>
 </head>
 <body>
+<div class="container col-9">
 	<form:form modelAttribute="modMember" 
 			   action="/member/mod"
 	           class="form-horizontal"
 	           method = "post">
 	<fieldset>
 	<div class="mb-3 row">
-		<label class="col-sm-2 col-form-label">아이디 :</label>
-		<div class="col-sm-10">
+		<label class="col-sm-3 col-form-label">아이디 :</label>
+		<div class="col-sm-8">
 			<form:input path="username" class="form-control" value="${modMember.username}" readonly="true"/>
 		</div>
 		<div class="text-end">
@@ -30,8 +31,8 @@ color: red;
 	</div>
 	
 	<div class="mb-3 row">
-		<label class="col-sm-2 col-form-label">이름 : </label>
-		<div class="col-sm-10">
+		<label class="col-sm-3 col-form-label">이름 : </label>
+		<div class="col-sm-8">
 			<form:input path="mname" value="${modMember.mname}" class="form-control"/>
 		</div>
 		<div class="text-end">
@@ -40,8 +41,8 @@ color: red;
 	</div>
 	
 	<div class="mb-3 row">
-		<label class="col-sm-2 col-form-label">닉네임 : </label>
-		<div class="col-sm-10">
+		<label class="col-sm-3 col-form-label">닉네임 : </label>
+		<div class="col-sm-8">
 			<form:input path="mnickname" value="${modMember.mnickname}" class="form-control"/>
 		</div>
 		<div class="text-end">
@@ -50,8 +51,8 @@ color: red;
 	</div>
 	
 	<div class="mb-3 row">
-		<label class="col-sm-2 col-form-label">휴대폰 : </label>
-		<div class="col-sm-10">
+		<label class="col-sm-3 col-form-label">휴대폰 : </label>
+		<div class="col-sm-8">
 			<form:input path="mphone" value="${modMember.mphone}" class="form-control"/>
 		</div>
 		<div class="text-end">
@@ -60,7 +61,7 @@ color: red;
 	</div>
 		
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-	<div class="my-3 text-end">
+	<div class="my-3 text-end mx-5">
 	<input type="submit" class="btn btn-primary" value="등록"/>
 	<a href="/member/myPage" class="btn btn-secondary">취소</a>
 	</div>
@@ -68,7 +69,7 @@ color: red;
 	</fieldset>
 	</form:form>
 
-
+</div>
 
 </body>
 </html>
