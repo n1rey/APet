@@ -24,39 +24,39 @@ color: red;
 		<label class="col-sm-3 col-form-label">아이디 :</label>
 		<div class="col-sm-8">
 			<form:input path="username" class="form-control" value="${modMember.username}" readonly="true"/>
-		</div>
 		<div class="text-end">
 			<form:errors path="username" cssClass="error" />
+		</div>
 		</div>
 	</div>
 	
 	<div class="mb-3 row">
 		<label class="col-sm-3 col-form-label">이름 : </label>
 		<div class="col-sm-8">
-			<form:input path="mname" value="${modMember.mname}" class="form-control"/>
-		</div>
+			<form:input path="mname" value="${modMember.mname}" class="form-control" placeholder="실명을 입력해주세요."/>
 		<div class="text-end">
 			<form:errors path="mname" cssClass="error" />
+		</div>
 		</div>
 	</div>
 	
 	<div class="mb-3 row">
 		<label class="col-sm-3 col-form-label">닉네임 : </label>
 		<div class="col-sm-8">
-			<form:input path="mnickname" value="${modMember.mnickname}" class="form-control"/>
-		</div>
+			<form:input path="mnickname" value="${modMember.mnickname}" class="form-control" placeholder="사용할 닉네임을 입력해주세요."/>
 		<div class="text-end">
 			<form:errors path="mnickname" cssClass="error" />
+		</div>
 		</div>
 	</div>
 	
 	<div class="mb-3 row">
 		<label class="col-sm-3 col-form-label">휴대폰 : </label>
 		<div class="col-sm-8">
-			<form:input path="mphone" value="${modMember.mphone}" class="form-control"/>
-		</div>
+			<form:input path="mphone" value="${modMember.mphone}" class="form-control" placeholder="010-0000-0000 형식으로 입력해주세요."/>
 		<div class="text-end">
 			<form:errors path="mphone" cssClass="error" />
+		</div>
 		</div>
 	</div>
 		

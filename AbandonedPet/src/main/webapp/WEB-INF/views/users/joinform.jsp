@@ -24,60 +24,60 @@ color: red;
 	<div class="mb-3 row">
 		<label class="col-sm-3 col-form-label">아이디 : </label>
 		<div class="col-sm-8">
-			<form:input path="username" class="form-control"/>
-		</div>
+			<form:input path="username" class="form-control" placeholder="반드시 사용중인 이메일을 입력해주세요."/>
 		<div class="text-end">
 			<form:errors path="username" cssClass="error" element="div" />
+		</div>
 		</div>
 	</div>
 	
 	<div class="mb-3 row">
 		<label class="col-sm-3 col-form-label">비밀번호 : </label>
 		<div class="col-sm-8">
-			<form:input path="password" type="password" class="form-control"/>
-		</div>
+			<form:input path="password" type="password" class="form-control" placeholder="8자 이상으로 입력해주세요."/>
 		<div class="text-end">
 			<form:errors path="password" cssClass="error" element="div" />
+		</div>
 		</div>
 	</div>
 	
 	<div class="mb-3 row">
 		<label class="col-sm-3 col-form-label">비밀번호확인 :</label>
 		<div class="col-sm-8">
-			<form:input path="passwordConfirm" type="password" class="form-control"/>
-		</div>
+			<form:input path="passwordConfirm" type="password" class="form-control" placeholder="8자 이상으로 입력해주세요."/>
 		<div class="text-end">
 			<form:errors cssClass="error" element="div" />
+		</div>
 		</div>
 	</div>
 	
 	<div class="mb-3 row">
 		<label class="col-sm-3 col-form-label">이름 : </label>
 		<div class="col-sm-8">
-			<form:input path="mname" class="form-control"/>
-		</div>
+			<form:input path="mname" class="form-control" placeholder="실명을 입력해주세요."/>
 		<div class="text-end">
 			<form:errors path="mname" cssClass="error" element="div" />
+		</div>
 		</div>
 	</div>
 	
 	<div class="mb-3 row">
 		<label class="col-sm-3 col-form-label">닉네임 : </label>
 		<div class="col-sm-8">
-			<form:input path="mnickname" class="form-control"/>
-		</div>
+			<form:input path="mnickname" class="form-control" placeholder="사용할 닉네임을 입력해주세요."/>
 		<div class="text-end">
 			<form:errors path="mnickname" cssClass="error" element="div" />
+		</div>
 		</div>
 	</div>
 	
 	<div class="mb-3 row">
 		<label class="col-sm-3 col-form-label">휴대폰 : </label>
 		<div class="col-sm-8">
-			<form:input path="mphone" class="form-control"/>
-		</div>
+			<form:input path="mphone" class="form-control" placeholder="010-0000-0000 형식으로 입력해주세요."/>
 		<div class="text-end">
 			<form:errors path="mphone" cssClass="error" element="div" />
+		</div>
 		</div>
 	</div>
 			

@@ -223,7 +223,6 @@ public class MemberController {
 		}
 		
 		if (bindingResult.hasErrors()) {
-			System.out.println("에러있음!");
 			return "member/pwModForm";
 		}
 		
@@ -247,15 +246,11 @@ public class MemberController {
 		Member member = memberService.getMember(username);
 
 		if (member != null) {
-			System.out.println("디비에 회원정보 있음");
 			//디비에 있는 사용자이므로 로그인 세션처리
 			//독자적인 처리가 아니라 스프링 시큐리티 규격에 맞게 세션처리
 			List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
 			list.add(new SimpleGrantedAuthority(member.getAuthority()));
 
-
-			System.out.println("member = " + member);
-			System.out.println(member instanceof Member);
 			SecurityContext sc = SecurityContextHolder.getContext();
 			sc.setAuthentication(new UsernamePasswordAuthenticationToken(member, null, list));
 //			// user이름으로 해야됨!!!!, null 패스워드 , list 권한 설정
