@@ -30,7 +30,7 @@
 			<input type="hidden" name="${_csrf.parameterName}"
 				value="${_csrf.token}" />
 			<a href="javascript:kakaoLogin()"> <img style="object-fit: contain;"
-				src="/resources/images/kakaoLogin.png" height="50" width="300">
+				src="/resources/images/kakaologin.png" height="50" width="300">
 			</a>
 
 			<hr>
