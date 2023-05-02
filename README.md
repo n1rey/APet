@@ -3,7 +3,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-    <img src="https://www.notion.so/A-Pet-e88f5bd491e94eef84253b7e749368e3?pvs=4#711fea423eee473fb5d8c6a7cdce0296" alt="Logo" width="80" height="80">
+    <img src="https://github.com/n1rey/etc/blob/main/apet.png?raw=true" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Apet Project</h3>
@@ -21,7 +21,7 @@
 |기대효과|• 유기동물 정보에 대한 정보 부족 해소 및 입양자 간의 자유로운 커뮤니티로 유기동물에 대한 인식 개선|
 
 <strong>- 기능정의</strong>
-<img src="https://www.notion.so/A-Pet-e88f5bd491e94eef84253b7e749368e3?pvs=4#7c3a7cc3ccad432699cf6099adfcb3a9"> 
+<img src="https://github.com/n1rey/etc/blob/8a7e333f8894c90e31fab14152c30925a0a183f9/Untitled.png?raw=true"> 
 
 <strong>- 주요 기능</strong>
 
