@@ -3,7 +3,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-    <img src="https://file.notion.so/f/s/8718af11-2c23-4043-843a-5166e05ff189/favicon.png?id=3ff99bd7-5a37-436a-9169-d70c1f75e48b&table=block&spaceId=43c03df8-58d2-49b3-b468-13d6af71e3e2&expirationTimestamp=1682651309643&signature=yM0A69cuGQkcosBAs2ldE2Dabxk-nVZFYL6GQY7810M&downloadName=favicon.png" alt="Logo" width="80" height="80">
+    <img src="https://www.notion.so/A-Pet-e88f5bd491e94eef84253b7e749368e3?pvs=4#711fea423eee473fb5d8c6a7cdce0296" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Apet Project</h3>
@@ -21,7 +21,7 @@
 |기대효과|• 유기동물 정보에 대한 정보 부족 해소 및 입양자 간의 자유로운 커뮤니티로 유기동물에 대한 인식 개선|
 
 <strong>- 기능정의</strong>
-<img src="https://file.notion.so/f/s/463f3fb2-0895-4f53-b7e6-ccfe12fd4842/Untitled.png?id=0d1dd2a1-4015-4f68-a408-17e18bd045d0&table=block&spaceId=43c03df8-58d2-49b3-b468-13d6af71e3e2&expirationTimestamp=1682651337415&signature=uv9qyHfpm4XEQeC0jZIBV169NRlIr16GATHBpth-MmY&downloadName=Untitled.png"> 
+<img src="https://www.notion.so/A-Pet-e88f5bd491e94eef84253b7e749368e3?pvs=4#7c3a7cc3ccad432699cf6099adfcb3a9"> 
 
 <strong>- 주요 기능</strong>
 
